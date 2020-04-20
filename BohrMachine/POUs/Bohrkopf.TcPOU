@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Bohrkopf" Id="{d4826d0c-639b-4975-a116-733f61215589}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FINAL Bohrkopf
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	yAchse: AXIS_REF;
+	bYEnabled: BOOL := TRUE;
+	
+	rZPos: LREAL := 0;
+	
+	// MC2 Funktionen
+	fbAxisPower: MC_Power;
+	fbAxisMove: MC_MoveAbsolute;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[yAchse.ReadStatus();
+
+// ]]></ST>
+    </Implementation>
+    <LineIds Name="Bohrkopf">
+      <LineId Id="9" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="26" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

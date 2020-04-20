@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Bohrmaschine" Id="{9e061517-3285-4418-b8f4-b3a23dd6952d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK  Bohrmaschine
+VAR
+	// Achsen der Bohrmaschine (X-Z-Achse)
+	xAchse: AXIS_REF;
+	zAchse: AXIS_REF;
+	
+	bohrer: Bohrkopf;
+
+	rXPos: LREAL;
+	rZPos: LREAL;
+
+	// Status der Achsen
+	bXEnabled: BOOL := TRUE;
+	bZEnabled: BOOL := TRUE;
+
+	// MC2 Funktionen
+	fbAxisPower: MC_Power;
+	fbAxisMove: MC_MoveAbsolute;
+
+	// Zustand der Maschine
+	eZustand: E_MACHINE_STATES;
+	// nächster Zustand nach Ende des Bohrens
+	eNextZustand: E_MACHINE_STATES;
+END_VAR
+VAR_INPUT
+	// Maße Werkstück
+	rLaenge: REAL;
+	rBreite: REAL;
+	rDicke: REAL;
+	bRunning: BOOL := FALSE;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[xAchse.ReadStatus();
+zAchse.ReadStatus();
+
+CASE eZustand OF
+	// Maschine ist in Position (0, 0)
+	E_MACHINE_STATES.eHome:
+		F_Log('HOME');
+		// gehe zu (0, 0)
+
+	// 1. berechne Position 1
+	// 2. setze nächsten Zustand
+	// 3. bohre und warte auf Ende des Bohrvorgangs
+	// repeat für alle vier Positionen
+	E_MACHINE_STATES.ePosition1:
+		F_Log('Position1');
+	
+	E_MACHINE_STATES.ePosition2:
+		F_Log('Position2');
+	
+	E_MACHINE_STATES.ePosition3:
+		F_Log('Position3');
+	
+	E_MACHINE_STATES.ePosition4:
+		F_Log('Position4');
+		
+	E_MACHINE_STATES.eWaiting:
+		F_Log('waiting');
+		// Bei Ende des Bohrens => setze aktuellen Zustand auf nextZustand
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="Bohrmaschine">
+      <LineId Id="9" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="97" Count="1" />
+      <LineId Id="123" Count="2" />
+      <LineId Id="46" Count="1" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="48" Count="1" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="50" Count="1" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="52" Count="1" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="91" Count="2" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="43" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

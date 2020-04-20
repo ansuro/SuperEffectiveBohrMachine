@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="F_Log" Id="{b4f74892-6295-4ef0-a47a-6ca0b58e2987}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_Log : BOOL
+VAR_INPUT
+	msg: STRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ADSLOGSTR(
+	msgCtrlMask := ADSLOG_MSGTYPE_HINT,
+	msgFmtStr := msg,
+	strArg := ''
+);]]></ST>
+    </Implementation>
+    <LineIds Name="F_Log">
+      <LineId Id="7" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

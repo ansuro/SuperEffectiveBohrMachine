@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <DUT Name="E_MACHINE_STATES" Id="{c686683e-a6c8-4b27-af18-d29ca8230e44}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_MACHINE_STATES :
+(
+	eHome := 0,
+	eRunning,
+	ePosition1,
+	ePosition2,
+	ePosition3,
+	ePosition4,
+	eWaiting
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

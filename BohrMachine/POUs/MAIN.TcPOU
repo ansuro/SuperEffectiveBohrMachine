@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="MAIN" Id="{a92a02fc-7e74-4f5b-8c2e-324e945c69b3}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	bohrmaschine : Bohrmaschine;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+// TODO via ADS
+bohrmaschine.rLaenge := 30.0;
+bohrmaschine.rBreite := 30.2;
+bohrmaschine.rDicke := 2.2;
+
+bohrmaschine.bRunning := TRUE;]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="15" Count="1" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
