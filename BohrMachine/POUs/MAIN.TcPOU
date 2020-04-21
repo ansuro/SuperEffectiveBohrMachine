@@ -10,11 +10,12 @@ END_VAR
     <Implementation>
       <ST><![CDATA[
 // TODO via ADS
-bohrmaschine.rLaenge := 30.0;
-bohrmaschine.rBreite := 30.2;
+bohrmaschine.rLaenge := 300;
+bohrmaschine.rBreite := 300;
 bohrmaschine.rDicke := 2.2;
 
-bohrmaschine.bRunning := TRUE;]]></ST>
+bohrmaschine.bRunning := TRUE;
+bohrmaschine();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="15" Count="1" />
@@ -22,6 +23,7 @@ bohrmaschine.bRunning := TRUE;]]></ST>
       <LineId Id="12" Count="1" />
       <LineId Id="18" Count="0" />
       <LineId Id="17" Count="0" />
+      <LineId Id="24" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

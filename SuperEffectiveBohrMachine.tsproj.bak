@@ -1339,6 +1339,7 @@ External Setpoint Generation:
 	</DataTypes>
 	<Project ProjectGUID="{40F90C27-90AC-4C4C-B307-974F44AED05B}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
+			<Settings DontCheckTarget="192.168.2.120.1.1"/>
 			<Tasks>
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
@@ -1888,6 +1889,10 @@ External Setpoint Generation:
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^xAchse">
 				<Link VarA="PlcTask Inputs^MAIN.bohrmaschine.xAchse.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.xAchse.PlcToNc" VarB="Inputs^FromPlc"/>
+			</OwnerB>
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^yAchse">
+				<Link VarA="PlcTask Inputs^MAIN.bohrmaschine.bohrer.yAchse.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.bohrer.yAchse.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^zAchse">
 				<Link VarA="PlcTask Inputs^MAIN.bohrmaschine.zAchse.NcToPlc" VarB="Outputs^ToPlc"/>

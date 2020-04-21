@@ -2,30 +2,163 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
   <POU Name="Bohrkopf" Id="{d4826d0c-639b-4975-a116-733f61215589}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FINAL Bohrkopf
-VAR_INPUT
-END_VAR
-VAR_OUTPUT
-END_VAR
 VAR
 	yAchse: AXIS_REF;
 	bYEnabled: BOOL := TRUE;
+	rYPos: LREAL := 0;
+	rYVelo: LREAL := 1;
 	
-	rZPos: LREAL := 0;
+	bBohren: BOOL := FALSE;
+	bBohrerReset: BOOL := FALSE;
 	
 	// MC2 Funktionen
 	fbAxisPower: MC_Power;
 	fbAxisMove: MC_MoveAbsolute;
+	// Zweite Instanz um den Bohrer zu resetten (TODO besseren Weg ohne zweite Instanz?)
+	fbAxisMoveUp: MC_MoveAbsolute;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[yAchse.ReadStatus();
-
-// ]]></ST>
+fbAxisPower(Axis := yAchse, Enable := bYEnabled, Enable_Positive := bYEnabled, Enable_Negative := bYEnabled);
+]]></ST>
     </Implementation>
+    <Method Name="Bohren" Id="{9b119895-f6b7-497b-8763-da510740a093}">
+      <Declaration><![CDATA[METHOD PUBLIC Bohren : BOOL
+VAR_INPUT
+	rDicke: REAL;
+END_VAR
+VAR_OUTPUT
+	bDone: BOOL := FALSE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+	Es soll 1cm tief in das Werkstück gebohrt werden.
+	Der Abstand zwischen Bohrer und Auflagefläche, auf dem das Werkstück liegt,
+	beträgt 5cm.
+*)
+F_Log('bBohren');
+F_Log(BOOL_TO_STRING(bBohren));
+F_Log('reset');
+F_Log(BOOL_TO_STRING(bBohrerReset));
+// Bohren -> Bohrer resetten
+IF(bBohrerReset = FALSE) THEN
+// Abstand + Bohrtiefe (positive Y-Achse zeigt nach unten)
+rYPos := 50 - rDicke + 10;
+bBohren := TRUE;
+END_IF
+
+// nach oben zum Nullpunkt
+fbAxisMoveUp(
+	Axis := yAchse,
+	Velocity := 10,
+	Execute := bBohrerReset,
+	Position := 0,
+	Done => bDone
+);
+
+// nach unten, bohren
+fbAxisMove(
+	Axis := yAchse,
+	Velocity := rYVelo,
+	Execute := bBohren,
+	Position := rYPos,
+	Done => bBohrerReset
+);
+
+// Zustand: Bohrer resetten
+IF(bBohrerReset) THEN
+	bBohren := FALSE;
+//	F_Log('bohrer reset true');
+END_IF
+
+IF(bDone) THEN
+	bBohrerReset := FALSE;
+	F_Log('bDone true');
+END_IF
+
+yAchse.NcToPlc.ActPos;
+
+
+(*
+IF(bBohrerReset) THEN
+	ADSLOGLREAL(
+		msgCtrlMask := ADSLOG_MSGTYPE_HINT,
+		msgFmtStr := 'Tiefe Bohrer: %f',
+		lrealArg := yAchse.NcToPlc.ActPos
+	);
+	bBohren := FALSE;
+END_IF
+
+IF(bDone) THEN
+	ADSLOGLREAL(
+		msgCtrlMask := ADSLOG_MSGTYPE_HINT,
+		msgFmtStr := 'Bohrer Reset: %f',
+		lrealArg := yAchse.NcToPlc.ActPos
+	);
+	bBohrerReset := FALSE;
+END_IF
+*)]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="Bohrkopf">
       <LineId Id="9" Count="0" />
       <LineId Id="27" Count="0" />
-      <LineId Id="26" Count="0" />
+      <LineId Id="48" Count="0" />
+    </LineIds>
+    <LineIds Name="Bohrkopf.Bohren">
+      <LineId Id="5" Count="0" />
+      <LineId Id="11" Count="2" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="87" Count="2" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="74" Count="4" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="22" Count="1" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="29" Count="3" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="25" Count="1" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="47" Count="3" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="59" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -17,13 +17,27 @@ VAR
 	bZEnabled: BOOL := TRUE;
 
 	// MC2 Funktionen
-	fbAxisPower: MC_Power;
-	fbAxisMove: MC_MoveAbsolute;
+	fbAxisPowerX: MC_Power;
+	fbAxisMoveX: MC_MoveAbsolute;
+	
+	fbAxisPowerZ: MC_Power;
+	fbAxisMoveZ: MC_MoveAbsolute;
+	
+	xVelo: LREAL := 20;
+	zVelo: LREAL := 20;
 
 	// Zustand der Maschine
-	eZustand: E_MACHINE_STATES;
-	// nächster Zustand nach Ende des Bohrens
-	eNextZustand: E_MACHINE_STATES;
+	eZustand: E_MACHINE_STATES := E_MACHINE_STATES.eMoving;
+
+	// aktuelle Position der Maschine
+	ePosition: E_MACHINE_POSITIONS := E_MACHINE_POSITIONS.ePosition1;
+	eNextPosition : E_MACHINE_POSITIONS;
+	
+	// Hilfsvariablen
+	bMoveAxes: BOOL := FALSE;
+	bXMoved: BOOL := FALSE;
+	bZMoved: BOOL := FALSE;
+	bGebohrt: BOOL := FALSE;
 END_VAR
 VAR_INPUT
 	// Maße Werkstück
@@ -36,54 +50,232 @@ END_VAR]]></Declaration>
       <ST><![CDATA[xAchse.ReadStatus();
 zAchse.ReadStatus();
 
-CASE eZustand OF
-	// Maschine ist in Position (0, 0)
-	E_MACHINE_STATES.eHome:
-		F_Log('HOME');
-		// gehe zu (0, 0)
+fbAxisPowerX(Axis := xAchse, Enable := bXEnabled, Enable_Positive := bXEnabled, Enable_Negative := bXEnabled);
+fbAxisPowerZ(Axis := zAchse, Enable := bZEnabled, Enable_Positive := bZEnabled, Enable_Negative := bZEnabled);
 
-	// 1. berechne Position 1
-	// 2. setze nächsten Zustand
-	// 3. bohre und warte auf Ende des Bohrvorgangs
-	// repeat für alle vier Positionen
-	E_MACHINE_STATES.ePosition1:
-		F_Log('Position1');
+bohrer();
+
+CASE eZustand OF
+	E_MACHINE_STATES.eInitializing:
 	
-	E_MACHINE_STATES.ePosition2:
-		F_Log('Position2');
-	
-	E_MACHINE_STATES.ePosition3:
-		F_Log('Position3');
-	
-	E_MACHINE_STATES.ePosition4:
-		F_Log('Position4');
-		
 	E_MACHINE_STATES.eWaiting:
-		F_Log('waiting');
-		// Bei Ende des Bohrens => setze aktuellen Zustand auf nextZustand
+	
+	
+	E_MACHINE_STATES.eMoving:
+		THIS^.MoveToNextPosition();
+
+	E_MACHINE_STATES.eDrilling:
+		//F_Log('bohre');
+		// Bei Ende des Bohrens => setze aktuelle Position auf nextPosition
+		//bohrer.Bohren(rDicke, bDone => bGebohrt);
+		//IF(bGebohrt) THEN
+			// gehe zur nächsten Position
+			ePosition := eNextPosition;
+			eZustand := E_MACHINE_STATES.eMoving;
+			F_Log('Loch gebohrt');
+		//END_IF
 END_CASE]]></ST>
     </Implementation>
+    <Method Name="LogAxes" Id="{974b979f-b864-4e24-b47c-c528f34d4ac7}">
+      <Declaration><![CDATA[METHOD LogAxes : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ADSLOGLREAL(
+	msgCtrlMask := ADSLOG_MSGTYPE_HINT,
+	msgFmtStr := 'x-Achse: %f',
+	lrealArg := xAchse.NcToPlc.ActPos
+);
+
+ADSLOGLREAL(
+	msgCtrlMask := ADSLOG_MSGTYPE_HINT,
+	msgFmtStr := 'z-Achse: %f',
+	lrealArg := zAchse.NcToPlc.ActPos
+);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveToNextPosition" Id="{f2774c60-a9f8-44bf-9f24-11c52dd192ba}">
+      <Declaration><![CDATA[METHOD PRIVATE MoveToNextPosition : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+	1. Ermittel die Position
+	2. Gehe zur Position
+	3. Setze die nächste Position
+*)
+
+CASE ePosition OF
+	E_MACHINE_POSITIONS.eHome:
+		rXPos := 0;
+		rZPos := 0;
+		bMoveAxes := TRUE;
+		//fbAxisMoveX(Axis := xAchse, Velocity := xVelo, Execute := TRUE, Position := rXPos, Done => bXMoved);
+		//fbAxisMoveZ(Axis := zAchse, Velocity := zVelo, Execute := TRUE, Position := rZPos, Done => bZMoved);
+		IF(bXMoved AND bZMoved) THEN
+			// Bohrkopf ist auf Position
+			eZustand := E_MACHINE_STATES.eWaiting;
+			eNextPosition := E_MACHINE_POSITIONS.ePosition2;
+			F_Log('Home angesteuert');
+			bXMoved := FALSE;
+			bZMoved := FALSE;
+			bMoveAxes := FALSE;
+			THIS^.LogAxes();
+		END_IF
+	
+	E_MACHINE_POSITIONS.ePosition1:
+		// Position berechnen, moveAbsolute, wenn MOVED == TRUE: nächster State (bohren, oder go Home)
+		rXPos := 10;
+		rZPos := 10;
+		bMoveAxes := TRUE;
+		//fbAxisMoveX(Axis := xAchse, Velocity := xVelo, Execute := TRUE, Position := rXPos, Done => bXMoved);
+		//fbAxisMoveZ(Axis := zAchse, Velocity := zVelo, Execute := TRUE, Position := rZPos, Done => bZMoved);
+		IF(bXMoved AND bZMoved) THEN
+			// Bohrkopf ist auf Position
+			eZustand := E_MACHINE_STATES.eDrilling;
+			eNextPosition := E_MACHINE_POSITIONS.ePosition2;
+			F_Log('Position 1 angesteuert');
+			bXMoved := FALSE;
+			bZMoved := FALSE;
+			bMoveAxes := FALSE;
+			THIS^.LogAxes();
+		END_IF
+	
+	E_MACHINE_POSITIONS.ePosition2:
+		rXPos := 10;
+		rZPos := rBreite - 10;
+		bMoveAxes := TRUE;
+		//fbAxisMoveX(Axis := xAchse, Velocity := xVelo, Execute := bMoveAxes, Position := rXPos, Done => bXMoved);
+		//fbAxisMoveZ(Axis := zAchse, Velocity := zVelo, Execute := bMoveAxes, Position := rZPos, Done => bZMoved);
+		IF(bXMoved AND bZMoved) THEN
+			// Bohrkopf ist auf Position
+			eZustand := E_MACHINE_STATES.eDrilling;
+			eNextPosition := E_MACHINE_POSITIONS.ePosition3;
+			F_Log('Position 2 angesteuert');
+			bXMoved := FALSE;
+			bZMoved := FALSE;
+			bMoveAxes := FALSE;
+			THIS^.LogAxes();
+		END_IF
+	
+	E_MACHINE_POSITIONS.ePosition3:
+		rXPos := rLaenge - 10;
+		rZPos := rBreite - 10;
+		bMoveAxes := TRUE;
+		//fbAxisMoveX(Axis := xAchse, Velocity := xVelo, Execute := TRUE, Position := rXPos, Done => bXMoved);
+		//fbAxisMoveZ(Axis := zAchse, Velocity := zVelo, Execute := TRUE, Position := rZPos, Done => bZMoved);
+		IF(bXMoved AND bZMoved) THEN
+			// Bohrkopf ist auf Position
+			eZustand := E_MACHINE_STATES.eDrilling;
+			eNextPosition := E_MACHINE_POSITIONS.ePosition4;
+			F_Log('Position 3 angesteuert');
+			bXMoved := FALSE;
+			bZMoved := FALSE;
+			bMoveAxes := FALSE;
+			THIS^.LogAxes();
+		END_IF
+	
+	E_MACHINE_POSITIONS.ePosition4:
+		rXPos := rLaenge - 10;
+		rZPos := 10;
+		bMoveAxes := TRUE;
+		//fbAxisMoveX(Axis := xAchse, Velocity := xVelo, Execute := TRUE, Position := rXPos, Done => bXMoved);
+		//fbAxisMoveZ(Axis := zAchse, Velocity := zVelo, Execute := TRUE, Position := rZPos, Done => bZMoved);
+		IF(bXMoved AND bZMoved) THEN
+			// Bohrkopf ist auf Position
+			eZustand := E_MACHINE_STATES.eDrilling;
+			eNextPosition := E_MACHINE_POSITIONS.eHome;
+			F_Log('Position 4 angesteuert');
+			bXMoved := FALSE;
+			bZMoved := FALSE;
+			bMoveAxes := FALSE;
+			THIS^.LogAxes();
+		END_IF
+END_CASE
+
+fbAxisMoveX(Axis := xAchse, Velocity := xVelo, Execute := bMoveAxes, Position := rXPos, Done => bXMoved);
+fbAxisMoveZ(Axis := zAchse, Velocity := zVelo, Execute := bMoveAxes, Position := rZPos, Done => bZMoved);]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="Bohrmaschine">
       <LineId Id="9" Count="0" />
       <LineId Id="38" Count="0" />
+      <LineId Id="179" Count="0" />
+      <LineId Id="178" Count="0" />
+      <LineId Id="180" Count="0" />
+      <LineId Id="194" Count="0" />
+      <LineId Id="193" Count="0" />
       <LineId Id="40" Count="0" />
       <LineId Id="39" Count="0" />
-      <LineId Id="79" Count="0" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="54" Count="0" />
-      <LineId Id="97" Count="1" />
-      <LineId Id="123" Count="2" />
-      <LineId Id="46" Count="1" />
-      <LineId Id="119" Count="0" />
-      <LineId Id="48" Count="1" />
-      <LineId Id="87" Count="0" />
-      <LineId Id="50" Count="1" />
-      <LineId Id="88" Count="0" />
-      <LineId Id="52" Count="1" />
-      <LineId Id="89" Count="0" />
+      <LineId Id="168" Count="1" />
+      <LineId Id="164" Count="0" />
+      <LineId Id="167" Count="0" />
+      <LineId Id="166" Count="0" />
+      <LineId Id="160" Count="0" />
+      <LineId Id="163" Count="0" />
       <LineId Id="91" Count="2" />
       <LineId Id="126" Count="0" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="196" Count="0" />
+      <LineId Id="183" Count="1" />
+      <LineId Id="191" Count="0" />
+      <LineId Id="198" Count="0" />
+      <LineId Id="197" Count="0" />
       <LineId Id="43" Count="0" />
+    </LineIds>
+    <LineIds Name="Bohrmaschine.LogAxes">
+      <LineId Id="6" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="8" Count="2" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="11" Count="3" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="Bohrmaschine.MoveToNextPosition">
+      <LineId Id="5" Count="0" />
+      <LineId Id="7" Count="2" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="88" Count="8" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="23" Count="2" />
+      <LineId Id="104" Count="0" />
+      <LineId Id="28" Count="3" />
+      <LineId Id="33" Count="2" />
+      <LineId Id="37" Count="1" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="17" Count="1" />
+      <LineId Id="49" Count="1" />
+      <LineId Id="99" Count="0" />
+      <LineId Id="51" Count="8" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="19" Count="1" />
+      <LineId Id="62" Count="1" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="64" Count="8" />
+      <LineId Id="110" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="75" Count="1" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="77" Count="8" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="103" Count="0" />
+      <LineId Id="100" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
