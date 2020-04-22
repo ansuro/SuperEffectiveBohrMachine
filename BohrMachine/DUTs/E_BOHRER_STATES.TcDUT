@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <DUT Name="E_BOHRER_STATES" Id="{752cddb8-db7f-4e28-b8f1-3a2f2368ecd8}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_BOHRER_STATES :
+(
+	eHochfahrend := 0,
+	eRunterfahrend,
+	eUnten,
+	eOben
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

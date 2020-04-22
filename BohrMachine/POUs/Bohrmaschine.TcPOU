@@ -67,13 +67,13 @@ CASE eZustand OF
 	E_MACHINE_STATES.eDrilling:
 		//F_Log('bohre');
 		// Bei Ende des Bohrens => setze aktuelle Position auf nextPosition
-		//bohrer.Bohren(rDicke, bDone => bGebohrt);
-		//IF(bGebohrt) THEN
+		bohrer.Bohren(rDicke, bDone => bGebohrt);
+		IF(bGebohrt) THEN
 			// gehe zur nächsten Position
 			ePosition := eNextPosition;
 			eZustand := E_MACHINE_STATES.eMoving;
 			F_Log('Loch gebohrt');
-		//END_IF
+		END_IF
 END_CASE]]></ST>
     </Implementation>
     <Method Name="LogAxes" Id="{974b979f-b864-4e24-b47c-c528f34d4ac7}">

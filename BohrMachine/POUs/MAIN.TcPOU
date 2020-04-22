@@ -9,16 +9,23 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
+
+// TODO Input validation, error management
+// TODO init functions, start-stop
+
 // TODO via ADS
 bohrmaschine.rLaenge := 300;
 bohrmaschine.rBreite := 300;
-bohrmaschine.rDicke := 2.2;
+bohrmaschine.rDicke := 20.2;
 
 bohrmaschine.bRunning := TRUE;
 bohrmaschine();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="15" Count="1" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="31" Count="1" />
       <LineId Id="2" Count="0" />
       <LineId Id="12" Count="1" />
       <LineId Id="18" Count="0" />

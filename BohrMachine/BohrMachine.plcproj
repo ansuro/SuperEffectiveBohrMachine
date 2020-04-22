@@ -17,6 +17,9 @@
     <LibraryReferences>{6e92e38f-1333-4caa-8e40-25868357929b}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\E_BOHRER_STATES.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\E_MACHINE_POSITIONS.TcDUT">
       <SubType>Code</SubType>
     </Compile>
