@@ -3,7 +3,10 @@
   <POU Name="MAIN" Id="{a92a02fc-7e74-4f5b-8c2e-324e945c69b3}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	bohrmaschine : Bohrmaschine;
+	bohrmaschine: Bohrmaschine;
+	stConfig: ST_Config;
+	
+	trigOnce: R_TRIG();
 END_VAR
 
 ]]></Declaration>
@@ -14,12 +17,19 @@ END_VAR
 // TODO init functions, start-stop
 
 // TODO via ADS
-bohrmaschine.rLaenge := 300;
-bohrmaschine.rBreite := 300;
-bohrmaschine.rDicke := 20.2;
+stConfig.rLaenge := 300;
+stConfig.rBreite := 300;
+stConfig.rDicke := 20.2;
 
-bohrmaschine.bRunning := TRUE;
-bohrmaschine();]]></ST>
+trigOnce(CLK := TRUE);
+IF trigOnce.Q THEN
+	F_Log('Once');
+	bohrmaschine.Config(stConfig);
+	bohrmaschine.Start();
+END_IF
+
+bohrmaschine();
+]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="15" Count="1" />
@@ -28,9 +38,13 @@ bohrmaschine();]]></ST>
       <LineId Id="31" Count="1" />
       <LineId Id="2" Count="0" />
       <LineId Id="12" Count="1" />
-      <LineId Id="18" Count="0" />
-      <LineId Id="17" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="52" Count="2" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="50" Count="1" />
       <LineId Id="24" Count="0" />
+      <LineId Id="46" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

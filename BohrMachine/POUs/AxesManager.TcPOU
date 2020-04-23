@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="AxesManager" Id="{2d19b545-a977-41d5-ac65-a00e41c4aca4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK AxesManager
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	// am Punkt angekommen
+	bPunktAngefahren: BOOL;
+END_VAR
+VAR
+	// Achsen der Maschine (X-Z-Achse)
+	xAchse: AXIS_REF;
+	zAchse: AXIS_REF;
+	
+	rXPos: LREAL;
+	rZPos: LREAL;
+	
+	// MC2 Funktionen
+	fbAxisPowerX: MC_Power;
+	fbAxisMoveX: MC_MoveAbsolute;
+	
+	fbAxisPowerZ: MC_Power;
+	fbAxisMoveZ: MC_MoveAbsolute;
+	
+	// Velocity
+	xVelo: LREAL := 100;
+	zVelo: LREAL := 100;
+	
+	bMoveAxes: BOOL := FALSE;
+	
+	bXMoved: BOOL := FALSE;
+	bZMoved: BOOL := FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[xAchse.ReadStatus();
+zAchse.ReadStatus();
+
+fbAxisMoveX(Axis := xAchse, Velocity := xVelo, Execute := bMoveAxes, Position := rXPos, Done => bXMoved);
+fbAxisMoveZ(Axis := zAchse, Velocity := zVelo, Execute := bMoveAxes, Position := rZPos, Done => bZMoved);
+
+bPunktAngefahren := bXMoved AND bZMoved;
+]]></ST>
+    </Implementation>
+    <Method Name="Enable" Id="{9967a336-49b9-4a03-ba39-133db437a907}">
+      <Declaration><![CDATA[METHOD PUBLIC Enable : BOOL
+VAR_INPUT
+	bEnableAxes: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbAxisPowerX(Axis := xAchse, Enable := bEnableAxes, Enable_Positive := bEnableAxes, Enable_Negative := bEnableAxes);
+fbAxisPowerZ(Axis := zAchse, Enable := bEnableAxes, Enable_Positive := bEnableAxes, Enable_Negative := bEnableAxes);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LogAxes" Id="{e9378cc9-a699-4554-a902-db82d5906abc}">
+      <Declaration><![CDATA[METHOD PUBLIC LogAxes : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ADSLOGLREAL(
+	msgCtrlMask := ADSLOG_MSGTYPE_HINT,
+	msgFmtStr := 'x-Achse: %f',
+	lrealArg := xAchse.NcToPlc.ActPos
+);
+
+ADSLOGLREAL(
+	msgCtrlMask := ADSLOG_MSGTYPE_HINT,
+	msgFmtStr := 'z-Achse: %f',
+	lrealArg := zAchse.NcToPlc.ActPos
+);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Start" Id="{1cafe01f-d4a8-4712-a211-1a5b246bb457}">
+      <Declaration><![CDATA[METHOD PUBLIC Start : BOOL
+VAR_INPUT
+	stPunkt: ST_2DPoint;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[rXPos := stPunkt.x;
+rZPos := stPunkt.y;
+
+bMoveAxes := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stop" Id="{e20ac144-d3a4-463f-bfe5-2ec53d758fbe}">
+      <Declaration><![CDATA[METHOD PUBLIC Stop : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bMoveAxes := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="AxesManager">
+      <LineId Id="30" Count="3" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="45" Count="0" />
+    </LineIds>
+    <LineIds Name="AxesManager.Enable">
+      <LineId Id="6" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="AxesManager.LogAxes">
+      <LineId Id="6" Count="9" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="AxesManager.Start">
+      <LineId Id="12" Count="0" />
+      <LineId Id="10" Count="1" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="AxesManager.Stop">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

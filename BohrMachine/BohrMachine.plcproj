@@ -26,7 +26,16 @@
     <Compile Include="DUTs\E_MACHINE_STATES.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\ST_2DPoint.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_Config.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\AxesManager.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Bohrkopf.TcPOU">
@@ -36,6 +45,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\F_Log.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\I_Machine.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">

@@ -8,7 +8,8 @@ TYPE E_MACHINE_STATES :
 	eInitializing := 0,
 	eWaiting,
 	eMoving,
-	eDrilling
+	eDrilling,
+	eGoingHome
 );
 END_TYPE
 ]]></Declaration>
