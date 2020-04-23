@@ -1904,9 +1904,17 @@ External Setpoint Generation:
 	<Mappings>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030010" Watchdog="14000000040000000400000004000000"/>
 		<OwnerA Name="TIPC^BohrMachine^BohrMachine Instance">
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^xAchse">
+				<Link VarA="PlcTask Inputs^MAIN.bohrmaschine.axesManager.xAchse.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.axesManager.xAchse.PlcToNc" VarB="Inputs^FromPlc"/>
+			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^yAchse">
 				<Link VarA="PlcTask Inputs^MAIN.bohrmaschine.bohrer.yAchse.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.bohrer.yAchse.PlcToNc" VarB="Inputs^FromPlc"/>
+			</OwnerB>
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^zAchse">
+				<Link VarA="PlcTask Inputs^MAIN.bohrmaschine.axesManager.zAchse.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.axesManager.zAchse.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>
