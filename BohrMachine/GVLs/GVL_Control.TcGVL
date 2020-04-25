@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <GVL Name="GVL_Control" Id="{804ca955-0c89-4f28-b6c5-be1d13de4a28}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	// UI Command
+	bRun: BOOL := FALSE;
+	// UI Indicator
+	bIsRunning: BOOL := FALSE;
+	nProgress: USINT := 0;
+	
+	// bErrors: BOOL := FALSE;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

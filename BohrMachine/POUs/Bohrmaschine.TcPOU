@@ -14,24 +14,26 @@ VAR
 	aPunkte: ARRAY [0..3] OF ST_2DPoint;
 	nCurIdx: USINT := 0;
 	
-	// Konfiguration
-	stConfig: ST_Config; 
+	// Hilfsvariablen Visualisierung
+	nProgressStep: USINT := 0;
 
+	bRunning: BOOL := FALSE;
 END_VAR
-]]></Declaration>
+VAR CONSTANT
+	stHomePoint: ST_2DPoint := (x := 0, y := 0);
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 axesManager();
 bohrer();
 
 CASE eZustand OF
-	E_MACHINE_STATES.eInitializing:
-	
 	E_MACHINE_STATES.eWaiting:
-	
-	E_MACHINE_STATES.eGoingHome:
-		Homing();
-	
+		// idle
+
+	E_MACHINE_STATES.eStopping:
+		Stopping();
+
 	E_MACHINE_STATES.eMoving:
 		Moving();
 
@@ -40,10 +42,7 @@ CASE eZustand OF
 END_CASE]]></ST>
     </Implementation>
     <Method Name="Config" Id="{25dde089-95eb-4734-88fc-9c38d9b5ac13}">
-      <Declaration><![CDATA[METHOD Config : BOOL
-VAR_INPUT
-	stConfig: ST_Config;
-END_VAR
+      <Declaration><![CDATA[METHOD PRIVATE Config : BOOL
 VAR
 	rBreite: LREAL;
 	rLaenge: LREAL;
@@ -56,8 +55,8 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// die vier Koordinaten berechnen und speichern, TODO später: Bohrlochtiefe + Abstand
 
-rBreite := stConfig.rBreite;
-rLaenge := stConfig.rLaenge;
+rBreite := GVL_Config.stConfig.rBreite;
+rLaenge := GVL_Config.stConfig.rLaenge;
 
 // Punkt 1
 aPunkte[0].x := rAbstand;
@@ -77,14 +76,14 @@ aPunkte[3].y := rAbstand;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Drill" Id="{f6a05a08-ae6b-4538-9167-85cc33480e82}">
-      <Declaration><![CDATA[METHOD INTERNAL Drill : BOOL
+      <Declaration><![CDATA[METHOD PRIVATE Drill : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[eZustand := E_MACHINE_STATES.eDrilling;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Drilling" Id="{de0fd246-a5eb-4e47-9ece-8ff9cbdbcce5}">
-      <Declaration><![CDATA[METHOD INTERNAL Drilling : BOOL
+      <Declaration><![CDATA[METHOD PRIVATE Drilling : BOOL
 VAR_INPUT
 END_VAR
 VAR
@@ -94,53 +93,32 @@ END_VAR]]></Declaration>
         <ST><![CDATA[// Bohren
 bohrer.Bohren(bDone => bGebohrt);
 IF(bGebohrt) THEN
+	// Progressbar + 1
+	GVL_Control.nProgress := GVL_Control.nProgress + 1;
 	MoveNext();
 END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Homing" Id="{70e2eab1-d929-470f-b1c1-4867fe667962}">
-      <Declaration><![CDATA[METHOD INTERNAL Homing : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[// Gehe zu (0, 0), gehe in Wartend-State
-
-
-IF axesManager.bPunktAngefahren THEN
-	F_Log('Home:');
-	axesManager.LogAxes();
-	axesManager.Stop();
-	// isHome
-	nCurIdx := 0;
-	eZustand := E_MACHINE_STATES.eWaiting;
-END_IF]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="MoveNext" Id="{cd40f332-95bc-4193-ac41-7e2ebbe98ced}">
-      <Declaration><![CDATA[METHOD MoveNext : BOOL
-VAR CONSTANT
-	stHomePoint: ST_2DPoint := (x := 0, y := 0);
-END_VAR]]></Declaration>
+      <Declaration><![CDATA[METHOD PRIVATE MoveNext : BOOL
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Nächsten Anfahrtspunkt setzen. Bohrloch oder Home.
 
-// Wenn alle Bohrlöcher abgefahren wurden -> go Home
+// Wenn alle Bohrlöcher abgefahren wurden -> go Home / stop
 IF nCurIdx > 3 THEN
-	axesManager.Start(stHomePoint);
-	eZustand := E_MACHINE_STATES.eGoingHome;
+	Stop();
 ELSE // nächsten Bohrpunkt setzen
 	axesManager.Start(aPunkte[nCurIdx]);
 	nCurIdx := nCurIdx + 1;	
 	eZustand := E_MACHINE_STATES.eMoving;
 END_IF
-
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="Moving" Id="{62a2e616-9837-49bd-a407-f2e14bff6ecb}">
-      <Declaration><![CDATA[METHOD INTERNAL Moving : BOOL
+      <Declaration><![CDATA[METHOD PRIVATE Moving : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -150,57 +128,77 @@ IF axesManager.bPunktAngefahren THEN
 	F_Log('Moved To:');
 	axesManager.LogAxes();
 	axesManager.Stop();
+	// Progressbar + 1
+	GVL_Control.nProgress := GVL_Control.nProgress + 1;
 	// Achsenbewegungen abgeschlossen, Drill
 	Drill();
 END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Start" Id="{77e5359d-b759-40cf-a154-1c37eaa6ebbf}">
-      <Declaration><![CDATA[METHOD Start : BOOL
+      <Declaration><![CDATA[METHOD PUBLIC Start : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[// Vorbedingungen prüfen: Konfiguriert, isHome
+        <ST><![CDATA[THIS^.bRunning := TRUE;
+GVL_Control.bIsRunning := TRUE;
+// Progressbar = 0
+GVL_Control.nProgress := 0;
+Config();
 axesManager.Enable(bEnableAxes := TRUE);
 MoveNext();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Stop" Id="{c65ecb49-f392-471e-8cd2-32ba1727ca52}">
+      <Declaration><![CDATA[METHOD PUBLIC Stop : BOOL]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// wenn intern durch Ende gestoppt wurde, benötigt es keinen Stop von aussen
+IF THIS^.bRunning = FALSE THEN
+	RETURN;
+END_IF
+
+THIS^.bRunning := FALSE;
+GVL_Control.bRun := FALSE;
+axesManager.Stop();
+bohrer.Stop();
+eZustand := E_MACHINE_STATES.eStopping;
+nCurIdx := 0;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stopping" Id="{70e2eab1-d929-470f-b1c1-4867fe667962}">
+      <Declaration><![CDATA[METHOD PRIVATE Stopping : BOOL
+VAR
+	bBohrerStopped: BOOL := FALSE;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Warten bis der Bohrkopf oben ist, dann zum Nullpunkt fahren
+bohrer.Stopping(bDone => bBohrerStopped);
+IF bBohrerStopped THEN
+	F_Log('Fahre Home');
+	axesManager.Start(stHomePoint);
+END_IF
+
+IF axesManager.bPunktAngefahren THEN
+	F_Log('Home:');
+	axesManager.LogAxes();
+	axesManager.Stop();
+	eZustand := E_MACHINE_STATES.eWaiting;
+	GVL_Control.bIsRunning := FALSE;
+	// Progressbar + 1
+	GVL_Control.nProgress := 9;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="Bohrmaschine">
-      <LineId Id="179" Count="0" />
-      <LineId Id="194" Count="0" />
-      <LineId Id="193" Count="0" />
-      <LineId Id="40" Count="0" />
-      <LineId Id="299" Count="1" />
-      <LineId Id="39" Count="0" />
-      <LineId Id="164" Count="0" />
-      <LineId Id="167" Count="0" />
-      <LineId Id="297" Count="1" />
-      <LineId Id="166" Count="0" />
-      <LineId Id="160" Count="0" />
-      <LineId Id="295" Count="0" />
-      <LineId Id="91" Count="1" />
-      <LineId Id="296" Count="0" />
+      <LineId Id="331" Count="4" />
+      <LineId Id="338" Count="0" />
+      <LineId Id="349" Count="0" />
+      <LineId Id="339" Count="8" />
       <LineId Id="43" Count="0" />
     </LineIds>
     <LineIds Name="Bohrmaschine.Config">
-      <LineId Id="7" Count="0" />
-      <LineId Id="25" Count="0" />
-      <LineId Id="24" Count="0" />
-      <LineId Id="27" Count="0" />
-      <LineId Id="11" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="8" Count="0" />
-      <LineId Id="10" Count="0" />
-      <LineId Id="34" Count="0" />
-      <LineId Id="14" Count="0" />
-      <LineId Id="12" Count="0" />
-      <LineId Id="15" Count="0" />
-      <LineId Id="35" Count="0" />
-      <LineId Id="17" Count="0" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="18" Count="0" />
-      <LineId Id="36" Count="0" />
-      <LineId Id="20" Count="0" />
-      <LineId Id="19" Count="0" />
+      <LineId Id="46" Count="18" />
       <LineId Id="21" Count="0" />
     </LineIds>
     <LineIds Name="Bohrmaschine.Drill">
@@ -209,32 +207,14 @@ MoveNext();]]></ST>
     <LineIds Name="Bohrmaschine.Drilling">
       <LineId Id="13" Count="0" />
       <LineId Id="6" Count="1" />
+      <LineId Id="23" Count="1" />
       <LineId Id="14" Count="0" />
       <LineId Id="5" Count="0" />
       <LineId Id="17" Count="0" />
     </LineIds>
-    <LineIds Name="Bohrmaschine.Homing">
-      <LineId Id="5" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="14" Count="1" />
-      <LineId Id="20" Count="1" />
-      <LineId Id="19" Count="0" />
-      <LineId Id="16" Count="2" />
-      <LineId Id="8" Count="0" />
-    </LineIds>
     <LineIds Name="Bohrmaschine.MoveNext">
-      <LineId Id="4" Count="0" />
-      <LineId Id="12" Count="0" />
-      <LineId Id="6" Count="0" />
-      <LineId Id="5" Count="0" />
-      <LineId Id="24" Count="0" />
-      <LineId Id="14" Count="0" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="20" Count="0" />
-      <LineId Id="18" Count="0" />
-      <LineId Id="25" Count="0" />
-      <LineId Id="8" Count="0" />
-      <LineId Id="21" Count="0" />
+      <LineId Id="29" Count="4" />
+      <LineId Id="35" Count="4" />
       <LineId Id="15" Count="0" />
     </LineIds>
     <LineIds Name="Bohrmaschine.Moving">
@@ -243,14 +223,40 @@ MoveNext();]]></ST>
       <LineId Id="19" Count="0" />
       <LineId Id="17" Count="0" />
       <LineId Id="16" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="23" Count="0" />
       <LineId Id="13" Count="0" />
       <LineId Id="15" Count="0" />
       <LineId Id="14" Count="0" />
     </LineIds>
     <LineIds Name="Bohrmaschine.Start">
-      <LineId Id="4" Count="0" />
-      <LineId Id="6" Count="0" />
+      <LineId Id="14" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="16" Count="1" />
       <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="Bohrmaschine.Stop">
+      <LineId Id="23" Count="6" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="30" Count="2" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="11" Count="0" />
+    </LineIds>
+    <LineIds Name="Bohrmaschine.Stopping">
+      <LineId Id="9" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="20" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="42" Count="2" />
+      <LineId Id="8" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

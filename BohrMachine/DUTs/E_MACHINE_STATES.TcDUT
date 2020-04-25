@@ -5,11 +5,10 @@
 {attribute 'strict'}
 TYPE E_MACHINE_STATES :
 (
-	eInitializing := 0,
-	eWaiting,
+	eWaiting := 0,
 	eMoving,
 	eDrilling,
-	eGoingHome
+	eStopping
 );
 END_TYPE
 ]]></Declaration>

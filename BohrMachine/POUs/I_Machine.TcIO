@@ -3,21 +3,14 @@
   <Itf Name="I_Machine" Id="{7529e6e0-a30a-4fae-ad5c-493ba6237ce4}">
     <Declaration><![CDATA[INTERFACE I_Machine
 ]]></Declaration>
-    <Method Name="Config" Id="{297ce5e8-35f5-447a-9541-fe4a8ddfe9de}">
-      <Declaration><![CDATA[METHOD Config : BOOL
-VAR_INPUT
-	stConfig: ST_Config;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="MoveNext" Id="{c78f4b92-86b9-4159-8d15-ffc912641fd0}">
-      <Declaration><![CDATA[METHOD MoveNext : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
     <Method Name="Start" Id="{71cb3e41-c453-4a91-8dbb-66ee27c55389}">
       <Declaration><![CDATA[METHOD Start : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Stop" Id="{3af0260d-d238-47c7-bd51-f2affc67b512}">
+      <Declaration><![CDATA[METHOD Stop : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>

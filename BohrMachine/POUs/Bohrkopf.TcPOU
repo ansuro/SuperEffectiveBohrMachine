@@ -112,6 +112,29 @@ END_CASE
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Stop" Id="{1a68df19-0c73-4e00-b024-88c583f088ec}">
+      <Declaration><![CDATA[METHOD PUBLIC Stop : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Egal wo der Bohrer ist, er wird als 'unten' markiert und fährt hoch
+eZustand := E_BOHRER_STATES.eUnten;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stopping" Id="{b31ca1c4-08ea-436a-97cb-e24fee7e536a}">
+      <Declaration><![CDATA[METHOD PUBLIC Stopping : BOOL
+VAR_OUTPUT
+	bDone: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE eZustand OF
+	E_BOHRER_STATES.eFertig:
+		eZustand := E_BOHRER_STATES.eBereit;
+		bDone := TRUE;
+		
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="Bohrkopf">
       <LineId Id="9" Count="0" />
       <LineId Id="27" Count="0" />
@@ -149,6 +172,15 @@ END_CASE
       <LineId Id="174" Count="4" />
       <LineId Id="173" Count="0" />
       <LineId Id="60" Count="0" />
+    </LineIds>
+    <LineIds Name="Bohrkopf.Stop">
+      <LineId Id="18" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="Bohrkopf.Stopping">
+      <LineId Id="8" Count="2" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="11" Count="1" />
     </LineIds>
   </POU>
 </TcPlcObject>
