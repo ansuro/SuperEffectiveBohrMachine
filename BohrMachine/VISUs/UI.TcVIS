@@ -23,7 +23,7 @@
                         </o>
                         <o>
                           <v n="Id">2565699834L</v>
-                          <v n="Value">"BOTTOM"</v>
+                          <v n="Value">"VCENTER"</v>
                         </o>
                         <o>
                           <v n="Id">4134387352L</v>
@@ -152,7 +152,7 @@
                         </o>
                         <o>
                           <v n="Id">2565699834L</v>
-                          <v n="Value">"BOTTOM"</v>
+                          <v n="Value">"VCENTER"</v>
                         </o>
                         <o>
                           <v n="Id">4134387352L</v>
@@ -196,7 +196,7 @@
                         </o>
                         <o>
                           <v n="Id">357335551L</v>
-                          <v n="Value" t="Int16">50</v>
+                          <v n="Value" t="Int16">68</v>
                         </o>
                         <o>
                           <v n="Id">2422045748L</v>
@@ -281,7 +281,7 @@
                         </o>
                         <o>
                           <v n="Id">2565699834L</v>
-                          <v n="Value">"BOTTOM"</v>
+                          <v n="Value">"VCENTER"</v>
                         </o>
                         <o>
                           <v n="Id">4134387352L</v>
@@ -325,7 +325,7 @@
                         </o>
                         <o>
                           <v n="Id">357335551L</v>
-                          <v n="Value" t="Int16">85</v>
+                          <v n="Value" t="Int16">132</v>
                         </o>
                         <o>
                           <v n="Id">2422045748L</v>
@@ -486,7 +486,7 @@
                         </o>
                         <o>
                           <v n="Id">1649127785L</v>
-                          <v n="Value" t="Int16">165</v>
+                          <v n="Value" t="Int16">65</v>
                         </o>
                         <o>
                           <v n="Id">357335551L</v>
@@ -647,11 +647,11 @@
                         </o>
                         <o>
                           <v n="Id">1649127785L</v>
-                          <v n="Value">165</v>
+                          <v n="Value">65</v>
                         </o>
                         <o>
                           <v n="Id">357335551L</v>
-                          <v n="Value" t="Int16">50</v>
+                          <v n="Value" t="Int16">68</v>
                         </o>
                         <o>
                           <v n="Id">2422045748L</v>
@@ -808,11 +808,11 @@
                         </o>
                         <o>
                           <v n="Id">1649127785L</v>
-                          <v n="Value">165</v>
+                          <v n="Value">65</v>
                         </o>
                         <o>
                           <v n="Id">357335551L</v>
-                          <v n="Value">85</v>
+                          <v n="Value">132</v>
                         </o>
                         <o>
                           <v n="Id">2422045748L</v>
@@ -879,6 +879,420 @@
                     <a n="LMGuids" et="Guid" />
                     <d n="SubElements" t="Hashtable" />
                     <v n="VisualElementId">14</v>
+                    <l n="UserManagementAccessRights" t="ArrayList" />
+                  </o>
+                  <o>
+                    <a n="ConfiguredComplexInputs" et="ComplexInput" />
+                    <l n="Elements" t="ArrayList" />
+                    <n n="VisualElementDescription" />
+                    <o n="VisualElemMemberList" t="VisualElemMemberList">
+                      <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
+                        <o>
+                          <v n="Id">1404881523L</v>
+                          <v n="Value" t="Single">300</v>
+                        </o>
+                        <o>
+                          <v n="Id">3837067714L</v>
+                          <v n="Value" t="Single">600</v>
+                        </o>
+                        <o>
+                          <v n="Id">2867424708L</v>
+                          <v n="Value" t="Single">50</v>
+                        </o>
+                        <o>
+                          <v n="Id">440407611L</v>
+                          <v n="Value" t="Single">10</v>
+                        </o>
+                        <o>
+                          <v n="Id">2608923542L</v>
+                          <v n="Value" t="Int16">0</v>
+                        </o>
+                        <o>
+                          <v n="Id">469634675L</v>
+                          <v n="Value">"BOTTOM"</v>
+                        </o>
+                        <o>
+                          <v n="Id">1274183999L</v>
+                          <v n="Value">"RIGHT"</v>
+                        </o>
+                        <o>
+                          <v n="Id">2640826223L</v>
+                          <v n="Value">"HORIZONTAL"</v>
+                        </o>
+                        <o>
+                          <v n="Id">3675497837L</v>
+                          <v n="Value">"LEFT_RIGHT"</v>
+                        </o>
+                        <o>
+                          <v n="Id">3841252171L</v>
+                          <v n="Value">"TOP_DOWN"</v>
+                        </o>
+                        <o>
+                          <v n="Id">2812299069L</v>
+                          <v n="Value">4294967295U</v>
+                        </o>
+                        <o>
+                          <v n="Id">494569607L</v>
+                          <v n="Value">4278190080U</v>
+                        </o>
+                        <o>
+                          <v n="Id">3719097617L</v>
+                          <v n="Value">0</v>
+                        </o>
+                        <o>
+                          <v n="Id">1649127785L</v>
+                          <v n="Value" t="Int16">160</v>
+                        </o>
+                        <o>
+                          <v n="Id">357335551L</v>
+                          <v n="Value" t="Int16">10</v>
+                        </o>
+                        <o>
+                          <v n="Id">2422045748L</v>
+                          <v n="Value" t="Int16">700</v>
+                        </o>
+                        <o>
+                          <v n="Id">2134141914L</v>
+                          <v n="Value">60</v>
+                        </o>
+                        <o>
+                          <v n="Id">2985826283L</v>
+                          <v n="Value">"%2.2f"</v>
+                        </o>
+                        <o>
+                          <v n="Id">493260384L</v>
+                          <v n="Value">4294967295U</v>
+                        </o>
+                        <o>
+                          <v n="Id">135947015L</v>
+                          <v n="Value">4278190080U</v>
+                        </o>
+                        <o>
+                          <v n="Id">2678395525L</v>
+                          <v n="Value">1U</v>
+                        </o>
+                        <o>
+                          <v n="Id">2340015797L</v>
+                          <v n="Value">"HCENTER"</v>
+                        </o>
+                        <o>
+                          <v n="Id">2565699834L</v>
+                          <v n="Value">"VCENTER"</v>
+                        </o>
+                        <o>
+                          <v n="Id">390574330L</v>
+                          <v n="Value">""</v>
+                        </o>
+                        <o>
+                          <v n="Id">571893170L</v>
+                          <v n="Value">""</v>
+                        </o>
+                        <o>
+                          <v n="Id">2597686782L</v>
+                          <v n="Value">false</v>
+                        </o>
+                        <o>
+                          <v n="Id">397264524L</v>
+                          <v n="Value">"GVL_Config.stConfig.rBreite"</v>
+                        </o>
+                        <o>
+                          <v n="Id">3352862552L</v>
+                          <v n="Value">true</v>
+                        </o>
+                        <o>
+                          <v n="Id">2080633722L</v>
+                          <v n="Value">"981"</v>
+                        </o>
+                      </l>
+                    </o>
+                    <v n="VisualElementName">"Slider"</v>
+                    <v n="VisualElementTypeName">"VisuFbElemSlider"</v>
+                    <v n="VisualElementIsRectangle">true</v>
+                    <v n="VisualElementIdentifier">"GenElemInst_32"</v>
+                    <n n="VisualElementOfflinePaintCommands" />
+                    <n n="VisualElementFrameInformation" />
+                    <d n="VisualElementInputActions" t="Hashtable" />
+                    <v n="VisualElementIdentification">{ffd6fc26-fb78-4f33-8a0a-eaa732061d3c}</v>
+                    <v n="VisualElementOwningObjectGuid">{d0d61389-f278-45a0-8d33-27aa6c8ec165}</v>
+                    <a n="LMGuids" et="Guid" />
+                    <d n="SubElements" t="Hashtable" />
+                    <v n="VisualElementId">6</v>
+                    <l n="UserManagementAccessRights" t="ArrayList" />
+                  </o>
+                  <o>
+                    <a n="ConfiguredComplexInputs" et="ComplexInput" />
+                    <l n="Elements" t="ArrayList" />
+                    <n n="VisualElementDescription" />
+                    <o n="VisualElemMemberList" t="VisualElemMemberList">
+                      <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
+                        <o>
+                          <v n="Id">1404881523L</v>
+                          <v n="Value" t="Single">300</v>
+                        </o>
+                        <o>
+                          <v n="Id">3837067714L</v>
+                          <v n="Value" t="Single">600</v>
+                        </o>
+                        <o>
+                          <v n="Id">2867424708L</v>
+                          <v n="Value" t="Single">50</v>
+                        </o>
+                        <o>
+                          <v n="Id">440407611L</v>
+                          <v n="Value" t="Single">10</v>
+                        </o>
+                        <o>
+                          <v n="Id">2608923542L</v>
+                          <v n="Value" t="Int16">0</v>
+                        </o>
+                        <o>
+                          <v n="Id">469634675L</v>
+                          <v n="Value">"BOTTOM"</v>
+                        </o>
+                        <o>
+                          <v n="Id">1274183999L</v>
+                          <v n="Value">"RIGHT"</v>
+                        </o>
+                        <o>
+                          <v n="Id">2640826223L</v>
+                          <v n="Value">"HORIZONTAL"</v>
+                        </o>
+                        <o>
+                          <v n="Id">3675497837L</v>
+                          <v n="Value">"LEFT_RIGHT"</v>
+                        </o>
+                        <o>
+                          <v n="Id">3841252171L</v>
+                          <v n="Value">"TOP_DOWN"</v>
+                        </o>
+                        <o>
+                          <v n="Id">2812299069L</v>
+                          <v n="Value">4294967295U</v>
+                        </o>
+                        <o>
+                          <v n="Id">494569607L</v>
+                          <v n="Value">4278190080U</v>
+                        </o>
+                        <o>
+                          <v n="Id">3719097617L</v>
+                          <v n="Value">0</v>
+                        </o>
+                        <o>
+                          <v n="Id">1649127785L</v>
+                          <v n="Value" t="Int16">160</v>
+                        </o>
+                        <o>
+                          <v n="Id">357335551L</v>
+                          <v n="Value" t="Int16">64</v>
+                        </o>
+                        <o>
+                          <v n="Id">2422045748L</v>
+                          <v n="Value" t="Int16">700</v>
+                        </o>
+                        <o>
+                          <v n="Id">2134141914L</v>
+                          <v n="Value" t="Int16">60</v>
+                        </o>
+                        <o>
+                          <v n="Id">2985826283L</v>
+                          <v n="Value">"%2.2f"</v>
+                        </o>
+                        <o>
+                          <v n="Id">493260384L</v>
+                          <v n="Value">4294967295U</v>
+                        </o>
+                        <o>
+                          <v n="Id">135947015L</v>
+                          <v n="Value">4278190080U</v>
+                        </o>
+                        <o>
+                          <v n="Id">2678395525L</v>
+                          <v n="Value">1U</v>
+                        </o>
+                        <o>
+                          <v n="Id">2340015797L</v>
+                          <v n="Value">"HCENTER"</v>
+                        </o>
+                        <o>
+                          <v n="Id">2565699834L</v>
+                          <v n="Value">"VCENTER"</v>
+                        </o>
+                        <o>
+                          <v n="Id">390574330L</v>
+                          <v n="Value">""</v>
+                        </o>
+                        <o>
+                          <v n="Id">571893170L</v>
+                          <v n="Value">""</v>
+                        </o>
+                        <o>
+                          <v n="Id">2597686782L</v>
+                          <v n="Value">false</v>
+                        </o>
+                        <o>
+                          <v n="Id">397264524L</v>
+                          <v n="Value">"GVL_Config.stConfig.rLaenge"</v>
+                        </o>
+                        <o>
+                          <v n="Id">2080633722L</v>
+                          <v n="Value">"981"</v>
+                        </o>
+                        <o>
+                          <v n="Id">3352862552L</v>
+                          <v n="Value">true</v>
+                        </o>
+                      </l>
+                    </o>
+                    <v n="VisualElementName">"Slider"</v>
+                    <v n="VisualElementTypeName">"VisuFbElemSlider"</v>
+                    <v n="VisualElementIsRectangle">true</v>
+                    <v n="VisualElementIdentifier">"GenElemInst_34"</v>
+                    <n n="VisualElementOfflinePaintCommands" />
+                    <n n="VisualElementFrameInformation" />
+                    <d n="VisualElementInputActions" t="Hashtable" />
+                    <v n="VisualElementIdentification">{82e1355d-c279-4cf9-8a21-5870ee3ac88d}</v>
+                    <v n="VisualElementOwningObjectGuid">{d0d61389-f278-45a0-8d33-27aa6c8ec165}</v>
+                    <a n="LMGuids" et="Guid" />
+                    <d n="SubElements" t="Hashtable" />
+                    <v n="VisualElementId">29</v>
+                    <l n="UserManagementAccessRights" t="ArrayList" />
+                  </o>
+                  <o>
+                    <a n="ConfiguredComplexInputs" et="ComplexInput" />
+                    <l n="Elements" t="ArrayList" />
+                    <n n="VisualElementDescription" />
+                    <o n="VisualElemMemberList" t="VisualElemMemberList">
+                      <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
+                        <o>
+                          <v n="Id">1404881523L</v>
+                          <v n="Value" t="Single">15</v>
+                        </o>
+                        <o>
+                          <v n="Id">3837067714L</v>
+                          <v n="Value" t="Single">45</v>
+                        </o>
+                        <o>
+                          <v n="Id">2867424708L</v>
+                          <v n="Value" t="Single">5</v>
+                        </o>
+                        <o>
+                          <v n="Id">440407611L</v>
+                          <v n="Value" t="Single">1</v>
+                        </o>
+                        <o>
+                          <v n="Id">2608923542L</v>
+                          <v n="Value" t="Int16">0</v>
+                        </o>
+                        <o>
+                          <v n="Id">469634675L</v>
+                          <v n="Value">"BOTTOM"</v>
+                        </o>
+                        <o>
+                          <v n="Id">1274183999L</v>
+                          <v n="Value">"RIGHT"</v>
+                        </o>
+                        <o>
+                          <v n="Id">2640826223L</v>
+                          <v n="Value">"HORIZONTAL"</v>
+                        </o>
+                        <o>
+                          <v n="Id">3675497837L</v>
+                          <v n="Value">"LEFT_RIGHT"</v>
+                        </o>
+                        <o>
+                          <v n="Id">3841252171L</v>
+                          <v n="Value">"TOP_DOWN"</v>
+                        </o>
+                        <o>
+                          <v n="Id">2812299069L</v>
+                          <v n="Value">4294967295U</v>
+                        </o>
+                        <o>
+                          <v n="Id">494569607L</v>
+                          <v n="Value">4278190080U</v>
+                        </o>
+                        <o>
+                          <v n="Id">3719097617L</v>
+                          <v n="Value">0</v>
+                        </o>
+                        <o>
+                          <v n="Id">1649127785L</v>
+                          <v n="Value">160</v>
+                        </o>
+                        <o>
+                          <v n="Id">357335551L</v>
+                          <v n="Value" t="Int16">125</v>
+                        </o>
+                        <o>
+                          <v n="Id">2422045748L</v>
+                          <v n="Value" t="Int16">400</v>
+                        </o>
+                        <o>
+                          <v n="Id">2134141914L</v>
+                          <v n="Value" t="Int16">60</v>
+                        </o>
+                        <o>
+                          <v n="Id">2985826283L</v>
+                          <v n="Value">"%2.0f"</v>
+                        </o>
+                        <o>
+                          <v n="Id">493260384L</v>
+                          <v n="Value">4294967295U</v>
+                        </o>
+                        <o>
+                          <v n="Id">135947015L</v>
+                          <v n="Value">4278190080U</v>
+                        </o>
+                        <o>
+                          <v n="Id">2678395525L</v>
+                          <v n="Value">1U</v>
+                        </o>
+                        <o>
+                          <v n="Id">2340015797L</v>
+                          <v n="Value">"HCENTER"</v>
+                        </o>
+                        <o>
+                          <v n="Id">2565699834L</v>
+                          <v n="Value">"VCENTER"</v>
+                        </o>
+                        <o>
+                          <v n="Id">390574330L</v>
+                          <v n="Value">""</v>
+                        </o>
+                        <o>
+                          <v n="Id">571893170L</v>
+                          <v n="Value">""</v>
+                        </o>
+                        <o>
+                          <v n="Id">2597686782L</v>
+                          <v n="Value">false</v>
+                        </o>
+                        <o>
+                          <v n="Id">397264524L</v>
+                          <v n="Value">"GVL_Config.stConfig.rDicke"</v>
+                        </o>
+                        <o>
+                          <v n="Id">3352862552L</v>
+                          <v n="Value">true</v>
+                        </o>
+                        <o>
+                          <v n="Id">2080633722L</v>
+                          <v n="Value">"883"</v>
+                        </o>
+                      </l>
+                    </o>
+                    <v n="VisualElementName">"Slider"</v>
+                    <v n="VisualElementTypeName">"VisuFbElemSlider"</v>
+                    <v n="VisualElementIsRectangle">true</v>
+                    <v n="VisualElementIdentifier">"GenElemInst_36"</v>
+                    <n n="VisualElementOfflinePaintCommands" />
+                    <n n="VisualElementFrameInformation" />
+                    <d n="VisualElementInputActions" t="Hashtable" />
+                    <v n="VisualElementIdentification">{9fae28d4-c972-42a4-98f0-5be1f15d25b0}</v>
+                    <v n="VisualElementOwningObjectGuid">{d0d61389-f278-45a0-8d33-27aa6c8ec165}</v>
+                    <a n="LMGuids" et="Guid" />
+                    <d n="SubElements" t="Hashtable" />
+                    <v n="VisualElementId">31</v>
                     <l n="UserManagementAccessRights" t="ArrayList" />
                   </o>
                 </l>
@@ -969,11 +1383,11 @@
                     </o>
                     <o>
                       <v n="Id">2422045748L</v>
-                      <v n="Value">289</v>
+                      <v n="Value">871</v>
                     </o>
                     <o>
                       <v n="Id">2134141914L</v>
-                      <v n="Value">129</v>
+                      <v n="Value">195</v>
                     </o>
                     <o>
                       <v n="Id">1165035537L</v>
@@ -1016,11 +1430,11 @@
                     </o>
                     <o>
                       <v n="Id">550940142L</v>
-                      <v n="Value">159</v>
+                      <v n="Value">450</v>
                     </o>
                     <o>
                       <v n="Id">1473355128L</v>
-                      <v n="Value">74</v>
+                      <v n="Value">107</v>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
@@ -1040,7 +1454,7 @@
                     </o>
                     <o>
                       <v n="Id">2496894244L</v>
-                      <v n="Value">""</v>
+                      <v n="Value">"GVL_Control.bIsRunning"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -1247,7 +1661,7 @@
                     </o>
                     <o>
                       <v n="Id">357335551L</v>
-                      <v n="Value">152</v>
+                      <v n="Value">212</v>
                     </o>
                     <o>
                       <v n="Id">2422045748L</v>
@@ -1302,7 +1716,7 @@
                     </o>
                     <o>
                       <v n="Id">1473355128L</v>
-                      <v n="Value">180</v>
+                      <v n="Value">240</v>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
@@ -1781,11 +2195,11 @@
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
-                      <v n="Value">311</v>
+                      <v n="Value">309</v>
                     </o>
                     <o>
                       <v n="Id">357335551L</v>
-                      <v n="Value">10</v>
+                      <v n="Value">211</v>
                     </o>
                     <o>
                       <v n="Id">2422045748L</v>
@@ -1793,7 +2207,7 @@
                     </o>
                     <o>
                       <v n="Id">2134141914L</v>
-                      <v n="Value">129</v>
+                      <v n="Value">95</v>
                     </o>
                     <o>
                       <v n="Id">1165035537L</v>
@@ -1836,11 +2250,11 @@
                     </o>
                     <o>
                       <v n="Id">550940142L</v>
-                      <v n="Value">436</v>
+                      <v n="Value">434</v>
                     </o>
                     <o>
                       <v n="Id">1473355128L</v>
-                      <v n="Value">74</v>
+                      <v n="Value">258</v>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
@@ -1980,10 +2394,10 @@
               <d n="FbMethods" t="CaseInsensitiveHashtable" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>d8d0d72e-0728-4a6d-9786-b1fa628bcfda</v>
-                <v>FB_Exit</v>
-                <v>2053de75-a677-4c85-8b6c-f28ff3398a6a</v>
                 <v>FB_Reinit</v>
                 <v>73b0e993-6cc4-4af5-a659-9952e77c8e59</v>
+                <v>FB_Exit</v>
+                <v>2053de75-a677-4c85-8b6c-f28ff3398a6a</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{75ca9629-afaf-4732-b7a7-7028499758e1}</v>
@@ -2027,7 +2441,7 @@
             </o>
             <v n="DialogDut">{fe78dd78-06f2-40a4-a1b7-b032491e8645}</v>
           </o>
-          <v n="LastUsedIdForIdentifier">31</v>
+          <v n="LastUsedIdForIdentifier">37</v>
           <o n="TextDocument" t="TextDocument">
             <a n="TextLines" cet="TextLine">
               <o>
@@ -2054,13 +2468,13 @@
             <d2 n="Size" ckt="Int32" cvt="VisualObjectSize">
               <v>0</v>
               <o>
-                <v n="Width">561</v>
-                <v n="Height">209</v>
+                <v n="Width">886</v>
+                <v n="Height">306</v>
               </o>
               <v>1</v>
               <o>
-                <v n="Width">563</v>
-                <v n="Height">211</v>
+                <v n="Width">888</v>
+                <v n="Height">308</v>
               </o>
             </d2>
             <v n="Version">1</v>
@@ -2085,6 +2499,7 @@
         <Type n="Int64">System.Int64</Type>
         <Type n="NamedStyleColor">{fa491db2-51ff-4bc1-9cd0-ce8c94ff6216}</Type>
         <Type n="NamedStyleFont">{9e842eb2-1463-4af2-b605-4fbb17044f94}</Type>
+        <Type n="Single">System.Single</Type>
         <Type n="String">System.String</Type>
         <Type n="TextDocument">{f3878285-8e4f-490b-bb1b-9acbb7eb04db}</Type>
         <Type n="TextLine">{a5de0b0b-1cb5-4913-ac21-9d70293ec00d}</Type>

@@ -11,6 +11,21 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"883"</v>
+              <v n="TextDefault">"%2.0f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"981"</v>
+              <v n="TextDefault">"%2.2f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"85"</v>
+              <v n="TextDefault">"%f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"472"</v>
               <v n="TextDefault">"Breite"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -28,6 +43,11 @@
             <o>
               <v n="TextID">"991"</v>
               <v n="TextDefault">"Fortschritt"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"426"</v>
+              <v n="TextDefault">"GVL_"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

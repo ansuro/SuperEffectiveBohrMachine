@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 	// Konfiguration
-	stConfig: ST_Config := (rLaenge := 300, rBreite := 200, rDicke := 30);
+	stConfig: ST_Config := (rLaenge := 400, rBreite := 300, rDicke := 30);
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
