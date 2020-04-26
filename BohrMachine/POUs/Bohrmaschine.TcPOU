@@ -18,6 +18,8 @@ VAR
 	nProgressStep: USINT := 0;
 
 	bRunning: BOOL := FALSE;
+	
+	fbEventLogger: FB_TcMessage;
 END_VAR
 VAR CONSTANT
 	stHomePoint: ST_2DPoint := (x := 0, y := 0);
@@ -145,7 +147,10 @@ GVL_Control.bIsRunning := TRUE;
 GVL_Control.nProgress := 0;
 Config();
 axesManager.Enable(bEnableAxes := TRUE);
-MoveNext();]]></ST>
+MoveNext();
+
+fbEventLogger.CreateEx(TC_EVENTS.BohrEvents.MaschineGestartet, 0);
+fbEventLogger.Send(0);]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stop" Id="{c65ecb49-f392-471e-8cd2-32ba1727ca52}">
@@ -235,6 +240,9 @@ END_IF]]></ST>
       <LineId Id="18" Count="0" />
       <LineId Id="16" Count="1" />
       <LineId Id="5" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="23" Count="0" />
     </LineIds>
     <LineIds Name="Bohrmaschine.Stop">
       <LineId Id="23" Count="6" />

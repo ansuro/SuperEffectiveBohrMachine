@@ -1336,6 +1336,37 @@ External Setpoint Generation:
 				</Relation>
 			</Relations>
 		</DataType>
+		<DataType>
+			<Name GUID="{63E691EE-06C9-4EFE-9DEF-CF2717F68357}" PersistentType="true">BohrEvents</Name>
+			<DisplayName TxtId=""><![CDATA[MachineEvent]]></DisplayName>
+			<EventId>
+				<Name Id="1">PunktAngefahren</Name>
+				<DisplayName TxtId=""><![CDATA[Punkt angefahren]]></DisplayName>
+				<Severity>Info</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="2">LochGebohren</Name>
+				<DisplayName TxtId=""><![CDATA[Loch gebohrt]]></DisplayName>
+				<Severity>Info</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="3">MaschineGestartet</Name>
+				<DisplayName TxtId=""><![CDATA[Maschine wurde gestartet]]></DisplayName>
+				<Severity>Info</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="4">MaschineGestoppt</Name>
+				<DisplayName TxtId=""><![CDATA[Maschine wurde gestoppt]]></DisplayName>
+				<Severity>Info</Severity>
+			</EventId>
+			<Hides>
+				<Hide GUID="{E4F494FF-15A4-4904-9CAB-0B66D0A6A1FE}"/>
+				<Hide GUID="{919F869F-39D4-4ABE-B961-CF68009C5115}"/>
+				<Hide GUID="{B89F472B-003F-4313-94FE-BD29333D8120}"/>
+				<Hide GUID="{570C905E-6CF1-477B-B259-DADB883C56EB}"/>
+				<Hide GUID="{AE83057F-477E-4423-A15A-9CB46C294370}"/>
+			</Hides>
+		</DataType>
 	</DataTypes>
 	<Project ProjectGUID="{40F90C27-90AC-4C4C-B307-974F44AED05B}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
