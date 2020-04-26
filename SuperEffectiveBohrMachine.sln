@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1062
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{B1E792BE-AA5F-4E3C-8C82-674BF9C0715B}") = "SuperEffectiveBohrMachine", "SuperEffectiveBohrMachine.tsproj", "{40F90C27-90AC-4C4C-B307-974F44AED05B}"
 EndProject
+Project("{FE7A1B72-C5B7-4D7C-BB7D-76384D4DE8E1}") = "BohrUI", "BohrUI\BohrUI.hmiproj", "{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|TwinCAT CE7 (ARMV7) = Debug|TwinCAT CE7 (ARMV7)
@@ -55,6 +57,18 @@ Global
 		{25558938-454B-48A4-B57F-4842F7C261FD}.Release|TwinCAT RT (x64).Build.0 = Release|TwinCAT RT (x64)
 		{25558938-454B-48A4-B57F-4842F7C261FD}.Release|TwinCAT RT (x86).ActiveCfg = Release|TwinCAT RT (x86)
 		{25558938-454B-48A4-B57F-4842F7C261FD}.Release|TwinCAT RT (x86).Build.0 = Release|TwinCAT RT (x86)
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Debug|TwinCAT CE7 (ARMV7).ActiveCfg = Debug|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Debug|TwinCAT HMI.ActiveCfg = Debug|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Debug|TwinCAT HMI.Build.0 = Debug|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Debug|TwinCAT OS (ARMT2).ActiveCfg = Debug|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Debug|TwinCAT RT (x64).ActiveCfg = Debug|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Debug|TwinCAT RT (x86).ActiveCfg = Debug|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Release|TwinCAT CE7 (ARMV7).ActiveCfg = Release|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Release|TwinCAT HMI.ActiveCfg = Release|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Release|TwinCAT HMI.Build.0 = Release|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Release|TwinCAT OS (ARMT2).ActiveCfg = Release|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Release|TwinCAT RT (x64).ActiveCfg = Release|TwinCAT HMI
+		{EFBDE4BA-7C76-483C-B93D-82E48D4E931C}.Release|TwinCAT RT (x86).ActiveCfg = Release|TwinCAT HMI
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

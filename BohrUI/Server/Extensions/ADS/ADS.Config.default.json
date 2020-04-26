@@ -1,0 +1,13 @@
+{
+    "CHUNKING_OF_LARGE_REQUESTS": false,
+    "FILTER": {},
+    "RUNTIMES": {
+        "localhost": {
+            "ENABLED": true,
+            "NETID": "127.0.0.1.1.1",
+            "PORT": 851,
+            "SYMBOLS": {}
+        }
+    },
+    "TIMEOUT": "PT1S"
+}
