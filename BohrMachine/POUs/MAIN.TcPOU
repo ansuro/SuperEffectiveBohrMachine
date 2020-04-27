@@ -3,7 +3,8 @@
   <POU Name="MAIN" Id="{a92a02fc-7e74-4f5b-8c2e-324e945c69b3}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	bohrmaschine: Bohrmaschine;
+	fbLogger: MachineLogger;
+	bohrmaschine: Bohrmaschine(ipLogger := fbLogger);
 	
 	// start-stop trigger
 	trigRStart: R_TRIG;

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="MachineLogger" Id="{b7e329c9-fce1-4e55-b2d7-8b1771ed9387}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK MachineLogger IMPLEMENTS I_MachineLogger
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fbEventMessage: FB_TcMessage;
+	//fbFormatString: FB_FormatString2;
+	//sFormat: STRING := 'x = %.2f, z = %.2f';
+	
+	// Dauer
+	tStart: TIME;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="LogBohrung" Id="{5f642905-dd8a-4b20-9fa4-659bba605ea1}">
+      <Declaration><![CDATA[METHOD PUBLIC LogBohrung : BOOL
+VAR_INPUT
+	stPunkt: REFERENCE TO ST_2DPoint;
+END_VAR
+VAR
+	sPara: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbEventMessage.CreateEx(TC_EVENTS.BohrEvents.LochGebohrt, 0);
+sPara := CONCAT(CONCAT('x = ', LREAL_TO_STRING(stPunkt.x)), CONCAT(', y = ', LREAL_TO_STRING(stPunkt.y)));
+fbEventMessage.ipArguments.AddString(sPara);
+
+fbEventMessage.Send(0);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LogPunktAngefahren" Id="{e0c91134-6acc-4108-b4e3-ece266248301}">
+      <Declaration><![CDATA[METHOD PUBLIC LogPunktAngefahren : BOOL
+VAR_INPUT
+	stPunkt: REFERENCE TO ST_2DPoint;
+END_VAR
+VAR
+	sPara: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbEventMessage.CreateEx(TC_EVENTS.BohrEvents.PunktAngefahren, 0);
+sPara := CONCAT(CONCAT('x = ', LREAL_TO_STRING(stPunkt.x)), CONCAT(', y = ', LREAL_TO_STRING(stPunkt.y)));
+fbEventMessage.ipArguments.AddString(sPara);
+fbEventMessage.Send(0);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LogStart" Id="{0138aeb6-787b-4d3c-9f8e-6a8a8691ede4}">
+      <Declaration><![CDATA[METHOD PUBLIC LogStart : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbEventMessage.CreateEx(TC_EVENTS.BohrEvents.MaschineGestartet, 0);
+fbEventMessage.Send(0);
+tStart := TIME();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LogStop" Id="{fc3dc073-c4be-48ab-a64b-4dc527bdd047}">
+      <Declaration><![CDATA[METHOD PUBLIC LogStop : BOOL
+VAR
+	tDauer: TIME;
+	sDauer: STRING;
+	sPara: STRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[tDauer := TIME() - tStart;
+sDauer := TIME_TO_STRING(tDauer);
+fbEventMessage.CreateEx(TC_EVENTS.BohrEvents.MaschineGestoppt, 0);
+sPara := CONCAT('Dauer: ', sDauer);
+fbEventMessage.ipArguments.AddString(sPara);
+fbEventMessage.Send(0);
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="MachineLogger">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="MachineLogger.LogBohrung">
+      <LineId Id="7" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="MachineLogger.LogPunktAngefahren">
+      <LineId Id="7" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+    </LineIds>
+    <LineIds Name="MachineLogger.LogStart">
+      <LineId Id="6" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="12" Count="0" />
+    </LineIds>
+    <LineIds Name="MachineLogger.LogStop">
+      <LineId Id="10" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

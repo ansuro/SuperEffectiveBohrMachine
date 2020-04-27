@@ -1337,7 +1337,7 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{63E691EE-06C9-4EFE-9DEF-CF2717F68357}" PersistentType="true">BohrEvents</Name>
+			<Name GUID="{F7C66ECB-302B-47AD-9F14-EAAEA6DEBF8B}" PersistentType="true">BohrEvents</Name>
 			<DisplayName TxtId=""><![CDATA[MachineEvent]]></DisplayName>
 			<EventId>
 				<Name Id="1">PunktAngefahren</Name>
@@ -1345,7 +1345,7 @@ External Setpoint Generation:
 				<Severity>Info</Severity>
 			</EventId>
 			<EventId>
-				<Name Id="2">LochGebohren</Name>
+				<Name Id="2">LochGebohrt</Name>
 				<DisplayName TxtId=""><![CDATA[Loch gebohrt]]></DisplayName>
 				<Severity>Info</Severity>
 			</EventId>
@@ -1365,6 +1365,7 @@ External Setpoint Generation:
 				<Hide GUID="{B89F472B-003F-4313-94FE-BD29333D8120}"/>
 				<Hide GUID="{570C905E-6CF1-477B-B259-DADB883C56EB}"/>
 				<Hide GUID="{AE83057F-477E-4423-A15A-9CB46C294370}"/>
+				<Hide GUID="{63E691EE-06C9-4EFE-9DEF-CF2717F68357}"/>
 			</Hides>
 		</DataType>
 	</DataTypes>

@@ -13,8 +13,7 @@ VAR
 	xAchse: AXIS_REF;
 	zAchse: AXIS_REF;
 	
-	rXPos: LREAL;
-	rZPos: LREAL;
+	stPunkt: ST_2DPoint;
 	
 	// MC2 Funktionen
 	fbAxisPowerX: MC_Power;
@@ -37,12 +36,23 @@ END_VAR
       <ST><![CDATA[xAchse.ReadStatus();
 zAchse.ReadStatus();
 
-fbAxisMoveX(Axis := xAchse, Velocity := xVelo, Execute := bMoveAxes, Position := rXPos, Done => bXMoved);
-fbAxisMoveZ(Axis := zAchse, Velocity := zVelo, Execute := bMoveAxes, Position := rZPos, Done => bZMoved);
+fbAxisMoveX(Axis := xAchse, Velocity := xVelo, Execute := bMoveAxes, Position := stPunkt.x, Done => bXMoved);
+fbAxisMoveZ(Axis := zAchse, Velocity := zVelo, Execute := bMoveAxes, Position := stPunkt.y, Done => bZMoved);
 
 bPunktAngefahren := bXMoved AND bZMoved;
 ]]></ST>
     </Implementation>
+    <Property Name="CurrentPoint" Id="{2b66fb39-4ec5-4378-86d6-44900e4437d7}">
+      <Declaration><![CDATA[PROPERTY PUBLIC CurrentPoint : REFERENCE TO ST_2DPoint]]></Declaration>
+      <Get Name="Get" Id="{cef1edba-712b-497b-8d21-4187a65ea703}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CurrentPoint REF= stPunkt;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="Enable" Id="{9967a336-49b9-4a03-ba39-133db437a907}">
       <Declaration><![CDATA[METHOD PUBLIC Enable : BOOL
 VAR_INPUT
@@ -76,13 +86,11 @@ ADSLOGLREAL(
     <Method Name="Start" Id="{1cafe01f-d4a8-4712-a211-1a5b246bb457}">
       <Declaration><![CDATA[METHOD PUBLIC Start : BOOL
 VAR_INPUT
-	stPunkt: ST_2DPoint;
+	stPunkt: REFERENCE TO ST_2DPoint;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[rXPos := stPunkt.x;
-rZPos := stPunkt.y;
-
+        <ST><![CDATA[THIS^.stPunkt := stPunkt;
 bMoveAxes := TRUE;]]></ST>
       </Implementation>
     </Method>
@@ -96,11 +104,16 @@ END_VAR
       </Implementation>
     </Method>
     <LineIds Name="AxesManager">
-      <LineId Id="30" Count="3" />
+      <LineId Id="30" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="33" Count="0" />
       <LineId Id="9" Count="0" />
       <LineId Id="44" Count="0" />
       <LineId Id="43" Count="0" />
       <LineId Id="45" Count="0" />
+    </LineIds>
+    <LineIds Name="AxesManager.CurrentPoint.Get">
+      <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="AxesManager.Enable">
       <LineId Id="6" Count="0" />
@@ -111,8 +124,7 @@ END_VAR
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="AxesManager.Start">
-      <LineId Id="12" Count="0" />
-      <LineId Id="10" Count="1" />
+      <LineId Id="11" Count="0" />
       <LineId Id="7" Count="0" />
     </LineIds>
     <LineIds Name="AxesManager.Stop">

@@ -4,3 +4,5 @@
 /BohrMachine/_CompileInfo/**
 /BohrMachine/_Libraries/**
 SuperEffectiveBohrMachine.project.~u
+.engineering_servers/BohrUI/logger.db
+.engineering_servers/BohrUI/TcHmiSrv.pid

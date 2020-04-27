@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="I_MachineLogger" Id="{ea0605d4-5185-4b5d-984f-c3c8fc963e53}">
+    <Declaration><![CDATA[INTERFACE I_MachineLogger
+]]></Declaration>
+    <Method Name="LogBohrung" Id="{6f1713fb-3bf1-4926-8549-47014b3f86b1}">
+      <Declaration><![CDATA[METHOD LogBohrung : BOOL
+VAR_INPUT
+	stPunkt: REFERENCE TO ST_2DPoint;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LogPunktAngefahren" Id="{c428d458-9c9c-440a-9a18-f9a84744d230}">
+      <Declaration><![CDATA[METHOD LogPunktAngefahren : BOOL
+VAR_INPUT
+	stPunkt: REFERENCE TO ST_2DPoint;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LogStart" Id="{d3287210-9333-4d3d-b37c-291ed9128d34}">
+      <Declaration><![CDATA[METHOD LogStart : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LogStop" Id="{6bdec991-de3f-4ed6-a9cc-3658b807715b}">
+      <Declaration><![CDATA[METHOD LogStop : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
