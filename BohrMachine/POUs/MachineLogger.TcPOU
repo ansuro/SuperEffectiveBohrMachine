@@ -8,8 +8,6 @@ VAR_OUTPUT
 END_VAR
 VAR
 	fbEventMessage: FB_TcMessage;
-	//fbFormatString: FB_FormatString2;
-	//sFormat: STRING := 'x = %.2f, z = %.2f';
 	
 	// Dauer
 	tStart: TIME;
@@ -65,15 +63,18 @@ tStart := TIME();]]></ST>
       <Declaration><![CDATA[METHOD PUBLIC LogStop : BOOL
 VAR
 	tDauer: TIME;
-	sDauer: STRING;
-	sPara: STRING;
+	sDauer: STRING(255);
+	sParam: STRING;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[tDauer := TIME() - tStart;
 sDauer := TIME_TO_STRING(tDauer);
 fbEventMessage.CreateEx(TC_EVENTS.BohrEvents.MaschineGestoppt, 0);
-sPara := CONCAT('Dauer: ', sDauer);
-fbEventMessage.ipArguments.AddString(sPara);
+
+FindAndDelete(pSrcString := ADR(sDauer), pDeleteString := ADR('T#'), pDstString := ADR(sParam), nDstSize := SIZEOF(sParam));
+sParam := CONCAT('Dauer: ', sParam);
+
+fbEventMessage.ipArguments.AddString(sParam);
 fbEventMessage.Send(0);
 ]]></ST>
       </Implementation>
@@ -105,6 +106,9 @@ fbEventMessage.Send(0);
       <LineId Id="14" Count="0" />
       <LineId Id="6" Count="0" />
       <LineId Id="20" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="33" Count="0" />
       <LineId Id="11" Count="0" />
       <LineId Id="5" Count="0" />
       <LineId Id="9" Count="0" />
