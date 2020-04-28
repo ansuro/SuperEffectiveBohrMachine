@@ -1376,6 +1376,15 @@ External Setpoint Generation:
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
 				</Task>
+				<Task Id="6" Priority="21" CycleTime="100000" AmsPort="351" AdtTasks="true">
+					<Name>PlcTask1</Name>
+				</Task>
+				<Task Id="7" Priority="22" CycleTime="100000" AmsPort="352" AdtTasks="true">
+					<Name>PlcTask2</Name>
+				</Task>
+				<Task Id="8" Priority="23" CycleTime="100000" AmsPort="353" AdtTasks="true">
+					<Name>PlcTask3</Name>
+				</Task>
 			</Tasks>
 		</System>
 		<Motion>
@@ -1930,7 +1939,28 @@ External Setpoint Generation:
 					</TaskPouOids>
 				</Instance>
 			</Project>
+			<Project GUID="{BE0D2E74-19AE-488E-82AE-A224234C63DE}" Name="TransportA" PrjFilePath="TransportA\TransportA.plcproj" TmcFilePath="TransportA\TransportA.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>TransportA Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+				</Instance>
+			</Project>
+			<Project GUID="{139AFDA7-3C60-49F4-AA96-4B017494E959}" Name="TransportB" PrjFilePath="TransportB\TransportB.plcproj" TmcFilePath="TransportB\TransportB.tmc" ReloadTmc="true" AmsPort="853" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502080" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>TransportB Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+				</Instance>
+			</Project>
+			<Project GUID="{F079E23C-0814-4A5D-ACFE-B49F51653820}" Name="Sensor" PrjFilePath="Sensor\Sensor.plcproj" TmcFilePath="Sensor\Sensor.tmc" ReloadTmc="true" AmsPort="854" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x085020c0" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Sensor Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+				</Instance>
+			</Project>
 		</Plc>
+		<Cpp>
+			<Project GUID="{6042C80A-9E3F-48D9-B685-69EF1954594D}" Name="Controller" PrjFilePath="Controller\Controller.vcxproj" TmcFilePath="Controller\Controller.tmc"/>
+		</Cpp>
 		<Io/>
 	</Project>
 	<Mappings>

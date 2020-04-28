@@ -5,3 +5,9 @@
 /BohrMachine/_Libraries/**
 SuperEffectiveBohrMachine.project.~u
 /.engineering_servers/**
+/TransportA/_CompileInfo/**
+/TransportA/_Libraries/**
+/TransportB/_CompileInfo/**
+/TransportB/_Libraries/**
+/Sensor/_CompileInfo/**
+/Sensor/_Libraries/**

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0f104c49-a551-4b1f-818f-3ce4f4132cee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1ec8945f-71de-44f7-b685-901c8b712b5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TwinCAT UM Files">
+      <UniqueIdentifier>{974c4250-bd5f-41df-820f-f7d62fc1c6f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TwinCAT RT Files">
+      <UniqueIdentifier>{c0a886f0-41be-4c69-95d1-80bd97e9b145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TwinCAT OS Files">
+      <UniqueIdentifier>{2cfdbf8b-9a2d-46eb-a5f0-3fd9ea07317c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TMC Files">
+      <UniqueIdentifier>{15ad63d4-ad9e-4a91-b9f0-6885b94ffe54}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h">
+      <Filter>TwinCAT UM Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TcPch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerClassFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerInterfaces.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerServices.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerCtrl.h">
+      <Filter>TwinCAT UM Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerDriver.h">
+      <Filter>TwinCAT RT Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TcPch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerClassFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerCtrl.cpp">
+      <Filter>TwinCAT UM Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerW32.cpp">
+      <Filter>TwinCAT UM Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerDriver.cpp">
+      <Filter>TwinCAT RT Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerMain.cpp">
+      <Filter>TwinCAT OS Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Controller.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="ControllerW32.rc">
+      <Filter>TwinCAT UM Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ControllerW32.def">
+      <Filter>TwinCAT UM Files</Filter>
+    </None>
+    <None Include="Controller.tmc">
+      <Filter>TMC Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="ControllerW32.idl">
+      <Filter>TwinCAT UM Files</Filter>
+    </Midl>
+  </ItemGroup>
+</Project>
