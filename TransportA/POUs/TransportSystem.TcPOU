@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TransportSystem" Id="{c996a55c-9379-43f7-b519-663e18e9a46c}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'c++_compatible'}
+FUNCTION_BLOCK TransportSystem EXTENDS TcBaseModuleRegistered IMPLEMENTS I_Transport
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	// Master axis
+	axisTransportA: AXIS_REF;
+	
+	rActVelocity AT %Q*: LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[axisTransportA.ReadStatus();
+
+rActVelocity := axisTransportA.NcToPlc.ActVelo;]]></ST>
+    </Implementation>
+    <Method Name="FB_reinit" Id="{d6424f74-746a-4e64-95f1-809deeaadf5b}">
+      <Declaration><![CDATA[METHOD FB_reinit : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.FB_reinit();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Start" Id="{81a3c96c-a6ad-4da3-a672-eeb93b9b90af}">
+      <Declaration><![CDATA[{attribute 'TcTypeSystem'}
+{attribute 'no-analysis'}
+{attribute 'c++_compatible'}
+{attribute 'minimal_input_size' := '4'}
+{attribute 'pack_mode' := '4'}
+{warning 'Methodenimplementierung hinzufügen'}
+METHOD Start : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stop" Id="{da4e9d46-829c-4842-a396-f09d476ba41f}">
+      <Declaration><![CDATA[{attribute 'TcTypeSystem'}
+{attribute 'no-analysis'}
+{attribute 'c++_compatible'}
+{attribute 'minimal_input_size' := '4'}
+{attribute 'pack_mode' := '4'}
+{warning 'Methodenimplementierung hinzufügen'}
+METHOD Stop : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TcQueryInterface" Id="{ef707d13-eddd-40e5-8339-1abf15b0f049}">
+      <Declaration><![CDATA[{attribute 'TcTypeSystem'}
+{attribute 'no-analysis'}
+{attribute 'c++_compatible'}
+{attribute 'minimal_input_size' := '4'}
+{attribute 'pack_mode' := '4'}
+{warning 'Methodenimplementierung hinzufügen'}
+METHOD TcQueryInterface : HRESULT
+VAR_INPUT
+	iid	: REFERENCE TO IID;
+	pipItf	: POINTER TO PVOID;
+END_VAR
+VAR
+	ipTPS: I_Transport;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF GuidsEqual(ADR(iid), ADR(TC_GLOBAL_IID_LIST.IID_I_Transport)) THEN
+	ipTPS := THIS^;
+	pipItf^ := ITCUNKNOWN_TO_PVOID(ipTPS);
+	TcAddRef();
+	TcQueryInterface := S_OK;
+ELSE
+	TcQueryInterface := SUPER^.TcQueryInterface(iid, pipItf);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="TransportSystem">
+      <LineId Id="20" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystem.FB_reinit">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystem.Start">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystem.Stop">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystem.TcQueryInterface">
+      <LineId Id="13" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="4" />
+      <LineId Id="17" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

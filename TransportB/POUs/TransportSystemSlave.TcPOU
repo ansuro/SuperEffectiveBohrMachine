@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TransportSystemSlave" Id="{0da10745-a5b5-4172-8fc3-cd4b7c709a8e}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'c++_compatible'}
+FUNCTION_BLOCK TransportSystemSlave EXTENDS TcBaseModuleRegistered IMPLEMENTS I_TransportSlave
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+(*
+Naive Implementierung um MC_GearInVelo / GearOut nachzubilden.
+*)
+	
+	// Slave
+	axisTransportB: AXIS_REF;
+	
+	// Master velocity
+	rMasterVelocity AT %I*: LREAL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[axisTransportB.ReadStatus();
+
+]]></ST>
+    </Implementation>
+    <Method Name="FB_reinit" Id="{ca8ee805-4052-4df1-b645-2aab0bad467b}">
+      <Declaration><![CDATA[METHOD FB_reinit : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.FB_reinit();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Halt" Id="{858be294-6224-4fde-96ad-4f14d61a50e4}">
+      <Declaration><![CDATA[{attribute 'TcTypeSystem'}
+{attribute 'no-analysis'}
+{attribute 'c++_compatible'}
+{attribute 'minimal_input_size' := '4'}
+{attribute 'pack_mode' := '4'}
+{warning 'Methodenimplementierung hinzufügen'}
+(* Anhalten *)
+METHOD Halt : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Start" Id="{f4d53a7a-87fb-40cb-9d1e-c4365dc2bb66}">
+      <Declaration><![CDATA[{attribute 'TcTypeSystem'}
+{attribute 'no-analysis'}
+{attribute 'c++_compatible'}
+{attribute 'minimal_input_size' := '4'}
+{attribute 'pack_mode' := '4'}
+{warning 'Methodenimplementierung hinzufügen'}
+(* Starten *)
+METHOD Start : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stop" Id="{433ef455-f2b3-4984-a8dc-cd9549a67889}">
+      <Declaration><![CDATA[{attribute 'TcTypeSystem'}
+{attribute 'no-analysis'}
+{attribute 'c++_compatible'}
+{attribute 'minimal_input_size' := '4'}
+{attribute 'pack_mode' := '4'}
+{warning 'Methodenimplementierung hinzufügen'}
+(* Stoppen *)
+METHOD Stop : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SyncWithMaster" Id="{ca67a40d-038f-433c-97d3-099d74d3da29}">
+      <Declaration><![CDATA[{attribute 'TcTypeSystem'}
+{attribute 'no-analysis'}
+{attribute 'c++_compatible'}
+{attribute 'minimal_input_size' := '4'}
+{attribute 'pack_mode' := '4'}
+(* Passe dich der Master-Geschwindigkeit an *)
+METHOD SyncWithMaster : HRESULT
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TcQueryInterface" Id="{1775d457-38d0-47c4-ba06-fc0da9d2dbd4}">
+      <Declaration><![CDATA[{attribute 'TcTypeSystem'}
+{attribute 'no-analysis'}
+{attribute 'c++_compatible'}
+{attribute 'minimal_input_size' := '4'}
+{attribute 'pack_mode' := '4'}
+METHOD TcQueryInterface : HRESULT
+VAR_INPUT
+	iid	: REFERENCE TO IID;
+	pipItf	: POINTER TO PVOID;
+END_VAR
+VAR
+	ipTPS: I_TransportSlave;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF GuidsEqual(ADR(iid), ADR(TC_GLOBAL_IID_LIST.IID_I_TransportSlave)) THEN
+	ipTPS := THIS^;
+	pipItf^ := ITCUNKNOWN_TO_PVOID(ipTPS);
+	TcAddRef();
+	TcQueryInterface := S_OK;
+ELSE
+	TcQueryInterface := SUPER^.TcQueryInterface(iid, pipItf);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="TransportSystemSlave">
+      <LineId Id="9" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="24" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystemSlave.FB_reinit">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystemSlave.Halt">
+      <LineId Id="10" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystemSlave.Start">
+      <LineId Id="10" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystemSlave.Stop">
+      <LineId Id="10" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystemSlave.SyncWithMaster">
+      <LineId Id="10" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystemSlave.TcQueryInterface">
+      <LineId Id="13" Count="0" />
+      <LineId Id="20" Count="3" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="17" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -55,9 +55,6 @@
     <Compile Include="POUs\F_Log.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\I_Machine.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\I_MachineLogger.TcIO">
       <SubType>Code</SubType>
     </Compile>

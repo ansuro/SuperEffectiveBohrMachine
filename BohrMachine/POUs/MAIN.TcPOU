@@ -4,7 +4,7 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	fbLogger: MachineLogger;
-	bohrmaschine: Bohrmaschine(ipLogger := fbLogger);
+	bohrmaschine: Bohrmaschine('MAIN.Bohrmaschine', ipLogger := fbLogger);
 	
 	// start-stop trigger
 	trigRStart: R_TRIG;

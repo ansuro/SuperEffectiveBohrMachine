@@ -1,6 +1,7 @@
 /.vs/**
 /_Boot/**
 /_Config/**
+/_Deployment/**
 /BohrMachine/_CompileInfo/**
 /BohrMachine/_Libraries/**
 SuperEffectiveBohrMachine.project.~u
