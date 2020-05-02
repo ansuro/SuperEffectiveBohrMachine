@@ -1387,27 +1387,6 @@ External Setpoint Generation:
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{483A31B0-2301-45A5-BDA0-4390BE118005}" PersistentType="true">I_Transport</Name>
-			<BitSize X64="64">32</BitSize>
-			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
-			<Method>
-				<Name>Start</Name>
-				<Comment><![CDATA[Starten]]></Comment>
-				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
-				<ReturnBitSize>32</ReturnBitSize>
-			</Method>
-			<Method>
-				<Name>Stop</Name>
-				<Comment><![CDATA[Stoppen]]></Comment>
-				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
-				<ReturnBitSize>32</ReturnBitSize>
-			</Method>
-			<Hides>
-				<Hide GUID="{A24278EF-708C-417D-8FF9-3CA2290B3E70}"/>
-				<Hide GUID="{F8D4FEF7-A161-4F9A-95AD-CBC8B416E74F}"/>
-			</Hides>
-		</DataType>
-		<DataType>
 			<Name GUID="{EB8E918B-9ED3-43F0-B318-89D13AAE5FBF}" PersistentType="true">I_Transport</Name>
 			<BitSize X64="64">32</BitSize>
 			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
@@ -1432,6 +1411,27 @@ External Setpoint Generation:
 				<Hide GUID="{A24278EF-708C-417D-8FF9-3CA2290B3E70}"/>
 				<Hide GUID="{F8D4FEF7-A161-4F9A-95AD-CBC8B416E74F}"/>
 				<Hide GUID="{483A31B0-2301-45A5-BDA0-4390BE118005}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{483A31B0-2301-45A5-BDA0-4390BE118005}" PersistentType="true">I_Transport</Name>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>Start</Name>
+				<Comment><![CDATA[Starten]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>Stop</Name>
+				<Comment><![CDATA[Stoppen]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Hides>
+				<Hide GUID="{A24278EF-708C-417D-8FF9-3CA2290B3E70}"/>
+				<Hide GUID="{F8D4FEF7-A161-4F9A-95AD-CBC8B416E74F}"/>
 			</Hides>
 		</DataType>
 	</DataTypes>

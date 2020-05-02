@@ -14,16 +14,37 @@ Naive Implementierung um MC_GearInVelo / GearOut nachzubilden.
 
 	// ==== Motion Control ====
 	axisTransportB: AXIS_REF;		// Slave
+	fbMc_Power: MC_Power;			// Power
+	fbMc_Halt: MC_Halt;				// Halt
+	fbMc_MoveVelocity: MC_MoveVelocity; // continuous motion
 	
 	// ==== Inputs =====
 	rMasterVelocity AT %I*: LREAL;	// Master velocity
 	
+	// ==== States ====
+	eZustand: E_STATES := E_STATES.eHalted;	// aktueller Zustand
+	bReady: BOOL := FALSE;			// Achse bereit?
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[axisTransportB.ReadStatus();
+      <ST><![CDATA[// ==== Inputs ====
+axisTransportB.ReadStatus();
 
-]]></ST>
+// ==== Statemachine ====
+CASE eZustand OF
+	E_STATES.eHalting:
+		THIS^.Halting();
+
+	E_STATES.eHalted:
+		// idle
+
+	E_STATES.eSyncing:
+		THIS^.Syncing();
+
+	E_STATES.eSynced:
+		// idle
+END_CASE]]></ST>
     </Implementation>
     <Method Name="FB_reinit" Id="{ca8ee805-4052-4df1-b645-2aab0bad467b}">
       <Declaration><![CDATA[METHOD FB_reinit : BOOL
@@ -40,12 +61,71 @@ END_VAR
 {attribute 'c++_compatible'}
 {attribute 'minimal_input_size' := '4'}
 {attribute 'pack_mode' := '4'}
-{warning 'Methodenimplementierung hinzufügen'}
 (* Anhalten *)
 METHOD Halt : HRESULT
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[THIS^.eZustand := E_STATES.eHalting;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Halting" Id="{feb501d8-84d5-4d4b-b138-4e7a9413def2}">
+      <Declaration><![CDATA[METHOD PRIVATE Halting : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbMc_MoveVelocity(
+	Axis := axisTransportB,
+	Execute := FALSE
+);
+
+fbMc_Halt(
+	Axis := axisTransportB,
+	Execute := TRUE
+);
+
+IF fbMc_Halt.Done THEN
+	fbMc_Halt(
+		Axis := axisTransportB,
+		Execute := FALSE
+	);
+	THIS^.eZustand := E_STATES.eHalted;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Syncing" Id="{e602a99a-a939-4d6d-ac86-55f184baaff5}">
+      <Declaration><![CDATA[METHOD PRIVATE Syncing : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Achse starten und wenn Sie bereit ist, auf Master-Geschwindigkeit ziehen
+// MC_POWER -> MC_MoveVelocity
+
+// TODO jeden Baustein auf Fehler prüfen, evtl allgemeinen Zustand Error einführen
+
+// Achse ist nicht bereit (nicht mit MC_Power freigegeben)
+IF NOT bReady THEN
+	fbMc_Power(
+		Axis := axisTransportB,
+		Enable := TRUE,
+		Enable_Positive := TRUE,
+		Status => bReady
+	);
+ELSE // Achse ist bereit und beschleunigt auf Zielgeschwindigkeit
+	fbMc_MoveVelocity(
+		Execute := TRUE,
+		Axis := axisTransportB,
+		Direction := MC_Direction.MC_Positive_Direction,
+		Velocity := rMasterVelocity
+	);
+
+	// Achse hat Zielgeschwindigkeit erreicht => Zustand: Synced
+	IF fbMc_MoveVelocity.InVelocity THEN
+		THIS^.eZustand := E_STATES.eSynced;
+	END_IF	
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="SyncWithMaster" Id="{ca67a40d-038f-433c-97d3-099d74d3da29}">
@@ -58,7 +138,7 @@ METHOD Halt : HRESULT
 METHOD SyncWithMaster : HRESULT
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[THIS^.eZustand := E_STATES.eSyncing;]]></ST>
       </Implementation>
     </Method>
     <Method Name="TcQueryInterface" Id="{1775d457-38d0-47c4-ba06-fc0da9d2dbd4}">
@@ -87,15 +167,41 @@ END_IF]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="TransportSystemSlave">
+      <LineId Id="51" Count="0" />
       <LineId Id="9" Count="0" />
       <LineId Id="25" Count="0" />
       <LineId Id="24" Count="0" />
+      <LineId Id="52" Count="1" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="55" Count="4" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="60" Count="2" />
+      <LineId Id="54" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystemSlave.FB_reinit">
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystemSlave.Halt">
       <LineId Id="10" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystemSlave.Halting">
+      <LineId Id="11" Count="2" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="7" Count="1" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="20" Count="2" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="18" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystemSlave.Syncing">
+      <LineId Id="6" Count="24" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="31" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystemSlave.SyncWithMaster">
       <LineId Id="10" Count="0" />

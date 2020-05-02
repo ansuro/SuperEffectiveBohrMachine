@@ -16,9 +16,9 @@ VAR
 	
 	// ==== States ====
 	eZustand: E_STATES := E_STATES.Stopped;	// aktueller Zustand
-	bRunning: BOOL := FALSE;
-	bReady: BOOL := FALSE;					// Achse bereit?
-	rVelocity: LREAL := 100;				// Velocity
+	//bRunning: BOOL := FALSE;
+	bReady: BOOL := FALSE;				// Achse bereit?
+	rVelocity: LREAL;					// Velocity
 	
 	// ==== Outputs ====
 	rActVelocity AT %Q*: LREAL;				// Actual Velocity output
@@ -138,9 +138,6 @@ END_VAR
 fbMc_Stop(
 	Axis := axisTransportA,
 	Execute := TRUE
-	// Warum wird im Beispiel einmal mit und dann ohne Execute durchlaufen?
-	// Sollte so gehen..
-	// TODO test
 );
 
 IF fbMc_Stop.Done THEN
@@ -242,7 +239,6 @@ END_IF]]></ST>
       <LineId Id="13" Count="0" />
       <LineId Id="12" Count="0" />
       <LineId Id="15" Count="1" />
-      <LineId Id="29" Count="2" />
       <LineId Id="14" Count="0" />
       <LineId Id="18" Count="0" />
       <LineId Id="17" Count="0" />

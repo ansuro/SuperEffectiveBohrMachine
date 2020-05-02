@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <DUT Name="E_STATES" Id="{a7f12e5b-6c5e-480a-bd51-66880fda2c29}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_STATES :
+(
+	eSyncing := 0,
+	eSynced,
+	eHalting,
+	eHalted
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
