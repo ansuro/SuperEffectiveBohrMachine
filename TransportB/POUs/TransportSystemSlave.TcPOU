@@ -11,12 +11,12 @@ VAR
 (*
 Naive Implementierung um MC_GearInVelo / GearOut nachzubilden.
 *)
+
+	// ==== Motion Control ====
+	axisTransportB: AXIS_REF;		// Slave
 	
-	// Slave
-	axisTransportB: AXIS_REF;
-	
-	// Master velocity
-	rMasterVelocity AT %I*: LREAL;
+	// ==== Inputs =====
+	rMasterVelocity AT %I*: LREAL;	// Master velocity
 	
 END_VAR
 ]]></Declaration>
@@ -43,34 +43,6 @@ END_VAR
 {warning 'Methodenimplementierung hinzufügen'}
 (* Anhalten *)
 METHOD Halt : HRESULT
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Start" Id="{f4d53a7a-87fb-40cb-9d1e-c4365dc2bb66}">
-      <Declaration><![CDATA[{attribute 'TcTypeSystem'}
-{attribute 'no-analysis'}
-{attribute 'c++_compatible'}
-{attribute 'minimal_input_size' := '4'}
-{attribute 'pack_mode' := '4'}
-{warning 'Methodenimplementierung hinzufügen'}
-(* Starten *)
-METHOD Start : HRESULT
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Stop" Id="{433ef455-f2b3-4984-a8dc-cd9549a67889}">
-      <Declaration><![CDATA[{attribute 'TcTypeSystem'}
-{attribute 'no-analysis'}
-{attribute 'c++_compatible'}
-{attribute 'minimal_input_size' := '4'}
-{attribute 'pack_mode' := '4'}
-{warning 'Methodenimplementierung hinzufügen'}
-(* Stoppen *)
-METHOD Stop : HRESULT
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
@@ -123,12 +95,6 @@ END_IF]]></ST>
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystemSlave.Halt">
-      <LineId Id="10" Count="0" />
-    </LineIds>
-    <LineIds Name="TransportSystemSlave.Start">
-      <LineId Id="10" Count="0" />
-    </LineIds>
-    <LineIds Name="TransportSystemSlave.Stop">
       <LineId Id="10" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystemSlave.SyncWithMaster">

@@ -7,17 +7,46 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 END_VAR
-VAR
-	// Master axis
-	axisTransportA: AXIS_REF;
+VAR		
+	// ===== Motion Control =====
+	fbMc_MoveVelocity: MC_MoveVelocity;	// continous motion
+	fbMc_Stop: MC_Stop;					// stop
+	fbMc_Power: MC_Power;				// power
+	axisTransportA: AXIS_REF;			// Master axis
 	
-	rActVelocity AT %Q*: LREAL;
+	// ==== States ====
+	eZustand: E_STATES := E_STATES.Stopped;	// aktueller Zustand
+	bRunning: BOOL := FALSE;
+	bReady: BOOL := FALSE;					// Achse bereit?
+	rVelocity: LREAL := 100;				// Velocity
+	
+	// ==== Outputs ====
+	rActVelocity AT %Q*: LREAL;				// Actual Velocity output
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[axisTransportA.ReadStatus();
+      <ST><![CDATA[// ==== Inputs ====
+axisTransportA.ReadStatus();
 
-rActVelocity := axisTransportA.NcToPlc.ActVelo;]]></ST>
+// ==== Outputs ====
+// aktuelle Geschwindigkeit
+rActVelocity := axisTransportA.NcToPlc.ActVelo;
+
+// ==== Statemachine ====
+CASE eZustand OF
+	E_STATES.Starting:
+		THIS^.Starting();
+
+	E_STATES.Started:
+		// idle
+	
+	E_STATES.Stopping:
+		THIS^.Stopping();
+	
+	E_STATES.Stopped:
+		// idle
+	
+END_CASE]]></ST>
     </Implementation>
     <Method Name="FB_reinit" Id="{d6424f74-746a-4e64-95f1-809deeaadf5b}">
       <Declaration><![CDATA[METHOD FB_reinit : BOOL
@@ -34,11 +63,53 @@ END_VAR
 {attribute 'c++_compatible'}
 {attribute 'minimal_input_size' := '4'}
 {attribute 'pack_mode' := '4'}
-{warning 'Methodenimplementierung hinzufügen'}
 METHOD Start : HRESULT
+VAR_INPUT
+	rVelocity : LREAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.rVelocity := rVelocity;
+
+eZustand := E_STATES.Starting;
+
+bReady := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Starting" Id="{93cbcf18-b403-4866-a1fc-9eb7c910d004}">
+      <Declaration><![CDATA[METHOD Starting : BOOL
+VAR_INPUT
+END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[// Achse starten und wenn Sie bereit ist, auf gegebene Geschwindigkeit ziehen
+// MC_POWER -> MC_MoveVelocity
+
+// TODO jeden Baustein auf Fehler prüfen, evtl allgemeinen Zustand Error einführen
+
+// Achse ist nicht bereit (nicht mit MC_Power freigegeben)
+IF NOT bReady THEN
+	fbMc_Power(
+		Axis := axisTransportA,
+		Enable := TRUE,
+		Enable_Positive := TRUE,
+		Status => bReady
+	);
+ELSE // Achse ist bereit und beschleunigt auf Zielgeschwindigkeit
+	fbMc_MoveVelocity(
+		Execute := TRUE,
+		Axis := axisTransportA,
+		Direction := MC_Direction.MC_Positive_Direction,
+		Velocity := rVelocity
+	);
+
+	// Achse hat Zielgeschwindigkeit erreicht => Zustand: Started
+	IF fbMc_MoveVelocity.InVelocity THEN
+		THIS^.eZustand := E_STATES.Started;
+	END_IF	
+END_IF
+
+
+// TODO IF fbMc_Power.Error THEN ... log Error Event + Zustand: Error]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stop" Id="{da4e9d46-829c-4842-a396-f09d476ba41f}">
@@ -47,11 +118,40 @@ METHOD Start : HRESULT
 {attribute 'c++_compatible'}
 {attribute 'minimal_input_size' := '4'}
 {attribute 'pack_mode' := '4'}
-{warning 'Methodenimplementierung hinzufügen'}
 METHOD Stop : HRESULT
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[eZustand := E_STATES.Stopping;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stopping" Id="{8d6ba368-5131-4c7f-91ad-3948674802b2}">
+      <Declaration><![CDATA[METHOD PRIVATE Stopping : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbMc_MoveVelocity(
+	Axis := axisTransportA,
+	Execute := FALSE
+);
+
+fbMc_Stop(
+	Axis := axisTransportA,
+	Execute := TRUE
+	// Warum wird im Beispiel einmal mit und dann ohne Execute durchlaufen?
+	// Sollte so gehen..
+	// TODO test
+);
+
+IF fbMc_Stop.Done THEN
+	bReady := FALSE;
+	// Nach Stop, Achse wieder durch Execute := FALSE entriegeln
+	fbMc_Stop(
+		Axis := axisTransportA,
+		Execute := FALSE
+	);
+	eZustand := E_STATES.Stopped;
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="TcQueryInterface" Id="{ef707d13-eddd-40e5-8339-1abf15b0f049}">
@@ -60,7 +160,6 @@ METHOD Stop : HRESULT
 {attribute 'c++_compatible'}
 {attribute 'minimal_input_size' := '4'}
 {attribute 'pack_mode' := '4'}
-{warning 'Methodenimplementierung hinzufügen'}
 METHOD TcQueryInterface : HRESULT
 VAR_INPUT
 	iid	: REFERENCE TO IID;
@@ -81,18 +180,78 @@ END_IF]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="TransportSystem">
+      <LineId Id="108" Count="0" />
       <LineId Id="20" Count="0" />
+      <LineId Id="44" Count="0" />
       <LineId Id="23" Count="0" />
+      <LineId Id="92" Count="0" />
       <LineId Id="9" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="56" Count="2" />
+      <LineId Id="50" Count="1" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="52" Count="1" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="49" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.FB_reinit">
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.Start">
+      <LineId Id="27" Count="0" />
+      <LineId Id="26" Count="0" />
       <LineId Id="9" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystem.Starting">
+      <LineId Id="29" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="23" Count="1" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="45" Count="3" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="37" Count="1" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="40" Count="1" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="42" Count="1" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="51" Count="1" />
+      <LineId Id="19" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.Stop">
       <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="TransportSystem.Stopping">
+      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="29" Count="2" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="22" Count="2" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="20" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.TcQueryInterface">
       <LineId Id="13" Count="0" />

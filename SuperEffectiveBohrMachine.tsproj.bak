@@ -1407,6 +1407,33 @@ External Setpoint Generation:
 				<Hide GUID="{F8D4FEF7-A161-4F9A-95AD-CBC8B416E74F}"/>
 			</Hides>
 		</DataType>
+		<DataType>
+			<Name GUID="{EB8E918B-9ED3-43F0-B318-89D13AAE5FBF}" PersistentType="true">I_Transport</Name>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>Start</Name>
+				<Comment><![CDATA[Starten]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>rVelocity</Name>
+					<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+					<BitSize>64</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>Stop</Name>
+				<Comment><![CDATA[Stoppen]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Hides>
+				<Hide GUID="{A24278EF-708C-417D-8FF9-3CA2290B3E70}"/>
+				<Hide GUID="{F8D4FEF7-A161-4F9A-95AD-CBC8B416E74F}"/>
+				<Hide GUID="{483A31B0-2301-45A5-BDA0-4390BE118005}"/>
+			</Hides>
+		</DataType>
 	</DataTypes>
 	<Project ProjectGUID="{40F90C27-90AC-4C4C-B307-974F44AED05B}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
@@ -1423,6 +1450,9 @@ External Setpoint Generation:
 				</Task>
 				<Task Id="8" Priority="23" CycleTime="100000" AmsPort="353" AdtTasks="true">
 					<Name>PlcTask3</Name>
+				</Task>
+				<Task Id="9" Priority="1" CycleTime="100000" AmsPort="354" AdtTasks="true">
+					<Name>ControllerTask</Name>
 				</Task>
 			</Tasks>
 		</System>
@@ -1508,7 +1538,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
-							<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog TorqueSetpointScale="10"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -1665,7 +1695,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
-							<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog TorqueSetpointScale="10"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -1824,7 +1854,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
-							<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog TorqueSetpointScale="10"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -1982,7 +2012,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
-							<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog TorqueSetpointScale="10"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -2140,7 +2170,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
-							<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog TorqueSetpointScale="10"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -2321,6 +2351,7 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>MAIN.fbTransport.rActVelocity</Name>
+							<Comment><![CDATA[ Actual Velocity output]]></Comment>
 							<Type>LREAL</Type>
 						</Var>
 					</Vars>
@@ -2394,6 +2425,11 @@ External Setpoint Generation:
 						<Contexts>
 							<Context>
 								<Id>1</Id>
+								<ManualConfig>
+									<OTCID>#x02010090</OTCID>
+								</ManualConfig>
+								<Priority>1</Priority>
+								<CycleTime>10000000</CycleTime>
 							</Context>
 						</Contexts>
 						<Interfaces>
@@ -2504,7 +2540,7 @@ External Setpoint Generation:
 						<InterfacePointerValues>
 							<Value>
 								<Name>CyclicCaller</Name>
-								<OTCID>#x00000000</OTCID>
+								<OTCID>#x02010090</OTCID>
 							</Value>
 							<Value>
 								<Name>Bohrmaschine</Name>
@@ -2530,6 +2566,10 @@ External Setpoint Generation:
 		<MappingInfo Identifier="{05000010-2041-0850-1000-040340205008}" Id="#x02030020" Watchdog="14000000040000000400000004000000"/>
 		<MappingInfo Identifier="{05000010-2081-0850-1000-040380205008}" Id="#x02030030" Watchdog="14000000040000000400000004000000"/>
 		<MappingInfo Identifier="{08502041-2081-0850-4020-500880205008}" Id="#x02030040" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{02010090-2001-0850-1000-010100205008}" Id="#x02030050" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{02010090-2041-0850-1000-010140205008}" Id="#x02030060" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{02010090-2081-0850-1000-010180205008}" Id="#x02030070" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{02010090-20C1-0850-1000-0101C0205008}" Id="#x02030080" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIPC^BohrMachine^BohrMachine Instance">
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^xAchse">
 				<Link VarA="PlcTask Inputs^MAIN.bohrmaschine.axesManager.xAchse.NcToPlc" VarB="Outputs^ToPlc"/>
@@ -2568,6 +2608,9 @@ External Setpoint Generation:
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^TransportB">
 				<Link VarA="PlcTask Inputs^MAIN.fbTransportSlave.axisTransportB.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.axisTransportB.PlcToNc" VarB="Inputs^FromPlc"/>
+			</OwnerB>
+			<OwnerB Name="TIXC^Controller^Controller_Obj1 (ModuleController)">
+				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.objID" VarB="Inputs^oidTransportB"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>
