@@ -2410,25 +2410,13 @@ External Setpoint Generation:
 							<Name>MAIN.fbTransportSlave.axisTransportB.PlcToNc</Name>
 							<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
-					</Vars>
-					<TaskPouOids>
-						<TaskPouOid Prio="22" OTCID="#x08502081"/>
-					</TaskPouOids>
-				</Instance>
-			</Project>
-			<Project GUID="{F079E23C-0814-4A5D-ACFE-B49F51653820}" Name="Sensor" PrjFilePath="Sensor\Sensor.plcproj" TmcFilePath="Sensor\Sensor.tmc" ReloadTmc="true" AmsPort="854" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x085020c0" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Sensor\Sensor.tmc">
-					<Name>Sensor Instance</Name>
-					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
-					<Vars VarGrpType="2">
-						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>MAIN.bWerkStueckLiegtAn</Name>
+							<Name>MAIN.fbTransportSlave.fbSensor.bWerkStueckLiegtAn</Name>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<TaskPouOids>
-						<TaskPouOid Prio="23" OTCID="#x085020c1"/>
+						<TaskPouOid Prio="22" OTCID="#x08502081"/>
 					</TaskPouOids>
 				</Instance>
 			</Project>
@@ -2632,7 +2620,6 @@ External Setpoint Generation:
 		<MappingInfo Identifier="{02010090-2001-0850-1000-010100205008}" Id="#x02030050" Watchdog="04000000040000000400000004000000"/>
 		<MappingInfo Identifier="{02010090-2041-0850-1000-010140205008}" Id="#x02030060" Watchdog="04000000040000000400000004000000"/>
 		<MappingInfo Identifier="{02010090-2081-0850-1000-010180205008}" Id="#x02030070" Watchdog="04000000040000000400000004000000"/>
-		<MappingInfo Identifier="{02010090-20C1-0850-1000-0101C0205008}" Id="#x02030080" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIPC^BohrMachine^BohrMachine Instance">
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^xAchse">
 				<Link VarA="PlcTask Inputs^MAIN.bohrmaschine.axesManager.xAchse.NcToPlc" VarB="Outputs^ToPlc"/>
@@ -2648,11 +2635,6 @@ External Setpoint Generation:
 			</OwnerB>
 			<OwnerB Name="TIXC^Controller^Controller_Obj1 (ModuleController)">
 				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.objID" VarB="Inputs^oidBohrmaschine"/>
-			</OwnerB>
-		</OwnerA>
-		<OwnerA Name="TIPC^Sensor^Sensor Instance">
-			<OwnerB Name="TIXC^Controller^Controller_Obj1 (ModuleController)">
-				<Link VarA="PlcTask Outputs^MAIN.bWerkStueckLiegtAn" VarB="Inputs^WerkstueckLiegtAn"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIPC^TransportA^TransportA Instance">
@@ -2673,6 +2655,7 @@ External Setpoint Generation:
 				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.axisTransportB.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 			<OwnerB Name="TIXC^Controller^Controller_Obj1 (ModuleController)">
+				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.fbSensor.bWerkStueckLiegtAn" VarB="Inputs^WerkstueckLiegtAn"/>
 				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.objID" VarB="Inputs^oidTransportB"/>
 			</OwnerB>
 		</OwnerA>

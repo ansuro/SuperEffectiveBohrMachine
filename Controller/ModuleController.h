@@ -53,7 +53,7 @@ protected:
 
 private:
 	// interface pointer initialization
-	bool initialized;		// interface pointer initialized?
+	bool initialized = false;		// interface pointer initialized?
 	void init();
 
 	// statemachine loops

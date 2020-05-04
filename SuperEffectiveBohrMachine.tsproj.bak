@@ -2403,6 +2403,10 @@ External Setpoint Generation:
 					<Vars VarGrpType="2">
 						<Name>PlcTask Outputs</Name>
 						<Var>
+							<Name>MAIN.fbSensor.bWerkStueckLiegtAn</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>MAIN.fbTransportSlave.objID</Name>
 							<Type>OTCID</Type>
 						</Var>
@@ -2413,22 +2417,6 @@ External Setpoint Generation:
 					</Vars>
 					<TaskPouOids>
 						<TaskPouOid Prio="22" OTCID="#x08502081"/>
-					</TaskPouOids>
-				</Instance>
-			</Project>
-			<Project GUID="{F079E23C-0814-4A5D-ACFE-B49F51653820}" Name="Sensor" PrjFilePath="Sensor\Sensor.plcproj" TmcFilePath="Sensor\Sensor.tmc" ReloadTmc="true" AmsPort="854" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x085020c0" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Sensor\Sensor.tmc">
-					<Name>Sensor Instance</Name>
-					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
-					<Vars VarGrpType="2">
-						<Name>PlcTask Outputs</Name>
-						<Var>
-							<Name>MAIN.bWerkStueckLiegtAn</Name>
-							<Type>BOOL</Type>
-						</Var>
-					</Vars>
-					<TaskPouOids>
-						<TaskPouOid Prio="23" OTCID="#x085020c1"/>
 					</TaskPouOids>
 				</Instance>
 			</Project>
@@ -2650,11 +2638,6 @@ External Setpoint Generation:
 				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.objID" VarB="Inputs^oidBohrmaschine"/>
 			</OwnerB>
 		</OwnerA>
-		<OwnerA Name="TIPC^Sensor^Sensor Instance">
-			<OwnerB Name="TIXC^Controller^Controller_Obj1 (ModuleController)">
-				<Link VarA="PlcTask Outputs^MAIN.bWerkStueckLiegtAn" VarB="Inputs^WerkstueckLiegtAn"/>
-			</OwnerB>
-		</OwnerA>
 		<OwnerA Name="TIPC^TransportA^TransportA Instance">
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^TransportA">
 				<Link VarA="PlcTask Inputs^MAIN.fbTransport.axisTransportA.NcToPlc" VarB="Outputs^ToPlc"/>
@@ -2673,6 +2656,7 @@ External Setpoint Generation:
 				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.axisTransportB.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 			<OwnerB Name="TIXC^Controller^Controller_Obj1 (ModuleController)">
+				<Link VarA="PlcTask Outputs^MAIN.fbSensor.bWerkStueckLiegtAn" VarB="Inputs^WerkstueckLiegtAn"/>
 				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.objID" VarB="Inputs^oidTransportB"/>
 			</OwnerB>
 		</OwnerA>

@@ -26,6 +26,9 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Sensor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\TransportSystemSlave.TcPOU">
       <SubType>Code</SubType>
     </Compile>

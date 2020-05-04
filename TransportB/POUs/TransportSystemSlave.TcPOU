@@ -25,10 +25,15 @@ Naive Implementierung um MC_GearInVelo / GearOut nachzubilden.
 	eZustand: E_STATES := E_STATES.eHalted;	// aktueller Zustand
 	bReady: BOOL := FALSE;			// Achse bereit?
 	
+	// ==== Objects ====
+	fbSensor: Sensor;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// ==== Inputs ====
+      <ST><![CDATA[// ==== Object updates =====
+fbSensor();
+
+// ==== Inputs ====
 axisTransportB.ReadStatus();
 
 // ==== Statemachine ====
@@ -167,9 +172,11 @@ END_IF]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="TransportSystemSlave">
+      <LineId Id="95" Count="0" />
+      <LineId Id="93" Count="1" />
       <LineId Id="51" Count="0" />
       <LineId Id="9" Count="0" />
-      <LineId Id="25" Count="0" />
+      <LineId Id="91" Count="0" />
       <LineId Id="24" Count="0" />
       <LineId Id="52" Count="1" />
       <LineId Id="64" Count="0" />
