@@ -1337,6 +1337,30 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
+			<Name GUID="{E161DBD1-D3E7-462C-9676-CC601CE5CD67}">Zustand</Name>
+			<BitSize>8</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+			<EnumInfo>
+				<Text><![CDATA[starting]]></Text>
+				<Enum>0</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[started]]></Text>
+				<Enum>1</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[stopping]]></Text>
+				<Enum>2</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[stopped]]></Text>
+				<Enum>3</Enum>
+			</EnumInfo>
+			<Hides>
+				<Hide GUID="{FCF9A578-B9AF-4D6C-8C83-673A6F7594DF}"/>
+			</Hides>
+		</DataType>
+		<DataType>
 			<Name GUID="{2FF1D4E0-EFA3-45BB-B4FD-1AB5D871BEED}" PersistentType="true">I_Bohrmaschine</Name>
 			<BitSize X64="64">32</BitSize>
 			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
@@ -2460,6 +2484,7 @@ External Setpoint Generation:
 							<DataArea>
 								<AreaNo AreaType="InputDst">0</AreaNo>
 								<Name>Inputs</Name>
+								<Comment><![CDATA[IO-Mapping Inputs]]></Comment>
 								<ContextId>1</ContextId>
 								<ByteSize>13</ByteSize>
 								<Symbol>
@@ -2485,6 +2510,44 @@ External Setpoint Generation:
 									<BitSize>32</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-00000000000F}">OTCID</BaseType>
 									<BitOffs>72</BitOffs>
+								</Symbol>
+							</DataArea>
+							<DataArea>
+								<AreaNo AreaType="InputDst" CreateSymbols="true">2</AreaNo>
+								<Name>UIControls</Name>
+								<Comment><![CDATA[ADS UI-Controls Inputs]]></Comment>
+								<ContextId>1</ContextId>
+								<ByteSize>2</ByteSize>
+								<Symbol>
+									<Name>Start</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<BitOffs>0</BitOffs>
+								</Symbol>
+								<Symbol>
+									<Name>Stop</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<BitOffs>8</BitOffs>
+								</Symbol>
+							</DataArea>
+							<DataArea>
+								<AreaNo AreaType="Standard" CreateSymbols="true">3</AreaNo>
+								<Name>State</Name>
+								<Comment><![CDATA[State members]]></Comment>
+								<ContextId>1</ContextId>
+								<ByteSize>2</ByteSize>
+								<Symbol>
+									<Name>Running</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<BitOffs>0</BitOffs>
+								</Symbol>
+								<Symbol>
+									<Name>eZustand</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{E161DBD1-D3E7-462C-9676-CC601CE5CD67}">Zustand</BaseType>
+									<BitOffs>8</BitOffs>
 								</Symbol>
 							</DataArea>
 						</DataAreas>

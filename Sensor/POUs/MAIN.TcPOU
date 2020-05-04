@@ -4,13 +4,35 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	bWerkStueckLiegtAn AT %Q*: BOOL := FALSE;
+	
+	// Werkstücksimulation. Random-Timer.
+	fbRandom: DRAND;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[(*
+Simulation:
+p = Position wenn das Werkstück zum Bohren anliegt
+l = Länge Werkstück
+Werkstück wurde abtransportiert: actPos = p + l
+Wenn abtransportiert: Timer (je nachdem wie schnell das Bohren ist, Random 5-7s)
+(Bohren dauert aktuell ~40s... schneller machen...)
+
+TODO actPos von TransportB als Input 
+Nee... Sensor nach TransportB verschieben...
+*)]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="16" Count="1" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="9" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
