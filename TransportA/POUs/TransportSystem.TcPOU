@@ -7,7 +7,7 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 END_VAR
-VAR		
+VAR
 	// ===== Motion Control =====
 	fbMc_MoveVelocity: MC_MoveVelocity;	// continous motion
 	fbMc_Stop: MC_Stop;					// stop
@@ -15,7 +15,7 @@ VAR
 	axisTransportA: AXIS_REF;			// Master axis
 	
 	// ==== States ====
-	eZustand: E_STATES := E_STATES.Stopped;	// aktueller Zustand
+	eZustand AT %Q*: E_STATES_TRANSPORT_A := E_STATES_TRANSPORT_A.Stopped;	// aktueller Zustand
 	//bRunning: BOOL := FALSE;
 	bReady: BOOL := FALSE;				// Achse bereit?
 	rVelocity: LREAL;					// Velocity
@@ -34,16 +34,16 @@ rActVelocity := axisTransportA.NcToPlc.ActVelo;
 
 // ==== Statemachine ====
 CASE eZustand OF
-	E_STATES.Starting:
+	E_STATES_TRANSPORT_A.Starting:
 		THIS^.Starting();
 
-	E_STATES.Started:
+	E_STATES_TRANSPORT_A.Started:
 		// idle
 	
-	E_STATES.Stopping:
+	E_STATES_TRANSPORT_A.Stopping:
 		THIS^.Stopping();
 	
-	E_STATES.Stopped:
+	E_STATES_TRANSPORT_A.Stopped:
 		// idle
 	
 END_CASE]]></ST>
@@ -70,7 +70,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.rVelocity := rVelocity;
 
-eZustand := E_STATES.Starting;
+eZustand := E_STATES_TRANSPORT_A.Starting;
 
 bReady := FALSE;]]></ST>
       </Implementation>
@@ -104,7 +104,7 @@ ELSE // Achse ist bereit und beschleunigt auf Zielgeschwindigkeit
 
 	// Achse hat Zielgeschwindigkeit erreicht => Zustand: Started
 	IF fbMc_MoveVelocity.InVelocity THEN
-		THIS^.eZustand := E_STATES.Started;
+		THIS^.eZustand := E_STATES_TRANSPORT_A.Started;
 	END_IF	
 END_IF
 
@@ -121,7 +121,7 @@ END_IF
 METHOD Stop : HRESULT
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[eZustand := E_STATES.Stopping;]]></ST>
+        <ST><![CDATA[eZustand := E_STATES_TRANSPORT_A.Stopping;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopping" Id="{8d6ba368-5131-4c7f-91ad-3948674802b2}">
@@ -147,7 +147,7 @@ IF fbMc_Stop.Done THEN
 		Axis := axisTransportA,
 		Execute := FALSE
 	);
-	eZustand := E_STATES.Stopped;
+	eZustand := E_STATES_TRANSPORT_A.Stopped;
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -233,20 +233,7 @@ END_IF]]></ST>
       <LineId Id="9" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.Stopping">
-      <LineId Id="5" Count="0" />
-      <LineId Id="10" Count="1" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="13" Count="0" />
-      <LineId Id="12" Count="0" />
-      <LineId Id="15" Count="1" />
-      <LineId Id="14" Count="0" />
-      <LineId Id="18" Count="0" />
-      <LineId Id="17" Count="0" />
-      <LineId Id="19" Count="0" />
-      <LineId Id="25" Count="0" />
-      <LineId Id="22" Count="2" />
-      <LineId Id="21" Count="0" />
-      <LineId Id="32" Count="0" />
+      <LineId Id="36" Count="17" />
       <LineId Id="20" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.TcQueryInterface">

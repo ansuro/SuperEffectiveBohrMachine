@@ -22,7 +22,7 @@ Naive Implementierung um MC_GearInVelo / GearOut nachzubilden.
 	rMasterVelocity AT %I*: LREAL;	// Master velocity
 	
 	// ==== States ====
-	eZustand: E_STATES := E_STATES.eHalted;	// aktueller Zustand
+	eZustand AT %Q*: E_STATES_TRANSPORT_B := E_STATES_TRANSPORT_B.eHalted;	// aktueller Zustand
 	bReady: BOOL := FALSE;			// Achse bereit?
 	
 	// ==== Objects ====
@@ -38,16 +38,16 @@ axisTransportB.ReadStatus();
 
 // ==== Statemachine ====
 CASE eZustand OF
-	E_STATES.eHalting:
+	E_STATES_TRANSPORT_B.eHalting:
 		THIS^.Halting();
 
-	E_STATES.eHalted:
+	E_STATES_TRANSPORT_B.eHalted:
 		// idle
 
-	E_STATES.eSyncing:
+	E_STATES_TRANSPORT_B.eSyncing:
 		THIS^.Syncing();
 
-	E_STATES.eSynced:
+	E_STATES_TRANSPORT_B.eSynced:
 		// idle
 END_CASE]]></ST>
     </Implementation>
@@ -70,7 +70,7 @@ END_VAR
 METHOD Halt : HRESULT
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.eZustand := E_STATES.eHalting;]]></ST>
+        <ST><![CDATA[THIS^.eZustand := E_STATES_TRANSPORT_B.eHalting;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Halting" Id="{feb501d8-84d5-4d4b-b138-4e7a9413def2}">
@@ -94,7 +94,7 @@ IF fbMc_Halt.Done THEN
 		Axis := axisTransportB,
 		Execute := FALSE
 	);
-	THIS^.eZustand := E_STATES.eHalted;
+	THIS^.eZustand := E_STATES_TRANSPORT_B.eHalted;
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -127,7 +127,7 @@ ELSE // Achse ist bereit und beschleunigt auf Zielgeschwindigkeit
 
 	// Achse hat Zielgeschwindigkeit erreicht => Zustand: Synced
 	IF fbMc_MoveVelocity.InVelocity THEN
-		THIS^.eZustand := E_STATES.eSynced;
+		THIS^.eZustand := E_STATES_TRANSPORT_B.eSynced;
 	END_IF	
 END_IF
 ]]></ST>
@@ -143,7 +143,7 @@ END_IF
 METHOD SyncWithMaster : HRESULT
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.eZustand := E_STATES.eSyncing;]]></ST>
+        <ST><![CDATA[THIS^.eZustand := E_STATES_TRANSPORT_B.eSyncing;]]></ST>
       </Implementation>
     </Method>
     <Method Name="TcQueryInterface" Id="{1775d457-38d0-47c4-ba06-fc0da9d2dbd4}">

@@ -17,9 +17,6 @@
     <LibraryReferences>{5bbe0402-b40a-425e-b583-65c91c1839e0}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs\E_STATES.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -65,6 +62,9 @@
     <None Include="TransportB.tmc">
       <SubType>Content</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PinnedGlobalDataType Include="E_STATES_TRANSPORT_B" />
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
