@@ -68,11 +68,20 @@ VAR_INPUT
 	rVelocity : LREAL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.rVelocity := rVelocity;
-
-eZustand := E_STATES_TRANSPORT_A.Starting;
-
-bReady := FALSE;]]></ST>
+        <ST><![CDATA[CASE eZustand OF
+	E_STATES_TRANSPORT_A.STARTING:
+		Start := S_PENDING;
+		
+	E_STATES_TRANSPORT_A.STARTED:
+		Start := S_OK;
+	
+	ELSE
+		THIS^.rVelocity := rVelocity;
+		eZustand := E_STATES_TRANSPORT_A.Starting;
+		bReady := FALSE;
+		Start := S_PENDING;
+END_CASE
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Starting" Id="{93cbcf18-b403-4866-a1fc-9eb7c910d004}">
@@ -121,7 +130,18 @@ END_IF
 METHOD Stop : HRESULT
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[eZustand := E_STATES_TRANSPORT_A.Stopping;]]></ST>
+        <ST><![CDATA[CASE eZustand OF
+	E_STATES_TRANSPORT_A.STOPPED:
+		Stop := S_OK;
+		
+	E_STATES_TRANSPORT_A.STOPPING:
+		Stop := S_PENDING;
+		
+	ELSE
+		eZustand := E_STATES_TRANSPORT_A.Stopping;
+		Stop := S_PENDING;
+		
+END_CASE]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopping" Id="{8d6ba368-5131-4c7f-91ad-3948674802b2}">
@@ -200,11 +220,13 @@ END_IF]]></ST>
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.Start">
-      <LineId Id="27" Count="0" />
-      <LineId Id="26" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="17" Count="0" />
-      <LineId Id="16" Count="0" />
+      <LineId Id="38" Count="1" />
+      <LineId Id="41" Count="5" />
+      <LineId Id="48" Count="1" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="36" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.Starting">
       <LineId Id="29" Count="0" />
@@ -231,6 +253,11 @@ END_IF]]></ST>
     </LineIds>
     <LineIds Name="TransportSystem.Stop">
       <LineId Id="9" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="25" Count="5" />
+      <LineId Id="32" Count="1" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="24" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.Stopping">
       <LineId Id="36" Count="17" />
