@@ -11,7 +11,7 @@
     <HmiVerboseLevel>2</HmiVerboseLevel>
     <HmiVersion>1.0.0.0</HmiVersion>
     <Name>BohrUI</Name>
-    <HmiCommunicationRouterPort>10101</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10102</HmiCommunicationRouterPort>
     <HmiFrameworkVersion>Latest</HmiFrameworkVersion>
     <HmiCommunicationServerPort>3000</HmiCommunicationServerPort>
     <HmiInitial>1.10.1336.404</HmiInitial>
@@ -91,6 +91,7 @@
     <Folder Include="Imports\Images" />
     <Folder Include="Imports\Videos" />
     <Folder Include="Localization" />
+    <Folder Include="Content" />
     <Folder Include="Server\Extensions\ADS" />
     <Folder Include="Server\Extensions\TcHmiEventLogger" />
     <Folder Include="Server\Extensions\TcHmiLua" />
@@ -118,6 +119,15 @@
     <Content Include=".hmipkgs\packages.hmipkgs">
       <SubType>Content</SubType>
       <Visible>true</Visible>
+    </Content>
+    <Content Include="Content\Control.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Logs.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Status.content">
+      <SubType>Content</SubType>
     </Content>
     <Content Include="FavIcon.ico">
       <SubType>Content</SubType>

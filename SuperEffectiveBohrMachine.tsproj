@@ -2615,7 +2615,7 @@ External Setpoint Generation:
 								<Comment><![CDATA[Input from Transport A]]></Comment>
 								<ContextId>1</ContextId>
 								<ByteSize>1</ByteSize>
-								<Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>State</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{FA9D66EE-0236-4C7E-B7EA-32284FDD303F}">E_STATES_TRANSPORT_A</BaseType>
@@ -2641,13 +2641,13 @@ External Setpoint Generation:
 								<Comment><![CDATA[Input from Transport B]]></Comment>
 								<ContextId>1</ContextId>
 								<ByteSize>2</ByteSize>
-								<Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>State</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{16FD3C19-537A-42F0-B109-DF6DADA71F81}">E_STATES_TRANSPORT_B</BaseType>
 									<BitOffs>0</BitOffs>
 								</Symbol>
-								<Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>WerkstueckLiegtAn</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>

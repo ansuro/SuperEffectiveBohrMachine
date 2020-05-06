@@ -36,7 +36,20 @@
     }
   ],
   "userControls": [],
-  "content": [],
+  "content": [
+    {
+      "url": "Content/Control.content",
+      "preload": false
+    },
+    {
+      "url": "Content/Logs.content",
+      "preload": false
+    },
+    {
+      "url": "Content/Status.content",
+      "preload": false
+    }
+  ],
   "views": [
     {
       "url": "Desktop.view",

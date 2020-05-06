@@ -15,71 +15,27 @@
 
   </div>
 
-<div id="lblLaenge" data-tchmi-type="tchmi-textblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-text="Länge:" data-tchmi-top="87" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-word-wrap="True">
+<div id="regMainContent" data-tchmi-type="tchmi-region" data-tchmi-height="660" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-top="97" data-tchmi-top-unit="px" data-tchmi-width="1004" data-tchmi-width-unit="px" data-tchmi-target-content="Content/Control.content">
 
 </div>
 
-<div id="lblBreite" data-tchmi-type="tchmi-textblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-text="Breite:" data-tchmi-top="123" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-word-wrap="True">
-
-</div>
-
-<div id="lblDicke" data-tchmi-type="tchmi-textblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-text="Dicke:" data-tchmi-top="159" data-tchmi-top-unit="px" data-tchmi-width="50" data-tchmi-width-unit="px" data-tchmi-word-wrap="True">
-
-</div>
-
-<div id="txtLaenge" data-tchmi-type="tchmi-textbox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="80" data-tchmi-left-unit="px" data-tchmi-text="%s%localhost.GVL_Config.stConfig.rLaenge%/s%" data-tchmi-top="87" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px">
-<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
-{
-  "top": 3,
-  "right": 3,
-  "bottom": 3,
-  "left": 3
-}
-</script>
-
-</div>
-
-<div id="txtBreite" data-tchmi-type="tchmi-textbox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="80" data-tchmi-left-unit="px" data-tchmi-text="%s%localhost.GVL_Config.stConfig.rBreite%/s%" data-tchmi-top="123" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px">
-<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
-{
-  "top": 3,
-  "right": 3,
-  "bottom": 3,
-  "left": 3
-}
-</script>
-
-</div>
-
-<div id="txtDicke" data-tchmi-type="tchmi-textbox" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="80" data-tchmi-left-unit="px" data-tchmi-text="%s%localhost.GVL_Config.stConfig.rDicke%/s%" data-tchmi-top="159" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px">
-<script data-tchmi-target-attribute="data-tchmi-content-padding" type="application/json">
-{
-  "top": 3,
-  "right": 3,
-  "bottom": 3,
-  "left": 3
-}
-</script>
-
-</div>
-
-<div id="btnStart" data-tchmi-type="tchmi-button" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="240" data-tchmi-left-unit="px" data-tchmi-text="Start" data-tchmi-top="87" data-tchmi-top-unit="px" data-tchmi-width="167" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%f%!%s%localhost.GVL_Control.bIsRunning%/s%%/f%">
+<div id="btnNavShowControl" data-tchmi-type="tchmi-button" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="224" data-tchmi-left-unit="px" data-tchmi-text="Controls" data-tchmi-top="20" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True">
 
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
   {
-    "event": "btnStart.onPressed",
+    "event": "btnNavShowControl.onPressed",
     "actions": [
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%s%localhost.GVL_Control.bRun%/s%",
-        "valueType": "tchmi:general#/definitions/BOOL",
+        "symbolExpression": "%ctrl%regMainContent::TargetContent%/ctrl%",
+        "valueType": "tchmi:framework#/definitions/ContentPath",
         "value": {
           "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/BOOL",
-          "value": true
+          "valueType": "tchmi:framework#/definitions/ContentPath",
+          "value": "Content/Control.content"
         },
         "asyncWait": true
       }
@@ -89,23 +45,23 @@
 </script>
 </div>
 
-<div id="btnStop" data-tchmi-type="tchmi-button" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="240" data-tchmi-left-unit="px" data-tchmi-text="Stop" data-tchmi-top="147" data-tchmi-top-unit="px" data-tchmi-width="167" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%f%%s%localhost.GVL_Control.bIsRunning%/s% &amp;&amp; %s%localhost.GVL_Control.bRun%/s%%/f%">
+<div id="btnNavShowStatus" data-tchmi-type="tchmi-button" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="334" data-tchmi-left-unit="px" data-tchmi-text="Status" data-tchmi-top="20" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True">
 
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
   {
-    "event": "btnStop.onPressed",
+    "event": "btnNavShowStatus.onPressed",
     "actions": [
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%s%localhost.GVL_Control.bRun%/s%",
-        "valueType": "tchmi:general#/definitions/BOOL",
+        "symbolExpression": "%ctrl%regMainContent::TargetContent%/ctrl%",
+        "valueType": "tchmi:framework#/definitions/ContentPath",
         "value": {
           "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/BOOL",
-          "value": false
+          "valueType": "tchmi:framework#/definitions/ContentPath",
+          "value": "Content/Status.content"
         },
         "asyncWait": true
       }
@@ -115,81 +71,30 @@
 </script>
 </div>
 
-<div id="kbInput" data-tchmi-type="tchmi-keyboard" data-tchmi-height="250" data-tchmi-height-unit="px" data-tchmi-label-font-size="14" data-tchmi-layout="Numpad" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-scale-mode="ScaleToFit" data-tchmi-top="207" data-tchmi-top-unit="px" data-tchmi-width="259" data-tchmi-width-unit="px">
-<script data-tchmi-target-attribute="data-tchmi-keyboard-padding" type="application/json">
-{
-  "top": 10,
-  "topUnit": "px",
-  "right": 10,
-  "rightUnit": "px",
-  "bottom": 10,
-  "bottomUnit": "px",
-  "left": 10,
-  "leftUnit": "px"
-}
-</script>
-<script data-tchmi-target-attribute="data-tchmi-key-padding" type="application/json">
-{
-  "top": 4,
-  "topUnit": "px",
-  "right": 4,
-  "rightUnit": "px",
-  "bottom": 4,
-  "bottomUnit": "px",
-  "left": 4,
-  "leftUnit": "px"
-}
-</script>
-<script data-tchmi-target-attribute="data-tchmi-additional-key-backdrop-padding" type="application/json">
-{
-  "top": 10,
-  "topUnit": "px",
-  "right": 10,
-  "rightUnit": "px",
-  "bottom": 10,
-  "bottomUnit": "px",
-  "left": 10,
-  "leftUnit": "px"
-}
-</script>
+<div id="btnNavShowLogs" data-tchmi-type="tchmi-button" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="444" data-tchmi-left-unit="px" data-tchmi-text="Logs" data-tchmi-top="20" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="True">
 
-</div>
 
-<div id="evtGrid" data-tchmi-type="tchmi-event-grid" data-tchmi-height="400" data-tchmi-height-unit="px" data-tchmi-left="417" data-tchmi-left-unit="px" data-tchmi-show-menu-bar="False" data-tchmi-top="87" data-tchmi-top-unit="px" data-tchmi-width="597" data-tchmi-width-unit="px">
-<script data-tchmi-target-attribute="data-tchmi-filter" type="application/json">
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
   {
-    "path": "domain",
-    "comparator": "==",
-    "value": "TcHmiEventLogger"
+    "event": "btnNavShowLogs.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%ctrl%regMainContent::TargetContent%/ctrl%",
+        "valueType": "tchmi:framework#/definitions/ContentPath",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:framework#/definitions/ContentPath",
+          "value": "Content/Logs.content"
+        },
+        "asyncWait": true
+      }
+    ]
   }
 ]
 </script>
-<script data-tchmi-target-attribute="data-tchmi-columns" type="application/json">
-[
-  {
-    "columnName": "type"
-  },
-  {
-    "columnName": "severity"
-  },
-  {
-    "columnName": "timeAndDateRaised"
-  },
-  {
-    "columnName": "text"
-  }
-]
-</script>
-<script data-tchmi-target-attribute="data-tchmi-sorting" type="application/json">
-[
-  {
-    "name": "timeRaised",
-    "order": "Descending"
-  }
-]
-</script>
-
 </div>
 
 </div>

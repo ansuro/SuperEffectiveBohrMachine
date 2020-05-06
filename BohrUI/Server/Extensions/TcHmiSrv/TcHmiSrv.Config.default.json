@@ -24,7 +24,41 @@
     "DEFAULTTIMEFORMATLOCALE": "client",
     "DEFAULTTIMEZONE": "client",
     "DEFAULTUSERGROUP": "__SystemUsers",
-    "DEFINITIONS": {},
+    "DEFINITIONS": {
+        "localhost.E_STATES_TRANSPORT_A": {
+            "allOf": [
+                {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ],
+                    "options": [
+                        {
+                            "label": "STARTING",
+                            "value": 0
+                        },
+                        {
+                            "label": "STARTED",
+                            "value": 1
+                        },
+                        {
+                            "label": "STOPPING",
+                            "value": 2
+                        },
+                        {
+                            "label": "STOPPED",
+                            "value": 3
+                        }
+                    ]
+                },
+                {
+                    "$ref": "tchmi:general#/definitions/UINT8"
+                }
+            ]
+        }
+    },
     "DEFLATECOMPRESSIONLEVEL": 5,
     "DISCOVERY": 2,
     "ENDPOINTS": [
@@ -2545,59 +2579,13 @@
             },
             "USEMAPPING": true
         },
-        "localhost.GVL_Config.stConfig.rBreite": {
+        "localhost.Controller_Obj1 (ModuleController).TransportA.State": {
             "ACCESS": 3,
             "CUSTOMERDATA": "",
             "DOMAIN": "ADS",
-            "MAPPING": "localhost::GVL_Config::stConfig::rBreite",
+            "MAPPING": "localhost::Controller_Obj1 (ModuleController)::TransportA::State",
             "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/LREAL"
-            },
-            "USEMAPPING": true
-        },
-        "localhost.GVL_Config.stConfig.rDicke": {
-            "ACCESS": 3,
-            "CUSTOMERDATA": "",
-            "DOMAIN": "ADS",
-            "MAPPING": "localhost::GVL_Config::stConfig::rDicke",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/LREAL"
-            },
-            "USEMAPPING": true
-        },
-        "localhost.GVL_Config.stConfig.rLaenge": {
-            "ACCESS": 3,
-            "CUSTOMERDATA": "",
-            "DOMAIN": "ADS",
-            "MAPPING": "localhost::GVL_Config::stConfig::rLaenge",
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/LREAL"
-            },
-            "USEMAPPING": true
-        },
-        "localhost.GVL_Control.bIsRunning": {
-            "ACCESS": 3,
-            "CUSTOMERDATA": "",
-            "DOMAIN": "ADS",
-            "MAPPING": "localhost::GVL_Control::bIsRunning",
-            "OPTIONS": {
-                "comment": " UI Indicator"
-            },
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BOOL"
-            },
-            "USEMAPPING": true
-        },
-        "localhost.GVL_Control.bRun": {
-            "ACCESS": 3,
-            "CUSTOMERDATA": "",
-            "DOMAIN": "ADS",
-            "MAPPING": "localhost::GVL_Control::bRun",
-            "OPTIONS": {
-                "comment": " UI Command"
-            },
-            "SCHEMA": {
-                "$ref": "tchmi:general#/definitions/BOOL"
+                "$ref": "tchmi:server#/definitions/localhost.E_STATES_TRANSPORT_A"
             },
             "USEMAPPING": true
         }
