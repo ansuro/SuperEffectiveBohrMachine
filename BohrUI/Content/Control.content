@@ -111,12 +111,12 @@
       {
         "objectType": "WriteToSymbol",
         "active": true,
-        "symbolExpression": "%s%localhost.GVL_Control.bRun%/s%",
+        "symbolExpression": "%s%localhost.Controller_Obj1 (ModuleController).UIControls.Stop%/s%",
         "valueType": "tchmi:general#/definitions/BOOL",
         "value": {
           "objectType": "StaticValue",
           "valueType": "tchmi:general#/definitions/BOOL",
-          "value": false
+          "value": true
         },
         "asyncWait": true
       }
