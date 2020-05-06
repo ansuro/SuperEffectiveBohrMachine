@@ -1403,6 +1403,31 @@ External Setpoint Generation:
 			</Hides>
 		</DataType>
 		<DataType>
+			<Name GUID="{547E8604-F2E5-484E-8D8A-3992CB2003F8}" PersistentType="true">ST_Config</Name>
+			<BitSize>192</BitSize>
+			<SubItem>
+				<Name>rLaenge</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>rBreite</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>rDicke</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>128</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{A2D09BD5-A7C7-454D-8651-356C7EF545D5}"/>
+			</Hides>
+		</DataType>
+		<DataType>
 			<Name GUID="{B37DCF0F-032A-48DA-9E72-FE38F64AE081}">Zustand</Name>
 			<BitSize>8</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
@@ -1528,7 +1553,9 @@ External Setpoint Generation:
 	</DataTypes>
 	<Project ProjectGUID="{40F90C27-90AC-4C4C-B307-974F44AED05B}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
-			<Settings DontCheckTarget="192.168.2.120.1.1"/>
+			<Settings DontCheckTarget="192.168.2.120.1.1">
+				<Debugger Priority="61"/>
+			</Settings>
 			<Tasks>
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
@@ -2576,7 +2603,7 @@ External Setpoint Generation:
 								<Name>UIControls</Name>
 								<Comment><![CDATA[ADS UI-Controls]]></Comment>
 								<ContextId>1</ContextId>
-								<ByteSize>2</ByteSize>
+								<ByteSize>26</ByteSize>
 								<Symbol>
 									<Name>Start</Name>
 									<BitSize>8</BitSize>
@@ -2588,6 +2615,12 @@ External Setpoint Generation:
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<BitOffs>8</BitOffs>
+								</Symbol>
+								<Symbol>
+									<Name>Config</Name>
+									<BitSize>192</BitSize>
+									<BaseType GUID="{547E8604-F2E5-484E-8D8A-3992CB2003F8}">ST_Config</BaseType>
+									<BitOffs>16</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
@@ -2641,13 +2674,13 @@ External Setpoint Generation:
 								<Comment><![CDATA[Input from Transport B]]></Comment>
 								<ContextId>1</ContextId>
 								<ByteSize>2</ByteSize>
-								<Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>State</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{16FD3C19-537A-42F0-B109-DF6DADA71F81}">E_STATES_TRANSPORT_B</BaseType>
 									<BitOffs>0</BitOffs>
 								</Symbol>
-								<Symbol>
+								<Symbol CreateSymbol="true">
 									<Name>WerkstueckLiegtAn</Name>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
@@ -2747,6 +2780,9 @@ External Setpoint Generation:
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^zAchse">
 				<Link VarA="PlcTask Inputs^MAIN.bohrmaschine.axesManager.zAchse.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.axesManager.zAchse.PlcToNc" VarB="Inputs^FromPlc"/>
+			</OwnerB>
+			<OwnerB Name="TIXC^Controller^Controller_Obj1 (ModuleController)">
+				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.objID" VarB="InputIPointers^oidBohrmaschine"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIPC^TransportA^TransportA Instance">

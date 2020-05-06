@@ -57,6 +57,86 @@
                     "$ref": "tchmi:general#/definitions/UINT8"
                 }
             ]
+        },
+        "localhost.E_STATES_TRANSPORT_B": {
+            "allOf": [
+                {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ],
+                    "options": [
+                        {
+                            "label": "ESYNCING",
+                            "value": 0
+                        },
+                        {
+                            "label": "ESYNCED",
+                            "value": 1
+                        },
+                        {
+                            "label": "EHALTING",
+                            "value": 2
+                        },
+                        {
+                            "label": "EHALTED",
+                            "value": 3
+                        }
+                    ]
+                },
+                {
+                    "$ref": "tchmi:general#/definitions/UINT8"
+                }
+            ]
+        },
+        "localhost.ST_Config": {
+            "properties": {
+                "rBreite": {
+                    "$ref": "tchmi:general#/definitions/LREAL"
+                },
+                "rDicke": {
+                    "$ref": "tchmi:general#/definitions/LREAL"
+                },
+                "rLaenge": {
+                    "$ref": "tchmi:general#/definitions/LREAL"
+                }
+            },
+            "type": "object"
+        },
+        "localhost.Zustand": {
+            "allOf": [
+                {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ],
+                    "options": [
+                        {
+                            "label": "starting",
+                            "value": 0
+                        },
+                        {
+                            "label": "started",
+                            "value": 1
+                        },
+                        {
+                            "label": "stopping",
+                            "value": 2
+                        },
+                        {
+                            "label": "stopped",
+                            "value": 3
+                        }
+                    ]
+                },
+                {
+                    "$ref": "tchmi:general#/definitions/UINT8"
+                }
+            ]
         }
     },
     "DEFLATECOMPRESSIONLEVEL": 5,
@@ -2579,6 +2659,26 @@
             },
             "USEMAPPING": true
         },
+        "localhost.Controller_Obj1 (ModuleController).State.Config": {
+            "ACCESS": 3,
+            "CUSTOMERDATA": "",
+            "DOMAIN": "ADS",
+            "MAPPING": "localhost::Controller_Obj1 (ModuleController)::State::Config",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/localhost.ST_Config"
+            },
+            "USEMAPPING": true
+        },
+        "localhost.Controller_Obj1 (ModuleController).State.eZustand": {
+            "ACCESS": 3,
+            "CUSTOMERDATA": "",
+            "DOMAIN": "ADS",
+            "MAPPING": "localhost::Controller_Obj1 (ModuleController)::State::eZustand",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/localhost.Zustand"
+            },
+            "USEMAPPING": true
+        },
         "localhost.Controller_Obj1 (ModuleController).TransportA.State": {
             "ACCESS": 3,
             "CUSTOMERDATA": "",
@@ -2586,6 +2686,56 @@
             "MAPPING": "localhost::Controller_Obj1 (ModuleController)::TransportA::State",
             "SCHEMA": {
                 "$ref": "tchmi:server#/definitions/localhost.E_STATES_TRANSPORT_A"
+            },
+            "USEMAPPING": true
+        },
+        "localhost.Controller_Obj1 (ModuleController).TransportB.State": {
+            "ACCESS": 3,
+            "CUSTOMERDATA": "",
+            "DOMAIN": "ADS",
+            "MAPPING": "localhost::Controller_Obj1 (ModuleController)::TransportB::State",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/localhost.E_STATES_TRANSPORT_B"
+            },
+            "USEMAPPING": true
+        },
+        "localhost.Controller_Obj1 (ModuleController).UIControls.Config": {
+            "ACCESS": 3,
+            "CUSTOMERDATA": "",
+            "DOMAIN": "ADS",
+            "MAPPING": "localhost::Controller_Obj1 (ModuleController)::UIControls::Config",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/localhost.ST_Config"
+            },
+            "USEMAPPING": true
+        },
+        "localhost.Controller_Obj1 (ModuleController).UIControls.Running": {
+            "ACCESS": 3,
+            "CUSTOMERDATA": "",
+            "DOMAIN": "ADS",
+            "MAPPING": "localhost::Controller_Obj1 (ModuleController)::UIControls::Running",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "localhost.Controller_Obj1 (ModuleController).UIControls.Start": {
+            "ACCESS": 3,
+            "CUSTOMERDATA": "",
+            "DOMAIN": "ADS",
+            "MAPPING": "localhost::Controller_Obj1 (ModuleController)::UIControls::Start",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "localhost.Controller_Obj1 (ModuleController).UIControls.Stop": {
+            "ACCESS": 3,
+            "CUSTOMERDATA": "",
+            "DOMAIN": "ADS",
+            "MAPPING": "localhost::Controller_Obj1 (ModuleController)::UIControls::Stop",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
             },
             "USEMAPPING": true
         }

@@ -53,6 +53,16 @@ BEGIN_SCOPED_TYPED_ENUM(E_STATES_TRANSPORT_B, unsigned char)
 END_SCOPED_TYPED_ENUM(E_STATES_TRANSPORT_B, unsigned char)
 #endif // !defined(_TC_TYPE_16FD3C19_537A_42F0_B109_DF6DADA71F81_INCLUDED_)
 
+#if !defined(_TC_TYPE_547E8604_F2E5_484E_8D8A_3992CB2003F8_INCLUDED_)
+#define _TC_TYPE_547E8604_F2E5_484E_8D8A_3992CB2003F8_INCLUDED_
+typedef struct _ST_Config
+{
+	double rLaenge;
+	double rBreite;
+	double rDicke;
+} ST_Config, *PST_Config;
+#endif // !defined(_TC_TYPE_547E8604_F2E5_484E_8D8A_3992CB2003F8_INCLUDED_)
+
 typedef struct _ModuleControllerInputIPointers
 {
 	OTCID oidBohrmaschine;
@@ -60,17 +70,22 @@ typedef struct _ModuleControllerInputIPointers
 	OTCID oidTransportB;
 } ModuleControllerInputIPointers, *PModuleControllerInputIPointers;
 
+#pragma pack(push,1)
 typedef struct _ModuleControllerUIControls
 {
 	bool Start;
 	bool Stop;
+	bool Running;
 } ModuleControllerUIControls, *PModuleControllerUIControls;
+#pragma pack(pop)
 
+#pragma pack(push,1)
 typedef struct _ModuleControllerState
 {
-	bool Running;
 	Zustand eZustand;
+	ST_Config Config;
 } ModuleControllerState, *PModuleControllerState;
+#pragma pack(pop)
 
 #pragma pack(push,1)
 typedef struct _ModuleControllerTransportA

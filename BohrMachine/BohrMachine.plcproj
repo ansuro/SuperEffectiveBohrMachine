@@ -26,9 +26,6 @@
     <Compile Include="DUTs\ST_2DPoint.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\ST_Config.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="GlobalTextList.TcGTLO">
       <SubType>Code</SubType>
     </Compile>
@@ -155,6 +152,9 @@
     <LibraryReference Include="VisuSymbols,3.5.10.0,System">
       <Namespace>VisuSymbols</Namespace>
     </LibraryReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PinnedGlobalDataType Include="ST_Config" />
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

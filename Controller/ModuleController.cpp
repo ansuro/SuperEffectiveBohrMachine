@@ -135,6 +135,15 @@ HRESULT CModuleController::SetObjStateSO()
 	// TODO: Add any additional initialization
 	m_State.eZustand = Zustand::stopped;
 
+	m_State.Config.rBreite = 300;
+	m_State.Config.rLaenge = 400;
+	m_State.Config.rDicke = 30;
+
+	m_UIControls.Start = false;
+	m_UIControls.Stop = false;
+	m_UIControls.Running = false;
+
+
 	// If following call is successful the CycleUpdate method will be called, 
 	// possibly even before method has been left.
 	hr = FAILED(hr) ? hr : AddModuleToCaller();
@@ -243,11 +252,11 @@ VOID CModuleController::RemoveModuleFromCaller()
 
 void CModuleController::init()
 {
-	if (m_spBohrmaschine == NULL && m_InputIPointers.oidBohrmaschine != 0)
-	{
-		m_spBohrmaschine.SetOID(m_InputIPointers.oidBohrmaschine);
-		m_spSrv->TcQuerySmartObjectInterface(m_spBohrmaschine);
-	}
+	//if (m_spBohrmaschine == NULL && m_InputIPointers.oidBohrmaschine != 0)
+	//{
+	//	m_spBohrmaschine.SetOID(m_InputIPointers.oidBohrmaschine);
+	//	m_spSrv->TcQuerySmartObjectInterface(m_spBohrmaschine);
+	//}
 
 	if (m_spTransportMaster == NULL && m_InputIPointers.oidTransportA)
 	{
@@ -261,15 +270,9 @@ void CModuleController::init()
 		m_spSrv->TcQuerySmartObjectInterface(m_spTransportSlave);
 	}
 
-	initialized = m_spBohrmaschine != NULL && m_spTransportMaster != NULL && m_spTransportSlave != NULL;
+	initialized = /*m_spBohrmaschine != NULL &&*/ m_spTransportMaster != NULL && m_spTransportSlave != NULL;
 }
 
-/*
-TODO morgen
-- Zustand der Geräte outputten und hier inputten (zum Testen ob alle gestoppt sind)
-- ConfigStruct erstellen. Anlage erst startbar machen, nachdem gültige Konfig gesetzt wurde
-- UI vorbereiten (Set Config, start, stop, Status / Zustand der einzelnen Geräte)
-*/
 
 // statemachine loop
 void CModuleController::loop()
@@ -293,6 +296,7 @@ void CModuleController::loop()
 		break;
 
 	default:
+		m_Trace.Log(tlVerbose, FLEAVEA "Statemachine: Unknown state");
 		break;
 	}
 }
@@ -303,6 +307,7 @@ void CModuleController::started()
 	if (m_UIControls.Stop)
 	{
 		m_State.eZustand = Zustand::stopping;
+		m_UIControls.Running = false;
 	}
 }
 
@@ -319,6 +324,7 @@ void CModuleController::starting()
 	if (resTPA == S_OK && resTPB == S_OK)
 	{
 		m_State.eZustand = Zustand::started;
+		m_UIControls.Running = true;
 	}
 }
 
@@ -342,6 +348,7 @@ void CModuleController::stopping()
 	if (resTPA == S_OK && resTPB == S_OK)
 	{
 		m_State.eZustand = Zustand::stopped;
+		m_UIControls.Running = false;
 	}
 }
 
