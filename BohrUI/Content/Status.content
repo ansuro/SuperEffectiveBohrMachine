@@ -1,6 +1,6 @@
-﻿<div id="Status" data-tchmi-type="tchmi-content" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1004" data-tchmi-height="660" data-tchmi-zindex="1">
+﻿<div id="Status" data-tchmi-type="tchmi-content" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="1004" data-tchmi-height="660" data-tchmi-zindex="1" data-tchmi-left-unit="px" data-tchmi-top-unit="px" data-tchmi-width-unit="px" data-tchmi-height-unit="px">
 
-<div id="lblTPAv" data-tchmi-type="tchmi-textblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="465" data-tchmi-left-unit="px" data-tchmi-top="148" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text="%s%localhost.Controller_Obj1 (ModuleController).TransportA.State%/s%" data-tchmi-zindex="1">
+<div id="lblTPAv" data-tchmi-type="tchmi-textblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="465" data-tchmi-left-unit="px" data-tchmi-top="148" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1" data-tchmi-text="%f%EnumTPAToString(%s%localhost.Controller_Obj1 (ModuleController).TransportA.State%/s%)%/f%">
 
 </div>
 
@@ -12,7 +12,7 @@
 
 </div>
 
-<div id="lblTPBv" data-tchmi-type="tchmi-textblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="465" data-tchmi-left-unit="px" data-tchmi-text="%s%localhost.Controller_Obj1 (ModuleController).TransportB.State%/s%" data-tchmi-top="184" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+<div id="lblTPBv" data-tchmi-type="tchmi-textblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="465" data-tchmi-left-unit="px" data-tchmi-text="%f%EnumTPBToString(%s%localhost.Controller_Obj1 (ModuleController).TransportB.State%/s%)%/f%" data-tchmi-top="184" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
 
 </div>
 
@@ -28,7 +28,7 @@
 
 </div>
 
-<div id="lblAnlage" data-tchmi-type="tchmi-textblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="465" data-tchmi-left-unit="px" data-tchmi-text="%s%localhost.Controller_Obj1 (ModuleController).State.eZustand%/s%" data-tchmi-top="114" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True">
+<div id="lblAnlage" data-tchmi-type="tchmi-textblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="465" data-tchmi-left-unit="px" data-tchmi-top="114" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text="%f%EnumTPAToString(%s%localhost.Controller_Obj1 (ModuleController).State.eZustand%/s%)%/f%">
 
 </div>
 

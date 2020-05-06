@@ -84,6 +84,7 @@
   <Target Name="Clean" DependsOnTargets="BaseClean" />
   <ItemGroup>
     <Folder Include=".hmipkgs" />
+    <Folder Include="Helpers\Conversion" />
     <Folder Include="Libraries" />
     <Folder Include="Images" />
     <Folder Include="Images\Manifest" />
@@ -92,6 +93,7 @@
     <Folder Include="Imports\Videos" />
     <Folder Include="Localization" />
     <Folder Include="Content" />
+    <Folder Include="Helpers" />
     <Folder Include="Server\Extensions\ADS" />
     <Folder Include="Server\Extensions\TcHmiEventLogger" />
     <Folder Include="Server\Extensions\TcHmiLua" />
@@ -140,6 +142,12 @@
     <Content Include="Fonts\Roboto-Condensed-webfont.woff">
       <SubType>Content</SubType>
       <Visible>true</Visible>
+    </Content>
+    <Content Include="Helpers\Conversion\EnumTPAToString.function.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Helpers\Conversion\EnumTPAToString.js">
+      <SubType>Content</SubType>
     </Content>
     <Content Include="Server\Extensions\ADS\ADS.Config.default.json">
       <SubType>Content</SubType>

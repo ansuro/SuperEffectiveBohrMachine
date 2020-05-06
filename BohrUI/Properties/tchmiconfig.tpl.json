@@ -56,7 +56,14 @@
       "preload": false
     }
   ],
-  "userFunctions": [],
+  "userFunctions": [
+    {
+      "url": "Helpers/Conversion/EnumTPAToString.js"
+    },
+    {
+      "url": "Helpers/Conversion/EnumTPBToString.js"
+    }
+  ],
   "symbols": {
     "internal": {}
   },
