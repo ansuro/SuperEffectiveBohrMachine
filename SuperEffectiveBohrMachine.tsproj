@@ -1337,6 +1337,38 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
+			<Name GUID="{C686683E-A6C8-4B27-AF18-D29CA8230E44}" PersistentType="true">E_STATES_BOHRMACHINE</Name>
+			<BitSize>16</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000006}">INT</BaseType>
+			<EnumInfo>
+				<Text><![CDATA[EWAITING]]></Text>
+				<Enum>0</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[EMOVING]]></Text>
+				<Enum>1</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[EDRILLING]]></Text>
+				<Enum>2</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[ESTOPPING]]></Text>
+				<Enum>3</Enum>
+			</EnumInfo>
+			<Properties>
+				<Property>
+					<Name>plcAttribute_qualified_only</Name>
+				</Property>
+				<Property>
+					<Name>plcAttribute_strict</Name>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{45CF3F7F-FEC1-040F-2166-5BB9EFC09985}"/>
+			</Hides>
+		</DataType>
+		<DataType>
 			<Name GUID="{FA9D66EE-0236-4C7E-B7EA-32284FDD303F}" PersistentType="true">E_STATES_TRANSPORT_A</Name>
 			<BitSize>8</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
@@ -2422,6 +2454,11 @@ External Setpoint Generation:
 							<Name>MAIN.bohrmaschine.axesManager.zAchse.PlcToNc</Name>
 							<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
+						<Var>
+							<Name>MAIN.bohrmaschine.eZustand</Name>
+							<Comment><![CDATA[ Zustand der Maschine]]></Comment>
+							<Type GUID="{C686683E-A6C8-4B27-AF18-D29CA8230E44}">E_STATES_BOHRMACHINE</Type>
+						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2020-04-23T17:11:26">
 						<OwnerA Name="InputDst" Prefix="TIPC^BohrMachine^BohrMachine Instance" Type="1">
@@ -2513,10 +2550,6 @@ External Setpoint Generation:
 							<Name>MAIN.fbTransportSlave.eZustand</Name>
 							<Comment><![CDATA[ aktueller Zustand]]></Comment>
 							<Type GUID="{16FD3C19-537A-42F0-B109-DF6DADA71F81}">E_STATES_TRANSPORT_B</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbTransportSlave.fbSensor.bWerkStueckLiegtAn</Name>
-							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<TaskPouOids>
@@ -2697,7 +2730,7 @@ External Setpoint Generation:
 							<InterfacePointer>
 								<PTCID>#x00000002</PTCID>
 								<Name>Bohrmaschine</Name>
-								<Type GUID="{2FF1D4E0-EFA3-45BB-B4FD-1AB5D871BEED}">I_Bohrmaschine</Type>
+								<Type GUID="{BFA5C813-24A8-41CA-A259-47C9EFEFD07C}">I_Bohrmaschine</Type>
 								<ContextId>1</ContextId>
 							</InterfacePointer>
 							<InterfacePointer>
@@ -2806,7 +2839,6 @@ External Setpoint Generation:
 			</OwnerB>
 			<OwnerB Name="TIXC^Controller^Controller_Obj1 (ModuleController)">
 				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.eZustand" VarB="TransportB^State"/>
-				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.fbSensor.bWerkStueckLiegtAn" VarB="TransportB^WerkstueckLiegtAn"/>
 				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.objID" VarB="InputIPointers^oidTransportB"/>
 			</OwnerB>
 		</OwnerA>

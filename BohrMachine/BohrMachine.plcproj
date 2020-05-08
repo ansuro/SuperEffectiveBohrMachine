@@ -20,9 +20,6 @@
     <Compile Include="DUTs\E_BOHRER_STATES.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\E_MACHINE_STATES.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\ST_2DPoint.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -154,6 +151,7 @@
     </LibraryReference>
   </ItemGroup>
   <ItemGroup>
+    <PinnedGlobalDataType Include="E_STATES_BOHRMACHINE" />
     <PinnedGlobalDataType Include="ST_Config" />
   </ItemGroup>
   <ProjectExtensions>

@@ -149,6 +149,12 @@
     <Content Include="Helpers\Conversion\EnumTPAToString.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Helpers\Conversion\EnumTPBToString.function.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Helpers\Conversion\EnumTPBToString.js">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Server\Extensions\ADS\ADS.Config.default.json">
       <SubType>Content</SubType>
     </Content>

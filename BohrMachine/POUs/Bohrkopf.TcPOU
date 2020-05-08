@@ -21,6 +21,8 @@ VAR
 	// aktueller Zustand des Bohrers
 	// TODO Init Methode, auch in Bohrmaschine
 	eZustand: E_BOHRER_STATES := E_BOHRER_STATES.eBereit;
+	
+	stConfig: REFERENCE TO ST_Config;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -49,7 +51,8 @@ CASE eZustand OF
 	E_BOHRER_STATES.eHerunterfahrend:
 		bBohrerAktiv := TRUE;
 		// Abstand + Bohrtiefe (positive Y-Achse zeigt nach unten)
-		rYPos := 50 - GVL_Config.stConfig.rDicke + 10;
+//		rYPos := 50 - GVL_Config.stConfig.rDicke + 10;
+		rYPos := 50 - stConfig.rDicke + 10;
 		bBohrerMove := TRUE;
 		//F_Log('herunterfahrend');
 	
@@ -107,6 +110,17 @@ END_CASE
 ]]></ST>
       </Implementation>
     </Method>
+    <Property Name="Config" Id="{a2bf12a1-53a9-4335-b0d2-5812a6486190}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Config : REFERENCE TO ST_Config]]></Declaration>
+      <Set Name="Set" Id="{0a4c1df1-1f98-45d0-9f56-f97a074832b2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[THIS^.stConfig REF= Config;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="Stop" Id="{1a68df19-0c73-4e00-b024-88c583f088ec}">
       <Declaration><![CDATA[METHOD PUBLIC Stop : BOOL
 ]]></Declaration>
@@ -140,7 +154,9 @@ END_CASE]]></ST>
       <LineId Id="116" Count="3" />
       <LineId Id="122" Count="7" />
       <LineId Id="171" Count="0" />
-      <LineId Id="130" Count="9" />
+      <LineId Id="130" Count="1" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="132" Count="7" />
       <LineId Id="105" Count="0" />
       <LineId Id="48" Count="0" />
       <LineId Id="95" Count="6" />
@@ -167,6 +183,9 @@ END_CASE]]></ST>
       <LineId Id="174" Count="4" />
       <LineId Id="173" Count="0" />
       <LineId Id="60" Count="0" />
+    </LineIds>
+    <LineIds Name="Bohrkopf.Config.Set">
+      <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="Bohrkopf.Stop">
       <LineId Id="18" Count="0" />

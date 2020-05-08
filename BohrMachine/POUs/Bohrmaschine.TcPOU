@@ -9,7 +9,7 @@ VAR
 	axesManager: AxesManager;
 
 	// Zustand der Maschine
-	eZustand: E_MACHINE_STATES := E_MACHINE_STATES.eWaiting;
+	eZustand AT %Q*: E_STATES_BOHRMACHINE := E_STATES_BOHRMACHINE.eWaiting;
 
 	// anzufahrende Punkte
 	aPunkte: ARRAY [0..3] OF ST_2DPoint;
@@ -20,6 +20,8 @@ VAR
 
 	bRunning: BOOL := FALSE;
 	stHomePoint: ST_2DPoint := (x := 0, y := 0);
+	
+	stConfig: ST_Config;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -28,35 +30,39 @@ axesManager();
 bohrer();
 
 CASE eZustand OF
-	E_MACHINE_STATES.eWaiting:
+	E_STATES_BOHRMACHINE.eWaiting:
 		// idle
 
-	E_MACHINE_STATES.eStopping:
+	E_STATES_BOHRMACHINE.eStopping:
 		Stopping();
 
-	E_MACHINE_STATES.eMoving:
+	E_STATES_BOHRMACHINE.eMoving:
 		Moving();
 
-	E_MACHINE_STATES.eDrilling:
+	E_STATES_BOHRMACHINE.eDrilling:
 		Drilling();
 END_CASE]]></ST>
     </Implementation>
-    <Method Name="Config" Id="{25dde089-95eb-4734-88fc-9c38d9b5ac13}">
-      <Declaration><![CDATA[METHOD PRIVATE Config : BOOL
-VAR
+    <Property Name="Config" Id="{63061acf-7c75-4493-a0af-74a14e92f78e}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Config : ST_Config]]></Declaration>
+      <Get Name="Get" Id="{7480d17d-142c-4da2-815e-194c385f3d0a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{22a7f847-2e66-4376-a116-a521d53586be}">
+        <Declaration><![CDATA[VAR
 	rBreite: LREAL;
 	rLaenge: LREAL;
-END_VAR
-VAR CONSTANT
-	// Abstand des Bohrlochs zur Aussenseite
-	// TODO später als Input
 	rAbstand: LREAL := 10;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[// die vier Koordinaten berechnen und speichern, TODO später: Bohrlochtiefe + Abstand
-
-rBreite := GVL_Config.stConfig.rBreite;
-rLaenge := GVL_Config.stConfig.rLaenge;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[rBreite := stConfig.rBreite;
+rLaenge := stConfig.rLaenge;
 
 // Punkt 1
 aPunkte[0].x := rAbstand;
@@ -72,14 +78,17 @@ aPunkte[2].y := rBreite - rAbstand;
 
 // Punkt 4
 aPunkte[3].x := rLaenge - rAbstand;
-aPunkte[3].y := rAbstand;]]></ST>
-      </Implementation>
-    </Method>
+aPunkte[3].y := rAbstand;
+
+bohrer.Config REF= stConfig;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="Drill" Id="{f6a05a08-ae6b-4538-9167-85cc33480e82}">
       <Declaration><![CDATA[METHOD PRIVATE Drill : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[eZustand := E_MACHINE_STATES.eDrilling;]]></ST>
+        <ST><![CDATA[eZustand := E_STATES_BOHRMACHINE.eDrilling;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Drilling" Id="{de0fd246-a5eb-4e47-9ece-8ff9cbdbcce5}">
@@ -138,7 +147,7 @@ IF nCurIdx > 3 THEN
 ELSE // nächsten Bohrpunkt setzen
 	axesManager.Start(aPunkte[nCurIdx]);
 	nCurIdx := nCurIdx + 1;	
-	eZustand := E_MACHINE_STATES.eMoving;
+	eZustand := E_STATES_BOHRMACHINE.eMoving;
 END_IF
 ]]></ST>
       </Implementation>
@@ -170,13 +179,16 @@ END_IF]]></ST>
 {attribute 'minimal_input_size' := '4'}
 {attribute 'pack_mode' := '4'}
 METHOD PUBLIC Start : HRESULT
-]]></Declaration>
+VAR_INPUT
+	config: ST_Config;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.bRunning := TRUE;
 GVL_Control.bIsRunning := TRUE;
 // Progressbar = 0
 GVL_Control.nProgress := 0;
-Config();
+//THIS^.Config_(config);
+THIS^.Config := config;
 axesManager.Enable(bEnableAxes := TRUE);
 MoveNext();
 ipLogger.LogStart();]]></ST>
@@ -199,7 +211,7 @@ THIS^.bRunning := FALSE;
 GVL_Control.bRun := FALSE;
 axesManager.Stop();
 bohrer.Stop();
-eZustand := E_MACHINE_STATES.eStopping;
+eZustand := E_STATES_BOHRMACHINE.eStopping;
 nCurIdx := 0;]]></ST>
       </Implementation>
     </Method>
@@ -220,7 +232,7 @@ IF axesManager.bPunktAngefahren THEN
 	F_Log('Home:');
 	axesManager.LogAxes();
 	axesManager.Stop();
-	eZustand := E_MACHINE_STATES.eWaiting;
+	eZustand := E_STATES_BOHRMACHINE.eWaiting;
 	GVL_Control.bIsRunning := FALSE;
 	// Progressbar + 1
 	GVL_Control.nProgress := 9;
@@ -261,9 +273,14 @@ END_IF]]></ST>
       <LineId Id="339" Count="8" />
       <LineId Id="43" Count="0" />
     </LineIds>
-    <LineIds Name="Bohrmaschine.Config">
-      <LineId Id="46" Count="18" />
-      <LineId Id="21" Count="0" />
+    <LineIds Name="Bohrmaschine.Config.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Bohrmaschine.Config.Set">
+      <LineId Id="5" Count="16" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="26" Count="0" />
     </LineIds>
     <LineIds Name="Bohrmaschine.Drill">
       <LineId Id="4" Count="0" />
@@ -306,7 +323,9 @@ END_IF]]></ST>
       <LineId Id="14" Count="1" />
       <LineId Id="19" Count="0" />
       <LineId Id="18" Count="0" />
-      <LineId Id="16" Count="1" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="17" Count="0" />
       <LineId Id="5" Count="0" />
       <LineId Id="23" Count="0" />
     </LineIds>

@@ -7,8 +7,8 @@ VAR
 	bohrmaschine: Bohrmaschine('MAIN.Bohrmaschine', ipLogger := fbLogger);
 	
 	// start-stop trigger
-	trigRStart: R_TRIG;
-	trigFStop: F_TRIG;
+//	trigRStart: R_TRIG;
+//	trigFStop: F_TRIG;
 	
 END_VAR
 
@@ -19,17 +19,17 @@ END_VAR
 
 bohrmaschine();
 
-trigRStart(CLK := GVL_Control.bRun);
-IF trigRStart.Q THEN
-	F_Log('starting');
-	bohrmaschine.Start();
-END_IF
+//trigRStart(CLK := GVL_Control.bRun);
+//IF trigRStart.Q THEN
+//	F_Log('starting');
+//	bohrmaschine.Start();
+//END_IF
 
-trigFStop(CLK := GVL_Control.bRun);
-IF trigFStop.Q THEN
-	F_Log('stopping');
-	bohrmaschine.Stop();
-END_IF
+//trigFStop(CLK := GVL_Control.bRun);
+//IF trigFStop.Q THEN
+//	F_Log('stopping');
+//	bohrmaschine.Stop();
+//END_IF
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
