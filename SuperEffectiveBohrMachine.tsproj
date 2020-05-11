@@ -2751,7 +2751,7 @@ External Setpoint Generation:
 								<Name>UIControls</Name>
 								<Comment><![CDATA[ADS UI-Controls]]></Comment>
 								<ContextId>1</ContextId>
-								<ByteSize>2</ByteSize>
+								<ByteSize>4</ByteSize>
 								<Symbol>
 									<Name>Start</Name>
 									<Comment TxtId=""><![CDATA[Command Start]]></Comment>
@@ -2765,6 +2765,18 @@ External Setpoint Generation:
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<BitOffs>8</BitOffs>
+								</Symbol>
+								<Symbol>
+									<Name>BtnStartEnabled</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<BitOffs>16</BitOffs>
+								</Symbol>
+								<Symbol>
+									<Name>BtnStopEnabled</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<BitOffs>24</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>

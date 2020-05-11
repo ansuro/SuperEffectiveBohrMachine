@@ -2699,6 +2699,26 @@
             },
             "USEMAPPING": true
         },
+        "localhost.Controller_Obj1 (ModuleController).UIControls.BtnStartEnabled": {
+            "ACCESS": 3,
+            "CUSTOMERDATA": "",
+            "DOMAIN": "ADS",
+            "MAPPING": "localhost::Controller_Obj1 (ModuleController)::UIControls::BtnStartEnabled",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "localhost.Controller_Obj1 (ModuleController).UIControls.BtnStopEnabled": {
+            "ACCESS": 3,
+            "CUSTOMERDATA": "",
+            "DOMAIN": "ADS",
+            "MAPPING": "localhost::Controller_Obj1 (ModuleController)::UIControls::BtnStopEnabled",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
         "localhost.Controller_Obj1 (ModuleController).UIControls.Config": {
             "ACCESS": 3,
             "CUSTOMERDATA": "",

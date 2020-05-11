@@ -141,6 +141,8 @@ HRESULT CModuleController::SetObjStateSO()
 
 	m_UIControls.Start = false;
 	m_UIControls.Stop = false;
+	m_UIControls.BtnStartEnabled = false;
+	m_UIControls.BtnStopEnabled = false;
 
 	// If following call is successful the CycleUpdate method will be called, 
 	// possibly even before method has been left.
@@ -200,6 +202,8 @@ HRESULT CModuleController::CycleUpdate(ITcTask* ipTask, ITcUnknown* ipCaller, UL
 	}
 	else
 	{
+		// update UI
+		updateUI();
 		loop();
 	}
 
@@ -412,3 +416,8 @@ void CModuleController::operatingLoop()
 	}
 }
 
+void CModuleController::updateUI()
+{
+	m_UIControls.BtnStartEnabled = m_State.eZustand == Zustand::stopped;
+	m_UIControls.BtnStopEnabled = m_State.eZustand == Zustand::started;
+}

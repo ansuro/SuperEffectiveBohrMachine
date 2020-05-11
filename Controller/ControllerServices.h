@@ -97,6 +97,8 @@ typedef struct _ModuleControllerUIControls
 {
 	bool Start;
 	bool Stop;
+	bool BtnStartEnabled;
+	bool BtnStopEnabled;
 } ModuleControllerUIControls, *PModuleControllerUIControls;
 
 #pragma pack(push,1)

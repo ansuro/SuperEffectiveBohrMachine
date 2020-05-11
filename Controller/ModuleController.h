@@ -66,4 +66,7 @@ private:
 	void stopped();
 	void stopping();
 	void operatingLoop();
+
+	// UI update
+	void updateUI();
 };
