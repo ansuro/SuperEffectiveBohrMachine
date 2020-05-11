@@ -91,6 +91,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.stPunkt := stPunkt;
+
+// quick fix: einmal falsen
+fbAxisMoveX(Axis := xAchse, Execute := FALSE);
+fbAxisMoveZ(Axis := zAchse, Execute := FALSE);
+
 bMoveAxes := TRUE;]]></ST>
       </Implementation>
     </Method>
@@ -125,6 +130,9 @@ END_VAR
     </LineIds>
     <LineIds Name="AxesManager.Start">
       <LineId Id="11" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="18" Count="2" />
+      <LineId Id="16" Count="0" />
       <LineId Id="7" Count="0" />
     </LineIds>
     <LineIds Name="AxesManager.Stop">

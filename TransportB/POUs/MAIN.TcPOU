@@ -7,12 +7,21 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[fbTransportSlave();
-]]></ST>
+      <ST><![CDATA[fbTransportSlave();]]></ST>
     </Implementation>
+    <Method Name="Setup" Id="{c8327a17-9761-42a4-adab-c913765a3e46}">
+      <Declaration><![CDATA[{attribute 'call_after_init'}
+METHOD Setup : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="MAIN">
       <LineId Id="15" Count="0" />
-      <LineId Id="21" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.Setup">
+      <LineId Id="8" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

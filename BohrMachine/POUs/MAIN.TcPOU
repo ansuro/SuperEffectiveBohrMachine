@@ -3,12 +3,15 @@
   <POU Name="MAIN" Id="{a92a02fc-7e74-4f5b-8c2e-324e945c69b3}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	fbLogger: MachineLogger;
-	bohrmaschine: Bohrmaschine('MAIN.Bohrmaschine', ipLogger := fbLogger);
+//	fbLogger: MachineLogger;
+	bohrmaschine: Bohrmaschine(sObjectName := 'MAIN.Bohrmaschine');
 	
+	// just for online testing
 	// start-stop trigger
-//	trigRStart: R_TRIG;
-//	trigFStop: F_TRIG;
+	trigRStart: R_TRIG;
+	trigFStop: F_TRIG;
+	bStart: BOOL := FALSE;
+	stTestConfig: ST_Config := (rLaenge := 400, rBreite := 300, rDicke := 30);
 	
 END_VAR
 
@@ -19,13 +22,14 @@ END_VAR
 
 bohrmaschine();
 
-//trigRStart(CLK := GVL_Control.bRun);
-//IF trigRStart.Q THEN
-//	F_Log('starting');
+trigRStart(CLK := bStart);
+IF trigRStart.Q THEN
+	F_Log('starting');
+	bohrmaschine.Start(stTestConfig);
 //	bohrmaschine.Start();
-//END_IF
+END_IF
 
-//trigFStop(CLK := GVL_Control.bRun);
+//trigFStop(CLK := bStart);
 //IF trigFStop.Q THEN
 //	F_Log('stopping');
 //	bohrmaschine.Stop();
@@ -33,7 +37,9 @@ bohrmaschine();
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="85" Count="15" />
+      <LineId Id="85" Count="8" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="94" Count="6" />
       <LineId Id="68" Count="0" />
     </LineIds>
   </POU>

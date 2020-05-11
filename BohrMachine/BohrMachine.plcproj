@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <PinnedGlobalDataType Include="E_STATES_BOHRMACHINE" />
+    <PinnedGlobalDataType Include="I_Bohrmaschine" />
     <PinnedGlobalDataType Include="ST_Config" />
   </ItemGroup>
   <ProjectExtensions>

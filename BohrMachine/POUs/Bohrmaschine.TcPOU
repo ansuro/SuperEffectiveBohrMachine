@@ -4,6 +4,7 @@
     <Declaration><![CDATA[{attribute 'c++_compatible'}
 FUNCTION_BLOCK Bohrmaschine EXTENDS TcBaseModuleRegistered IMPLEMENTS I_Bohrmaschine
 VAR
+	fbLogger: MachineLogger;
 	ipLogger: I_MachineLogger;
 	bohrer: Bohrkopf;
 	axesManager: AxesManager;
@@ -31,6 +32,12 @@ bohrer();
 
 CASE eZustand OF
 	E_STATES_BOHRMACHINE.eWaiting:
+		// idle
+		
+	E_STATES_BOHRMACHINE.ESTARTING:
+		Starting();
+		
+	E_STATES_BOHRMACHINE.eStopped:
 		// idle
 
 	E_STATES_BOHRMACHINE.eStopping:
@@ -61,7 +68,9 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[rBreite := stConfig.rBreite;
+          <ST><![CDATA[THIS^.stConfig := Config;
+
+rBreite := stConfig.rBreite;
 rLaenge := stConfig.rLaenge;
 
 // Punkt 1
@@ -117,13 +126,13 @@ VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	sObjectName: STRING;
-	ipLogger: I_MachineLogger;
+	//ipLogger: I_MachineLogger;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.ipLogger := ipLogger;
+        <ST><![CDATA[//THIS^.ipLogger := ipLogger;
 //SUPER^.FB_init(bInitRetains, bInCopyCode, sObjectName);
-]]></ST>
+THIS^.ipLogger := THIS^.fbLogger;]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_reinit" Id="{3a40869c-208c-46bd-aff5-834ebb83439d}">
@@ -180,18 +189,43 @@ END_IF]]></ST>
 {attribute 'pack_mode' := '4'}
 METHOD PUBLIC Start : HRESULT
 VAR_INPUT
-	config: ST_Config;
+	config: REFERENCE TO ST_Config;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.bRunning := TRUE;
+        <ST><![CDATA[CASE eZustand OF
+	E_STATES_BOHRMACHINE.EWAITING:
+		THIS^.Config := config;
+		F_Log('BOHRMASCHINE.Start[eWaiting] called');
+		eZustand := E_STATES_BOHRMACHINE.ESTARTING;
+		Start := S_PENDING;
+		
+	E_STATES_BOHRMACHINE.ESTOPPED:
+		// fertig
+		eZustand := E_STATES_BOHRMACHINE.EWAITING;
+		Start := S_OK;
+		
+	ELSE
+		Start := S_PENDING;
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Starting" Id="{dd1682f8-6ad8-4d40-87ea-0ffe7a352adb}">
+      <Declaration><![CDATA[METHOD Starting : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[F_Log('start');
+// starten
+THIS^.bRunning := TRUE;
 GVL_Control.bIsRunning := TRUE;
 // Progressbar = 0
 GVL_Control.nProgress := 0;
-//THIS^.Config_(config);
-THIS^.Config := config;
 axesManager.Enable(bEnableAxes := TRUE);
+ipLogger.LogStart();
 MoveNext();
-ipLogger.LogStart();]]></ST>
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stop" Id="{c65ecb49-f392-471e-8cd2-32ba1727ca52}">
@@ -202,17 +236,33 @@ ipLogger.LogStart();]]></ST>
 {attribute 'pack_mode' := '4'}
 METHOD PUBLIC Stop : HRESULT]]></Declaration>
       <Implementation>
-        <ST><![CDATA[// wenn intern durch Ende gestoppt wurde, benötigt es keinen Stop von aussen
-IF THIS^.bRunning = FALSE THEN
-	RETURN;
-END_IF
-
-THIS^.bRunning := FALSE;
-GVL_Control.bRun := FALSE;
-axesManager.Stop();
-bohrer.Stop();
-eZustand := E_STATES_BOHRMACHINE.eStopping;
-nCurIdx := 0;]]></ST>
+        <ST><![CDATA[CASE eZustand OF
+	E_STATES_BOHRMACHINE.ESTOPPING:
+		Stop := S_PENDING;
+		
+	E_STATES_BOHRMACHINE.EWAITING:
+		Stop := S_OK;
+		
+	E_STATES_BOHRMACHINE.ESTOPPED:
+		eZustand := E_STATES_BOHRMACHINE.EWAITING;
+		Stop := S_OK;
+	
+ELSE
+	// wenn intern durch Ende gestoppt wurde, benötigt es keinen Stop von aussen
+	IF THIS^.bRunning = FALSE THEN
+		RETURN;
+	END_IF
+	
+	THIS^.bRunning := FALSE;
+	GVL_Control.bRun := FALSE;
+	//axesManager.Stop();
+	bohrer.Stop();
+	eZustand := E_STATES_BOHRMACHINE.eStopping;
+	nCurIdx := 0;
+	
+	Stop := S_PENDING;
+END_CASE
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopping" Id="{70e2eab1-d929-470f-b1c1-4867fe667962}">
@@ -232,7 +282,7 @@ IF axesManager.bPunktAngefahren THEN
 	F_Log('Home:');
 	axesManager.LogAxes();
 	axesManager.Stop();
-	eZustand := E_STATES_BOHRMACHINE.eWaiting;
+	eZustand := E_STATES_BOHRMACHINE.eStopped;
 	GVL_Control.bIsRunning := FALSE;
 	// Progressbar + 1
 	GVL_Control.nProgress := 9;
@@ -256,7 +306,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF GuidsEqual(ADR(iid), ADR(TC_GLOBAL_IID_LIST.IID_I_TransportSlave)) THEN
+        <ST><![CDATA[IF GuidsEqual(ADR(iid), ADR(TC_GLOBAL_IID_LIST.IID_I_Bohrmaschine)) THEN
 	ipBM := THIS^;
 	pipItf^ := ITCUNKNOWN_TO_PVOID(ipBM);
 	TcAddRef();
@@ -270,6 +320,8 @@ END_IF]]></ST>
       <LineId Id="331" Count="4" />
       <LineId Id="338" Count="0" />
       <LineId Id="349" Count="0" />
+      <LineId Id="399" Count="2" />
+      <LineId Id="373" Count="2" />
       <LineId Id="339" Count="8" />
       <LineId Id="43" Count="0" />
     </LineIds>
@@ -277,6 +329,8 @@ END_IF]]></ST>
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="Bohrmaschine.Config.Set">
+      <LineId Id="34" Count="0" />
+      <LineId Id="33" Count="0" />
       <LineId Id="5" Count="16" />
       <LineId Id="2" Count="0" />
       <LineId Id="27" Count="0" />
@@ -320,19 +374,30 @@ END_IF]]></ST>
       <LineId Id="14" Count="0" />
     </LineIds>
     <LineIds Name="Bohrmaschine.Start">
-      <LineId Id="14" Count="1" />
-      <LineId Id="19" Count="0" />
-      <LineId Id="18" Count="0" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="32" Count="0" />
-      <LineId Id="17" Count="0" />
-      <LineId Id="5" Count="0" />
-      <LineId Id="23" Count="0" />
+      <LineId Id="47" Count="1" />
+      <LineId Id="77" Count="1" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="51" Count="7" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="44" Count="0" />
+    </LineIds>
+    <LineIds Name="Bohrmaschine.Starting">
+      <LineId Id="6" Count="5" />
+      <LineId Id="14" Count="3" />
     </LineIds>
     <LineIds Name="Bohrmaschine.Stop">
-      <LineId Id="23" Count="6" />
-      <LineId Id="33" Count="0" />
-      <LineId Id="30" Count="2" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="57" Count="3" />
+      <LineId Id="63" Count="3" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="43" Count="9" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="61" Count="1" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="55" Count="0" />
     </LineIds>
     <LineIds Name="Bohrmaschine.Stopping">
       <LineId Id="9" Count="0" />

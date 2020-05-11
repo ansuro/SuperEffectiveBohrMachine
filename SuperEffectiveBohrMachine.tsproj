@@ -1337,9 +1337,9 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{C686683E-A6C8-4B27-AF18-D29CA8230E44}" PersistentType="true">E_STATES_BOHRMACHINE</Name>
-			<BitSize>16</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000006}">INT</BaseType>
+			<Name GUID="{3375B0AF-7620-4678-A2F4-B950F53E3A3D}" PersistentType="true">E_STATES_BOHRMACHINE</Name>
+			<BitSize>8</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 			<EnumInfo>
 				<Text><![CDATA[EWAITING]]></Text>
 				<Enum>0</Enum>
@@ -1356,6 +1356,14 @@ External Setpoint Generation:
 				<Text><![CDATA[ESTOPPING]]></Text>
 				<Enum>3</Enum>
 			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[ESTOPPED]]></Text>
+				<Enum>4</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[ESTARTING]]></Text>
+				<Enum>5</Enum>
+			</EnumInfo>
 			<Properties>
 				<Property>
 					<Name>plcAttribute_qualified_only</Name>
@@ -1366,6 +1374,10 @@ External Setpoint Generation:
 			</Properties>
 			<Hides>
 				<Hide GUID="{45CF3F7F-FEC1-040F-2166-5BB9EFC09985}"/>
+				<Hide GUID="{C686683E-A6C8-4B27-AF18-D29CA8230E44}"/>
+				<Hide GUID="{BD3B57E4-D83B-449D-9DC2-54808494C30A}"/>
+				<Hide GUID="{FC8C1054-D216-4DF4-BC7B-0731F3B8F27B}"/>
+				<Hide GUID="{3F18BD17-0195-49DE-AFF3-02A3826473C7}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -1402,7 +1414,7 @@ External Setpoint Generation:
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{16FD3C19-537A-42F0-B109-DF6DADA71F81}" PersistentType="true">E_STATES_TRANSPORT_B</Name>
+			<Name GUID="{9959EF4D-6A38-4FB0-B7EE-C9A5378A8839}" PersistentType="true">E_STATES_TRANSPORT_B</Name>
 			<BitSize>8</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
 			<EnumInfo>
@@ -1432,6 +1444,8 @@ External Setpoint Generation:
 			<Hides>
 				<Hide GUID="{A7F12E5B-6C5E-480A-BD51-66880FDA2C29}"/>
 				<Hide GUID="{2C109218-9C34-4865-B10B-2CE5F07E89C1}"/>
+				<Hide GUID="{16FD3C19-537A-42F0-B109-DF6DADA71F81}"/>
+				<Hide GUID="{CF5DF3B1-CB06-4955-A5ED-E30D9A3FAD52}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -1485,21 +1499,100 @@ External Setpoint Generation:
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{2FF1D4E0-EFA3-45BB-B4FD-1AB5D871BEED}" PersistentType="true">I_Bohrmaschine</Name>
-			<BitSize X64="64">32</BitSize>
-			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
-			<Method>
-				<Name>Start</Name>
-				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
-				<ReturnBitSize>32</ReturnBitSize>
-			</Method>
-			<Method>
-				<Name>Stop</Name>
-				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
-				<ReturnBitSize>32</ReturnBitSize>
-			</Method>
+			<Name GUID="{B008CE37-8A01-489B-89E4-5BDAC7669296}">E_OpStates</Name>
+			<Comment TxtId=""><![CDATA[Operational states of the controller]]></Comment>
+			<BitSize>8</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+			<EnumInfo>
+				<Text><![CDATA[Stopping]]></Text>
+				<Enum>0</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[Syncing]]></Text>
+				<Enum>1</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[Drilling]]></Text>
+				<Enum>2</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[Synced]]></Text>
+				<Enum>3</Enum>
+			</EnumInfo>
 			<Hides>
-				<Hide GUID="{39FF10D9-0189-432D-9D02-1DBA3D0BFC25}"/>
+				<Hide GUID="{52D009ED-3430-43FB-B3C2-C2FBACA0E63B}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{3F18BD17-0195-49DE-AFF3-02A3826473C7}" AutoDeleteType="true">E_STATES_BOHRMACHINE</Name>
+			<BitSize>8</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+			<EnumInfo>
+				<Text><![CDATA[EWAITING]]></Text>
+				<Enum>0</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[EMOVING]]></Text>
+				<Enum>1</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[EDRILLING]]></Text>
+				<Enum>2</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[ESTOPPING]]></Text>
+				<Enum>3</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[ESTOPPED]]></Text>
+				<Enum>4</Enum>
+			</EnumInfo>
+			<Properties>
+				<Property>
+					<Name>plcAttribute_qualified_only</Name>
+				</Property>
+				<Property>
+					<Name>plcAttribute_strict</Name>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{45CF3F7F-FEC1-040F-2166-5BB9EFC09985}"/>
+				<Hide GUID="{C686683E-A6C8-4B27-AF18-D29CA8230E44}"/>
+				<Hide GUID="{BD3B57E4-D83B-449D-9DC2-54808494C30A}"/>
+				<Hide GUID="{FC8C1054-D216-4DF4-BC7B-0731F3B8F27B}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{16FD3C19-537A-42F0-B109-DF6DADA71F81}" AutoDeleteType="true">E_STATES_TRANSPORT_B</Name>
+			<BitSize>8</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+			<EnumInfo>
+				<Text><![CDATA[ESYNCING]]></Text>
+				<Enum>0</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[ESYNCED]]></Text>
+				<Enum>1</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[EHALTING]]></Text>
+				<Enum>2</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[EHALTED]]></Text>
+				<Enum>3</Enum>
+			</EnumInfo>
+			<Properties>
+				<Property>
+					<Name>plcAttribute_qualified_only</Name>
+				</Property>
+				<Property>
+					<Name>plcAttribute_strict</Name>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{A7F12E5B-6C5E-480A-BD51-66880FDA2C29}"/>
+				<Hide GUID="{2C109218-9C34-4865-B10B-2CE5F07E89C1}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -1559,6 +1652,24 @@ External Setpoint Generation:
 				<Hide GUID="{A24278EF-708C-417D-8FF9-3CA2290B3E70}"/>
 				<Hide GUID="{F8D4FEF7-A161-4F9A-95AD-CBC8B416E74F}"/>
 				<Hide GUID="{483A31B0-2301-45A5-BDA0-4390BE118005}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{2FF1D4E0-EFA3-45BB-B4FD-1AB5D871BEED}" PersistentType="true">I_Bohrmaschine</Name>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>Start</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>Stop</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Hides>
+				<Hide GUID="{39FF10D9-0189-432D-9D02-1DBA3D0BFC25}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -2457,7 +2568,7 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.bohrmaschine.eZustand</Name>
 							<Comment><![CDATA[ Zustand der Maschine]]></Comment>
-							<Type GUID="{C686683E-A6C8-4B27-AF18-D29CA8230E44}">E_STATES_BOHRMACHINE</Type>
+							<Type GUID="{3375B0AF-7620-4678-A2F4-B950F53E3A3D}">E_STATES_BOHRMACHINE</Type>
 						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2020-04-23T17:11:26">
@@ -2549,7 +2660,11 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.fbTransportSlave.eZustand</Name>
 							<Comment><![CDATA[ aktueller Zustand]]></Comment>
-							<Type GUID="{16FD3C19-537A-42F0-B109-DF6DADA71F81}">E_STATES_TRANSPORT_B</Type>
+							<Type GUID="{9959EF4D-6A38-4FB0-B7EE-C9A5378A8839}">E_STATES_TRANSPORT_B</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbTransportSlave.fbSensor.bWerkStueckLiegtAn</Name>
+							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<TaskPouOids>
@@ -2636,24 +2751,20 @@ External Setpoint Generation:
 								<Name>UIControls</Name>
 								<Comment><![CDATA[ADS UI-Controls]]></Comment>
 								<ContextId>1</ContextId>
-								<ByteSize>3</ByteSize>
+								<ByteSize>2</ByteSize>
 								<Symbol>
 									<Name>Start</Name>
+									<Comment TxtId=""><![CDATA[Command Start]]></Comment>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<BitOffs>0</BitOffs>
 								</Symbol>
 								<Symbol>
 									<Name>Stop</Name>
+									<Comment TxtId=""><![CDATA[Command Stop]]></Comment>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
 									<BitOffs>8</BitOffs>
-								</Symbol>
-								<Symbol>
-									<Name>Running</Name>
-									<BitSize>8</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
-									<BitOffs>16</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
@@ -2661,9 +2772,10 @@ External Setpoint Generation:
 								<Name>State</Name>
 								<Comment><![CDATA[State members]]></Comment>
 								<ContextId>1</ContextId>
-								<ByteSize>25</ByteSize>
+								<ByteSize>26</ByteSize>
 								<Symbol>
 									<Name>eZustand</Name>
+									<Comment TxtId=""><![CDATA[State of the machine]]></Comment>
 									<BitSize>8</BitSize>
 									<BaseType GUID="{B37DCF0F-032A-48DA-9E72-FE38F64AE081}">Zustand</BaseType>
 									<BitOffs>0</BitOffs>
@@ -2673,6 +2785,13 @@ External Setpoint Generation:
 									<BitSize>192</BitSize>
 									<BaseType GUID="{547E8604-F2E5-484E-8D8A-3992CB2003F8}">ST_Config</BaseType>
 									<BitOffs>8</BitOffs>
+								</Symbol>
+								<Symbol>
+									<Name>eOpZustand</Name>
+									<Comment TxtId=""><![CDATA[Operational state]]></Comment>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{B008CE37-8A01-489B-89E4-5BDAC7669296}">E_OpStates</BaseType>
+									<BitOffs>200</BitOffs>
 								</Symbol>
 							</DataArea>
 							<DataArea>
@@ -2693,11 +2812,11 @@ External Setpoint Generation:
 								<Name>Bohrmaschine</Name>
 								<Comment><![CDATA[Input from the BohrMachine]]></Comment>
 								<ContextId>1</ContextId>
-								<ByteSize>2</ByteSize>
+								<ByteSize>1</ByteSize>
 								<Symbol>
-									<Name>Symbol1</Name>
-									<BitSize>16</BitSize>
-									<BaseType GUID="{18071995-0000-0000-0000-000000000006}">INT</BaseType>
+									<Name>State</Name>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{3F18BD17-0195-49DE-AFF3-02A3826473C7}">E_STATES_BOHRMACHINE</BaseType>
 									<BitOffs>0</BitOffs>
 								</Symbol>
 							</DataArea>
@@ -2730,7 +2849,7 @@ External Setpoint Generation:
 							<InterfacePointer>
 								<PTCID>#x00000002</PTCID>
 								<Name>Bohrmaschine</Name>
-								<Type GUID="{BFA5C813-24A8-41CA-A259-47C9EFEFD07C}">I_Bohrmaschine</Type>
+								<Type GUID="{9B44EC8E-A52C-41E6-9085-68FADB7DFEB4}">I_Bohrmaschine</Type>
 								<ContextId>1</ContextId>
 							</InterfacePointer>
 							<InterfacePointer>
@@ -2793,6 +2912,10 @@ External Setpoint Generation:
 			</Project>
 		</Cpp>
 		<Io/>
+		<SymbolWatch>
+			<Variable>TIPC^TransportA^TransportA Instance^PlcTask Inputs^MAIN.fbTransport.axisTransportA.NcToPlc^ActVelo</Variable>
+			<Variable>TIPC^TransportB^TransportB Instance^PlcTask Inputs^MAIN.fbTransportSlave.axisTransportB.NcToPlc^ActVelo</Variable>
+		</SymbolWatch>
 	</Project>
 	<Mappings>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030010" Watchdog="14000000040000000400000004000000"/>
@@ -2816,6 +2939,7 @@ External Setpoint Generation:
 				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.axesManager.zAchse.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 			<OwnerB Name="TIXC^Controller^Controller_Obj1 (ModuleController)">
+				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.eZustand" VarB="Bohrmaschine^State"/>
 				<Link VarA="PlcTask Outputs^MAIN.bohrmaschine.objID" VarB="InputIPointers^oidBohrmaschine"/>
 			</OwnerB>
 		</OwnerA>
@@ -2839,6 +2963,7 @@ External Setpoint Generation:
 			</OwnerB>
 			<OwnerB Name="TIXC^Controller^Controller_Obj1 (ModuleController)">
 				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.eZustand" VarB="TransportB^State"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.fbSensor.bWerkStueckLiegtAn" VarB="TransportB^WerkstueckLiegtAn"/>
 				<Link VarA="PlcTask Outputs^MAIN.fbTransportSlave.objID" VarB="InputIPointers^oidTransportB"/>
 			</OwnerB>
 		</OwnerA>

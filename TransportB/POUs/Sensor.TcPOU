@@ -8,26 +8,36 @@ VAR_OUTPUT
 END_VAR
 VAR
 	bWerkStueckLiegtAn AT %Q*: BOOL := FALSE;
-	
-	// Werkstücksimulation. Random-Timer.
-	fbRandom: DRAND;
+	fbTimer: TON;
+	bTimerOn: BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*
-Simulation:
-p = Position wenn das Werkstück zum Bohren anliegt
-l = Länge Werkstück
-Werkstück wurde abtransportiert: actPos = p + l
-Wenn abtransportiert: Timer (je nachdem wie schnell das Bohren ist, Random 5-7s)
-(Bohren dauert aktuell ~40s... schneller machen...)
-
-*)]]></ST>
+      <ST><![CDATA[fbTimer(IN := bTimerOn, PT := T#5S);
+IF fbTimer.Q THEN
+	bWerkStueckLiegtAn := TRUE;
+	bTimerOn := FALSE;
+END_IF]]></ST>
     </Implementation>
+    <Method Name="Reset" Id="{62e2803f-4bd0-4416-b7ce-7b0afa90b0a8}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bWerkStueckLiegtAn := FALSE;
+bTimerOn := TRUE;]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="Sensor">
-      <LineId Id="14" Count="6" />
-      <LineId Id="23" Count="0" />
-      <LineId Id="9" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="42" Count="1" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="44" Count="0" />
+    </LineIds>
+    <LineIds Name="Sensor.Reset">
+      <LineId Id="6" Count="0" />
+      <LineId Id="10" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

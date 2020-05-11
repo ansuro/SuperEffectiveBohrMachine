@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <PinnedGlobalDataType Include="E_STATES_TRANSPORT_B" />
+    <PinnedGlobalDataType Include="I_TransportSlave" />
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

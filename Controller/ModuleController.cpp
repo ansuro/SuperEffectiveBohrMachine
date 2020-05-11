@@ -141,8 +141,6 @@ HRESULT CModuleController::SetObjStateSO()
 
 	m_UIControls.Start = false;
 	m_UIControls.Stop = false;
-	m_UIControls.Running = false;
-
 
 	// If following call is successful the CycleUpdate method will be called, 
 	// possibly even before method has been left.
@@ -252,25 +250,26 @@ VOID CModuleController::RemoveModuleFromCaller()
 
 void CModuleController::init()
 {
-	//if (m_spBohrmaschine == NULL && m_InputIPointers.oidBohrmaschine != 0)
-	//{
-	//	m_spBohrmaschine.SetOID(m_InputIPointers.oidBohrmaschine);
-	//	m_spSrv->TcQuerySmartObjectInterface(m_spBohrmaschine);
-	//}
+	if (m_spBohrmaschine == NULL && m_InputIPointers.oidBohrmaschine != 0)
+	{
+		m_spBohrmaschine.SetOID(m_InputIPointers.oidBohrmaschine);
+		HRESULT hr = m_spSrv->TcQuerySmartObjectInterface(m_spBohrmaschine);
+		m_Trace.Log(tlAlways, FLEAVEA "hr=0x%08x", hr);
+	}
 
-	if (m_spTransportMaster == NULL && m_InputIPointers.oidTransportA)
+	if (m_spTransportMaster == NULL && m_InputIPointers.oidTransportA != 0)
 	{
 		m_spTransportMaster.SetOID(m_InputIPointers.oidTransportA);
 		m_spSrv->TcQuerySmartObjectInterface(m_spTransportMaster);
 	}
 
-	if (m_spTransportSlave == NULL && m_InputIPointers.oidTransportB)
+	if (m_spTransportSlave == NULL && m_InputIPointers.oidTransportB != 0)
 	{
 		m_spTransportSlave.SetOID(m_InputIPointers.oidTransportB);
 		m_spSrv->TcQuerySmartObjectInterface(m_spTransportSlave);
 	}
 
-	initialized = /*m_spBohrmaschine != NULL &&*/ m_spTransportMaster != NULL && m_spTransportSlave != NULL;
+	initialized = m_spBohrmaschine != NULL && m_spTransportMaster != NULL && m_spTransportSlave != NULL;
 }
 
 
@@ -296,46 +295,54 @@ void CModuleController::loop()
 		break;
 
 	default:
-		m_Trace.Log(tlVerbose, FLEAVEA "Statemachine: Unknown state");
+		m_Trace.Log(tlAlways, FLEAVEA "Statemachine: Unknown state");
 		break;
 	}
 }
 
-// auf UI-Stop lauschen
+/*
+- auf UI-Stop lauschen
+- Operating-loop
+*/
 void CModuleController::started()
 {
 	if (m_UIControls.Stop)
 	{
 		m_State.eZustand = Zustand::stopping;
-		m_UIControls.Running = false;
+		m_UIControls.Stop = false;
+	}
+	else
+	{
+		this->operatingLoop();
 	}
 }
 
 /*
-- Transport A + B starten, Bohrer (Werkstückgröße) konfigurieren
+- Transport A + B starten
 - in Zustand 'started' switchen
 */
 void CModuleController::starting()
 {
-	//m_spBohrmaschine->Config();
-	HRESULT resTPA = m_spTransportMaster->Start(200);
-	HRESULT resTPB = m_spTransportSlave->SyncWithMaster();
+	HRESULT resTP = m_spTransportMaster->Start(200);
 
-	if (resTPA == S_OK && resTPB == S_OK)
+	// Erst Master, dann Slave auf Geschwindigkeit ziehen
+	if (resTP == S_OK)
 	{
-		m_State.eZustand = Zustand::started;
-		m_UIControls.Running = true;
+		resTP = m_spTransportSlave->SyncWithMaster();
+		if (resTP == S_OK)
+		{
+			m_State.eZustand = Zustand::started;
+		}
 	}
 }
 
 // auf UI-Start lauschen
 void CModuleController::stopped()
 {
-	// TODO Konfig
-
 	if (m_UIControls.Start)
 	{
 		m_State.eZustand = Zustand::starting;
+		m_State.eOpZustand = E_OpStates::Syncing;
 		m_UIControls.Start = false;
 	}
 }
@@ -344,11 +351,64 @@ void CModuleController::stopping()
 {
 	HRESULT resTPA = m_spTransportSlave->Halt();
 	HRESULT resTPB = m_spTransportMaster->Stop();
+	HRESULT resBM = m_spBohrmaschine->Stop();
 
-	if (resTPA == S_OK && resTPB == S_OK)
+	if (resTPA == S_OK && resTPB == S_OK && resBM == S_OK)
 	{
 		m_State.eZustand = Zustand::stopped;
-		m_UIControls.Running = false;
+	}
+}
+
+/*
+Der eigentliche Operating-Loop
+- Sensor auf Werkstück abfragen
+- wenn Werkstück anliegt: TPB anhalten, bohren, TPB mit Master syncen
+*/
+void CModuleController::operatingLoop()
+{
+	HRESULT hr;
+
+	switch (m_State.eOpZustand)
+	{
+	case E_OpStates::Stopping:
+		// TPB anhalten
+		hr = m_spTransportSlave->Halt();
+		// TPB == angehalten
+		if (hr == S_OK)
+		{
+			m_State.eOpZustand = E_OpStates::Drilling;
+		}
+		break;
+
+	case E_OpStates::Syncing:
+		// TPB syncen
+		hr = m_spTransportSlave->SyncWithMaster();
+		if (hr == S_OK)
+		{
+			m_State.eOpZustand = E_OpStates::Synced;
+		}
+		break;
+
+	case E_OpStates::Drilling:
+		// bohren
+		hr = m_spBohrmaschine->Start(m_State.Config);
+		if (hr == S_OK)
+		{
+			m_State.eOpZustand = E_OpStates::Syncing;
+		}
+		break;
+
+	case E_OpStates::Synced:
+		// Liegt Werkstück an? Ja => stoppen
+		if (m_TransportB.WerkstueckLiegtAn)
+		{
+			m_State.eOpZustand = E_OpStates::Stopping;
+		}
+		break;
+
+	default:
+		m_Trace.Log(tlAlways, FLEAVEA "Statemachine: Unknown state");
+		break;
 	}
 }
 

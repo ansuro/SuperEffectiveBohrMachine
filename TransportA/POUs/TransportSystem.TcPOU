@@ -16,10 +16,9 @@ VAR
 	
 	// ==== States ====
 	eZustand AT %Q*: E_STATES_TRANSPORT_A := E_STATES_TRANSPORT_A.Stopped;	// aktueller Zustand
-	//bRunning: BOOL := FALSE;
 	bReady: BOOL := FALSE;				// Achse bereit?
-	rVelocity: LREAL;					// Velocity
-	
+	rVelocity: LREAL := 100;			// Velocity (default: 100mm/s)
+
 	// ==== Outputs ====
 	rActVelocity AT %Q*: LREAL;				// Actual Velocity output
 END_VAR
@@ -78,7 +77,6 @@ END_VAR]]></Declaration>
 	ELSE
 		THIS^.rVelocity := rVelocity;
 		eZustand := E_STATES_TRANSPORT_A.Starting;
-		bReady := FALSE;
 		Start := S_PENDING;
 END_CASE
 ]]></ST>
@@ -95,13 +93,12 @@ END_VAR
 
 // TODO jeden Baustein auf Fehler prüfen, evtl allgemeinen Zustand Error einführen
 
-// Achse ist nicht bereit (nicht mit MC_Power freigegeben)
-IF NOT bReady THEN
+// Achse ist nicht bereit (nicht mit MC_Power gestartet)
+IF NOT fbMc_Power.Status THEN
 	fbMc_Power(
 		Axis := axisTransportA,
 		Enable := TRUE,
-		Enable_Positive := TRUE,
-		Status => bReady
+		Enable_Positive := TRUE
 	);
 ELSE // Achse ist bereit und beschleunigt auf Zielgeschwindigkeit
 	fbMc_MoveVelocity(
@@ -148,26 +145,44 @@ END_CASE]]></ST>
       <Declaration><![CDATA[METHOD PRIVATE Stopping : BOOL
 VAR_INPUT
 END_VAR
-]]></Declaration>
+//VAR_INST
+//	bAxisIsStopped: BOOL := FALSE;
+//END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[fbMc_MoveVelocity(
-	Axis := axisTransportA,
-	Execute := FALSE
-);
-
-fbMc_Stop(
-	Axis := axisTransportA,
-	Execute := TRUE
-);
-
-IF fbMc_Stop.Done THEN
-	bReady := FALSE;
-	// Nach Stop, Achse wieder durch Execute := FALSE entriegeln
+        <ST><![CDATA[IF NOT axisTransportA.Status.StandStill THEN
+//IF NOT bAxisIsStopped THEN
+	// Achse wird gestoppt
+	fbMc_Stop(
+		Axis := axisTransportA,
+		Execute := TRUE
+	);
+	
+	// Achse wurde gestoppt
+	IF fbMc_Stop.Done THEN
+//		bAxisIsStopped := TRUE;
+		// MC_Stop.Done = TRUE && MC_Stop(Execute := FALSE) => Standstill
+		fbMc_Stop(
+			Axis := axisTransportA,
+			Execute := FALSE
+		);
+	END_IF
+ELSE
+	// Nach Stop (Standstill), Achse wieder durch Execute := FALSE entriegeln
 	fbMc_Stop(
 		Axis := axisTransportA,
 		Execute := FALSE
 	);
-	eZustand := E_STATES_TRANSPORT_A.Stopped;
+	IF NOT fbMc_Stop.Busy THEN
+		// Achse wurde wieder entriegelt
+		
+		// einmal falsen
+		fbMc_MoveVelocity(
+			Axis := axisTransportA,
+			Execute := FALSE
+		);
+//		bAxisIsStopped := FALSE;
+		eZustand := E_STATES_TRANSPORT_A.Stopped;
+	END_IF
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -222,9 +237,7 @@ END_IF]]></ST>
     <LineIds Name="TransportSystem.Start">
       <LineId Id="38" Count="1" />
       <LineId Id="41" Count="5" />
-      <LineId Id="48" Count="1" />
-      <LineId Id="47" Count="0" />
-      <LineId Id="50" Count="0" />
+      <LineId Id="48" Count="2" />
       <LineId Id="40" Count="0" />
       <LineId Id="36" Count="0" />
     </LineIds>
@@ -234,9 +247,10 @@ END_IF]]></ST>
       <LineId Id="50" Count="0" />
       <LineId Id="32" Count="0" />
       <LineId Id="58" Count="0" />
-      <LineId Id="23" Count="1" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="66" Count="0" />
       <LineId Id="35" Count="0" />
-      <LineId Id="45" Count="3" />
+      <LineId Id="45" Count="2" />
       <LineId Id="44" Count="0" />
       <LineId Id="27" Count="0" />
       <LineId Id="36" Count="0" />
@@ -260,8 +274,30 @@ END_IF]]></ST>
       <LineId Id="24" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.Stopping">
-      <LineId Id="36" Count="17" />
-      <LineId Id="20" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="41" Count="3" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="94" Count="2" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="77" Count="3" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="81" Count="1" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="89" Count="2" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="75" Count="0" />
     </LineIds>
     <LineIds Name="TransportSystem.TcQueryInterface">
       <LineId Id="13" Count="0" />

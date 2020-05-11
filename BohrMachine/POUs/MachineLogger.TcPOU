@@ -70,7 +70,6 @@ END_VAR]]></Declaration>
         <ST><![CDATA[tDauer := TIME() - tStart;
 sDauer := TIME_TO_STRING(tDauer);
 fbEventMessage.CreateEx(TC_EVENTS.BohrEvents.MaschineGestoppt, 0);
-
 FindAndDelete(pSrcString := ADR(sDauer), pDeleteString := ADR('T#'), pDstString := ADR(sParam), nDstSize := SIZEOF(sParam));
 sParam := CONCAT('Dauer: ', sParam);
 
@@ -105,7 +104,6 @@ fbEventMessage.Send(0);
       <LineId Id="10" Count="0" />
       <LineId Id="14" Count="0" />
       <LineId Id="6" Count="0" />
-      <LineId Id="20" Count="0" />
       <LineId Id="32" Count="0" />
       <LineId Id="26" Count="0" />
       <LineId Id="33" Count="0" />

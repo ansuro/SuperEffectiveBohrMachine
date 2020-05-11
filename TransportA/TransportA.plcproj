@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <PinnedGlobalDataType Include="E_STATES_TRANSPORT_A" />
+    <PinnedGlobalDataType Include="I_Transport" />
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

@@ -65,4 +65,5 @@ private:
 	void starting();
 	void stopped();
 	void stopping();
+	void operatingLoop();
 };

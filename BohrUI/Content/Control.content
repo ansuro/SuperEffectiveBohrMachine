@@ -60,7 +60,7 @@
 
 </div>
 
-<div id="btnStart" data-tchmi-type="tchmi-button" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="692" data-tchmi-left-unit="px" data-tchmi-text="Start" data-tchmi-top="75" data-tchmi-top-unit="px" data-tchmi-width="167" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%f%!%s%localhost.Controller_Obj1 (ModuleController).UIControls.Running%/s%%/f%">
+<div id="btnStart" data-tchmi-type="tchmi-button" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="692" data-tchmi-left-unit="px" data-tchmi-text="Start" data-tchmi-top="75" data-tchmi-top-unit="px" data-tchmi-width="167" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%f%%s%localhost.Controller_Obj1 (ModuleController).State.eZustand%/s% == 3%/f%">
 
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
@@ -100,7 +100,7 @@
 
 </div>
 
-<div id="btnStop" data-tchmi-type="tchmi-button" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="692" data-tchmi-left-unit="px" data-tchmi-text="Stop" data-tchmi-top="135" data-tchmi-top-unit="px" data-tchmi-width="167" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%s%localhost.Controller_Obj1 (ModuleController).UIControls.Running%/s%">
+<div id="btnStop" data-tchmi-type="tchmi-button" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="692" data-tchmi-left-unit="px" data-tchmi-text="Stop" data-tchmi-top="135" data-tchmi-top-unit="px" data-tchmi-width="167" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-is-enabled="%f%%s%localhost.Controller_Obj1 (ModuleController).State.eZustand%/s% == 1%/f%">
 
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
