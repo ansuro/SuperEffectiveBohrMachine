@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="I_SuperBohrmachine" Id="{7e529ac0-6fa6-4842-8bba-6c0ea8e5d5f9}">
+    <Declaration><![CDATA[INTERFACE I_SuperBohrmachine
+]]></Declaration>
+    <Method Name="Bohren" Id="{a936cd81-6d0e-45c8-9ffa-f169333734b4}">
+      <Declaration><![CDATA[METHOD Bohren : HRESULT
+]]></Declaration>
+    </Method>
+    <Method Name="Start" Id="{a54a25fa-479d-4f3c-a002-2897e85c7eaf}">
+      <Declaration><![CDATA[METHOD Start : HRESULT
+VAR_INPUT
+	config: REFERENCE TO ST_Config;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Stop" Id="{5142dc78-5cae-4990-ad95-dd8064b0a39c}">
+      <Declaration><![CDATA[METHOD Stop : HRESULT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <ObjectProperties>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="UMLStereoTypeContainerObject">
+            <v n="IsType" t="UMLType">BaseArea</v>
+            <v n="Stereotype">""</v>
+            <d n="Stereotypes" t="Hashtable" />
+          </o>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="String">System.String</Type>
+          <Type n="UMLStereoTypeContainerObject">{30250973-b110-4e31-b562-c102e042dca4}</Type>
+          <Type n="UMLType">{0197b136-405a-42ee-bb27-fd08b621d0cf}</Type>
+        </TypeList>
+      </XmlArchive>
+    </ObjectProperties>
+  </Itf>
+</TcPlcObject>

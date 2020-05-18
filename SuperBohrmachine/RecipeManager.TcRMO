@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <RecipeManager Name="RecipeManager" Id="{9e14b523-9708-4161-bfd7-56908fd1730b}">
+    <XmlArchive>
+      <Data>
+        <o xml:space="preserve" t="RecipeManObject">
+          <o n="LMGuids" t="LanguageModelGuidHelper">
+            <d n="NamesAndGuids" t="Hashtable" ckt="String" cvt="Guid">
+              <v>RECIPEFACTORYFB_INIT</v>
+              <v>404525ed-b0eb-4838-b6b6-3b7c916fdd2b</v>
+              <v>GVL_RECIPEMANAGEMENT_3300</v>
+              <v>52994780-44da-4e2c-a89a-8da8407c73b8</v>
+              <v>RECIPEMANAGEMENTINIT</v>
+              <v>c8b32f3c-8480-45a5-9133-69b2b02cc585</v>
+              <v>RECIPEFACTORYFREERECIPE</v>
+              <v>9204cbf0-34b4-4f01-a325-9061f6ea0bf1</v>
+              <v>RECIPEFACTORY</v>
+              <v>6e6d8745-389c-4f12-a7f5-c78c571bf93f</v>
+              <v>RECIPEFACTORYCREATERECIPE</v>
+              <v>d2e5b8c0-9b78-4ac8-b25d-b1df13d75185</v>
+              <v>RECIPEMANAGEMENTINITFB_INIT</v>
+              <v>1f91586b-9ff5-4e81-a34b-53b81b660938</v>
+              <v>RECIPEMANAGEMENTINITINITIALIZE</v>
+              <v>3636a87f-c413-429c-b62c-e288e395342d</v>
+              <v>RECIPEMANAGEMENTINITFB_REINIT</v>
+              <v>b66af7e8-1ace-4872-8d7f-c4590f49779c</v>
+            </d>
+          </o>
+          <o n="StorageSettings" t="RecipeManagerStorageSettings">
+            <v n="StorageType">1U</v>
+            <v n="LoadType">0U</v>
+            <v n="WriteType">0U</v>
+            <v n="FileExtension">".txtrecipe"</v>
+            <v n="FilePath">""</v>
+            <v n="TokenSeparator">":="</v>
+            <v n="ColumnList">"0|1"</v>
+            <v n="AutoSaveRecipes">true</v>
+          </o>
+          <v n="RecipesInPlc">true</v>
+          <v n="RecipesInPlcAssigned">false</v>
+        </o>
+      </Data>
+      <TypeList>
+        <Type n="Boolean">System.Boolean</Type>
+        <Type n="Guid">System.Guid</Type>
+        <Type n="Hashtable">System.Collections.Hashtable</Type>
+        <Type n="LanguageModelGuidHelper">{3bce4913-f2c1-4b54-84e8-6d7ec1809176}</Type>
+        <Type n="RecipeManagerStorageSettings">{9af4bea6-fc90-45e0-8fd7-eb50506b56da}</Type>
+        <Type n="RecipeManObject">{09ecc42e-586d-4a08-932f-5bdcac20bb55}</Type>
+        <Type n="String">System.String</Type>
+        <Type n="UInt32">System.UInt32</Type>
+      </TypeList>
+    </XmlArchive>
+    <RecipeDefinition Name="Recipes" Id="{66f3e4a7-51bd-4664-969f-aba4d28cad43}">
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="RecipeDefinitionObject">
+            <v n="UniqueIdGenerator">"5"</v>
+            <o n="Recipes" t="RecipeList">
+              <l n="Recipes" t="ArrayList" cet="Recipe">
+                <o>
+                  <l n="Values" t="ArrayList" cet="RecipeValue">
+                    <o>
+                      <v n="Type" t="TypeClass">LReal</v>
+                      <v n="Value">"400"</v>
+                    </o>
+                    <o>
+                      <v n="Type" t="TypeClass">LReal</v>
+                      <v n="Value">"300"</v>
+                    </o>
+                    <o>
+                      <v n="Type" t="TypeClass">LReal</v>
+                      <v n="Value">"30"</v>
+                    </o>
+                    <o>
+                      <v n="Type" t="TypeClass">Int</v>
+                      <v n="Value">"0"</v>
+                    </o>
+                  </l>
+                  <v n="Name">"test"</v>
+                  <v n="Id">5</v>
+                </o>
+              </l>
+            </o>
+            <o n="RecipeVariables" t="RecipeVariableList">
+              <l n="Variables" t="ArrayList" cet="RecipeVariable">
+                <o>
+                  <v n="VarName">"MAIN.fbSuperBohrmachine.stConfig.rLaenge"</v>
+                  <v n="VarType" t="TypeClass">LReal</v>
+                  <v n="VarTypeAsString">"LREAL"</v>
+                  <v n="Name">""</v>
+                  <o n="Boundaries" t="RecipeVariableBoundaries">
+                    <v n="Type" t="TypeClass">LReal</v>
+                    <v n="LowerBound">""</v>
+                    <v n="UpperBound">""</v>
+                  </o>
+                  <v n="Id">1</v>
+                  <v n="Comment">""</v>
+                  <v n="VarUserDefTypeAsString">"LREAL"</v>
+                </o>
+                <o>
+                  <v n="VarName">"MAIN.fbSuperBohrmachine.stConfig.rBreite"</v>
+                  <v n="VarType" t="TypeClass">LReal</v>
+                  <v n="VarTypeAsString">"LREAL"</v>
+                  <v n="Name">""</v>
+                  <o n="Boundaries" t="RecipeVariableBoundaries">
+                    <v n="Type" t="TypeClass">LReal</v>
+                    <v n="LowerBound">""</v>
+                    <v n="UpperBound">""</v>
+                  </o>
+                  <v n="Id">2</v>
+                  <v n="Comment">""</v>
+                  <v n="VarUserDefTypeAsString">"LREAL"</v>
+                </o>
+                <o>
+                  <v n="VarName">"MAIN.fbSuperBohrmachine.stConfig.rDicke"</v>
+                  <v n="VarType" t="TypeClass">LReal</v>
+                  <v n="VarTypeAsString">"LREAL"</v>
+                  <v n="Name">""</v>
+                  <o n="Boundaries" t="RecipeVariableBoundaries">
+                    <v n="Type" t="TypeClass">LReal</v>
+                    <v n="LowerBound">""</v>
+                    <v n="UpperBound">""</v>
+                  </o>
+                  <v n="Id">3</v>
+                  <v n="Comment">""</v>
+                  <v n="VarUserDefTypeAsString">"LREAL"</v>
+                </o>
+                <o>
+                  <v n="VarName">"MAIN.fbSuperBohrmachine.eZustand"</v>
+                  <v n="VarType" t="TypeClass">Int</v>
+                  <v n="VarTypeAsString">"INT"</v>
+                  <v n="Name">""</v>
+                  <o n="Boundaries" t="RecipeVariableBoundaries">
+                    <v n="Type" t="TypeClass">Int</v>
+                    <v n="LowerBound">""</v>
+                    <v n="UpperBound">""</v>
+                  </o>
+                  <v n="Id">4</v>
+                  <v n="Comment">""</v>
+                  <v n="VarUserDefTypeAsString">"E_STATES_SUPERBOHRMACHINE"</v>
+                </o>
+              </l>
+            </o>
+            <o n="LMGuids" t="LanguageModelGuidHelper">
+              <d n="NamesAndGuids" t="Hashtable" ckt="String" cvt="Guid">
+                <v>VALUESINIT</v>
+                <v>e83fcfaf-fcce-4d76-b246-aa37105a4e00</v>
+                <v>FILLDESCRIPTION</v>
+                <v>25e388e7-66ca-4a2f-8da7-416d6d13d57b</v>
+                <v>NAMESET</v>
+                <v>727b0b6b-55ee-4ab4-a7cb-662eeb99e19c</v>
+                <v>REC_DS_PRG__0D3729C65D8147B5834E5DF871EE1EF1</v>
+                <v>12ede711-20cb-4732-ba02-b8fc0532dcd2</v>
+                <v>PRVFILLDATASERVERSTRUCTURES</v>
+                <v>d64db0c9-7f02-40f0-b975-4f7a9b273f26</v>
+                <v>NAME</v>
+                <v>ddbed0cf-2bbf-452f-aa37-2054a64ea71c</v>
+                <v>UPDATEFROMDESCRIPTION</v>
+                <v>09bc424d-b4ac-4302-9738-b4cf8358abd0</v>
+                <v>WRITE</v>
+                <v>cf6f2f4d-d37c-446a-9032-fecf05178181</v>
+                <v>READ</v>
+                <v>8516a4e2-74af-412c-be7c-d4c9a5ca7f64</v>
+              </d>
+            </o>
+          </o>
+        </Data>
+        <TypeList>
+          <Type n="ArrayList">System.Collections.ArrayList</Type>
+          <Type n="Guid">System.Guid</Type>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="Int32">System.Int32</Type>
+          <Type n="LanguageModelGuidHelper">{3bce4913-f2c1-4b54-84e8-6d7ec1809176}</Type>
+          <Type n="Recipe">{53080c72-c79f-4271-9865-791f591dcef8}</Type>
+          <Type n="RecipeDefinitionObject">{6b3dfb6a-1865-4356-a39b-1fe0ef89651c}</Type>
+          <Type n="RecipeList">{361612e3-b6f9-4397-98a8-756875b9e479}</Type>
+          <Type n="RecipeValue">{57d4d5a5-2244-4adb-b7c3-3e65da497dcc}</Type>
+          <Type n="RecipeVariable">{53eb36d9-3360-453b-901e-ca88bd8f0cba}</Type>
+          <Type n="RecipeVariableBoundaries">{27f9af88-23e7-4a13-82aa-c97c4e06a71a}</Type>
+          <Type n="RecipeVariableList">{97841042-ff4f-47b5-923e-538f1387df5a}</Type>
+          <Type n="String">System.String</Type>
+          <Type n="TypeClass">{16f7aa24-038f-444e-9d81-b001bc091d35}</Type>
+        </TypeList>
+      </XmlArchive>
+    </RecipeDefinition>
+  </RecipeManager>
+</TcPlcObject>

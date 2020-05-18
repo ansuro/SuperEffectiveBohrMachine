@@ -1596,6 +1596,25 @@ External Setpoint Generation:
 			</Hides>
 		</DataType>
 		<DataType>
+			<Name GUID="{893269F3-A8B3-4E7F-B4B8-1A6A52114BCB}" PersistentType="true">ST_2DPoint</Name>
+			<BitSize>128</BitSize>
+			<SubItem>
+				<Name>x</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>y</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+				<BitSize>64</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{B40312C1-685D-C0D8-B44A-F6D2C10606AD}"/>
+			</Hides>
+		</DataType>
+		<DataType>
 			<Name GUID="{F7C66ECB-302B-47AD-9F14-EAAEA6DEBF8B}" PersistentType="true">BohrEvents</Name>
 			<DisplayName TxtId=""><![CDATA[MachineEvent]]></DisplayName>
 			<EventId>
@@ -1714,6 +1733,12 @@ External Setpoint Generation:
 				</Task>
 				<Task Id="9" Priority="1" CycleTime="100000" AmsPort="354" AdtTasks="true">
 					<Name>ControllerTask</Name>
+				</Task>
+				<Task Id="10" Priority="24" CycleTime="100000" AmsPort="355" AdtTasks="true">
+					<Name>PlcTask4</Name>
+				</Task>
+				<Task Id="11" Priority="25" CycleTime="100000" AmsPort="356" AdtTasks="true">
+					<Name>PlcTask5</Name>
 				</Task>
 			</Tasks>
 		</System>
@@ -2672,6 +2697,45 @@ External Setpoint Generation:
 					</TaskPouOids>
 				</Instance>
 			</Project>
+			<Project GUID="{AF01848C-5AC6-4689-B124-CD8A7EF68EC0}" Name="SuperBohrmachine" PrjFilePath="SuperBohrmachine\SuperBohrmachine.plcproj" TmcFilePath="SuperBohrmachine\SuperBohrmachine.tmc" ReloadTmc="true" AmsPort="854" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x085020c0" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="SuperBohrmachine\SuperBohrmachine.tmc">
+					<Name>SuperBohrmachine Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>MAIN.fbSuperBohrmachine.fbBohrkopf.axisRef.NcToPlc</Name>
+							<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSuperBohrmachine.fbAxesManager.xAchse.NcToPlc</Name>
+							<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSuperBohrmachine.fbAxesManager.zAchse.NcToPlc</Name>
+							<Type GUID="{72F5AAAA-16DF-4ED3-8367-F6C8C3ADAE99}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>MAIN.fbSuperBohrmachine.fbBohrkopf.axisRef.PlcToNc</Name>
+							<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSuperBohrmachine.fbAxesManager.xAchse.PlcToNc</Name>
+							<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSuperBohrmachine.fbAxesManager.zAchse.PlcToNc</Name>
+							<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+					</Vars>
+					<TaskPouOids>
+						<TaskPouOid Prio="25" OTCID="#x085020c1"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
 		</Plc>
 		<Cpp>
 			<Project GUID="{6042C80A-9E3F-48D9-B685-69EF1954594D}" Name="Controller" PrjFilePath="Controller\Controller.vcxproj" TmcFilePath="Controller\Controller.tmc">
@@ -2924,10 +2988,6 @@ External Setpoint Generation:
 			</Project>
 		</Cpp>
 		<Io/>
-		<SymbolWatch>
-			<Variable>TIPC^TransportA^TransportA Instance^PlcTask Inputs^MAIN.fbTransport.axisTransportA.NcToPlc^ActVelo</Variable>
-			<Variable>TIPC^TransportB^TransportB Instance^PlcTask Inputs^MAIN.fbTransportSlave.axisTransportB.NcToPlc^ActVelo</Variable>
-		</SymbolWatch>
 	</Project>
 	<Mappings>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030010" Watchdog="14000000040000000400000004000000"/>

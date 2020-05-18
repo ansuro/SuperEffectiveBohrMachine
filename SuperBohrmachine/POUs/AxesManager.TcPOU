@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="AxesManager" Id="{7c186c17-78fa-4986-8d65-72678df35783}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK AxesManager
+VAR_INPUT
+END_VAR
+VAR
+	xAchse: AXIS_REF;
+	zAchse: AXIS_REF;
+	fbMcPowerX: MC_Power;
+	fbMcPowerZ: MC_Power;
+	fbMcMoveX: MC_MoveAbsolute;
+	fbMcMoveZ: MC_MoveAbsolute;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[xAchse.ReadStatus();
+zAchse.ReadStatus();]]></ST>
+    </Implementation>
+    <Method Name="GoTo" Id="{fff30281-fb10-4a9d-80e7-821a849e41b3}">
+      <Declaration><![CDATA[METHOD PUBLIC GoTo : BOOL
+VAR_INPUT
+	stCurPoint: REFERENCE TO ST_2DPoint;
+END_VAR
+VAR_OUTPUT
+	Done: BOOL := FALSE;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbMcMoveX(
+	Axis := xAchse,
+	Execute := TRUE,
+	Position := stCurPoint.x
+);
+
+fbMcMoveZ(
+	Axis := zAchse,
+	Execute := TRUE,
+	Position := stCurPoint.y
+);
+
+// Punkt angefahren
+Done := fbMcMoveX.Done AND fbMcMoveZ.Done; 
+
+IF Done THEN
+	// Bausteine einmal falsen
+	fbMcMoveX(Axis := xAchse, Execute := FALSE);
+	fbMcMoveZ(Axis := zAchse, Execute := FALSE);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Init" Id="{db33a203-c223-4835-ad49-07c2e911f40d}">
+      <Declaration><![CDATA[METHOD PUBLIC Init : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbMcPowerX(
+	Axis := xAchse,
+	Enable := TRUE,
+	Enable_Positive := TRUE,
+	Enable_Negative := TRUE
+);
+
+fbMcPowerZ(
+	Axis := zAchse,
+	Enable := TRUE,
+	Enable_Positive := TRUE,
+	Enable_Negative := TRUE
+);
+
+fbMcPowerX.Status;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Initialized" Id="{5c1eb9de-02f5-4dd5-8d7b-713f0c39305a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Initialized : BOOL]]></Declaration>
+      <Get Name="Get" Id="{c61ad930-fd40-4e46-984f-e961f9efa10a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[// Beide Achsen bereit? => TRUE
+Initialized := fbMcPowerX.Status AND fbMcPowerZ.Status;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Stop" Id="{feb14196-459b-441f-8d72-bc125e693eab}">
+      <Declaration><![CDATA[METHOD PUBLIC Stop : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbMcPowerX(
+	Axis := xAchse,
+	Enable := FALSE
+);
+
+fbMcPowerZ(
+	Axis := zAchse,
+	Enable := FALSE
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Stopped" Id="{48f0ee4d-0b73-471e-96a3-13e20f70b7a5}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Stopped : BOOL]]></Declaration>
+      <Get Name="Get" Id="{480076b0-96f5-412d-9c1a-9a17dad2640a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[// Beide Achsen gestoppt? => TRUE
+Stopped := NOT fbMcPowerX.Status AND NOT fbMcPowerZ.Status;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <ObjectProperties>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="UMLStereoTypeContainerObject">
+            <v n="IsType" t="UMLType">BaseArea</v>
+            <v n="Stereotype">""</v>
+            <d n="Stereotypes" t="Hashtable" />
+          </o>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="String">System.String</Type>
+          <Type n="UMLStereoTypeContainerObject">{30250973-b110-4e31-b562-c102e042dca4}</Type>
+          <Type n="UMLType">{0197b136-405a-42ee-bb27-fd08b621d0cf}</Type>
+        </TypeList>
+      </XmlArchive>
+    </ObjectProperties>
+    <LineIds Name="AxesManager">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="AxesManager.GoTo">
+      <LineId Id="3" Count="19" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="AxesManager.Init">
+      <LineId Id="3" Count="12" />
+      <LineId Id="19" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="AxesManager.Initialized.Get">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="AxesManager.Stop">
+      <LineId Id="3" Count="8" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="AxesManager.Stopped.Get">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
